@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:focusable="true"
+    android:background="#F5F5F5"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_title"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <ImageView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_bt_return"
+                android:scaleType="centerCrop"
+                android:layout_width="11dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="22dp"/>
+            <TextView
+                android:text="更换设备"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:textColor="#ff333333"
+                android:textSize="19sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_network_exception"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_network_exception"
+                    android:layout_width="210dp"
+                    android:layout_height="130dp" />
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络异常啦~"
+                    android:textColor="#ffa8a8a8"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/sv_content"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:paddingLeft="16dp"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <com.zkys.operationtool.widget.MyTextView
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/btn_blue_solid_bg"
+                        android:drawablePadding="9dp"
+                        app:drawableWidth="3dp"
+                        app:drawableHeight="17dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="选择需更换设备的床位"
+                        android:textColor="#ff333333"
+                        android:background="@android:color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/iv_scan_cabinet_code"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_activation_scan"
+                        android:layout_marginRight="16dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_select_hospital"
+                    android:paddingLeft="16dp"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:id="@+id/tv_selected_hospital"
+                        android:layout_centerVertical="true"
+                        android:hint="请选择医院"
+                        android:textColorHint="#ff333333"
+                        android:text=""
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_chevron"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_width="8dp"
+                        android:layout_height="13dp" />
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_select_core"
+                    android:paddingLeft="16dp"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:id="@+id/tv_selected_core"
+                        android:layout_centerVertical="true"
+                        android:hint="请选择科室"
+                        android:textColor="#ff333333"
+                        android:textColorHint="#ff333333"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_chevron"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_width="8dp"
+                        android:layout_height="13dp" />
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_select_bed"
+                    android:paddingLeft="16dp"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:id="@+id/tv_selected_bed"
+                        android:layout_centerVertical="true"
+                        android:hint="请选择床位"
+                        android:textColorHint="#ff333333"
+                        android:text=""
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_width="8dp"
+                        android:layout_height="13dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_chevron" />
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:paddingLeft="16dp"
+                    android:orientation="horizontal"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="DID"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_marginLeft="26dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#CCCCCC" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_replace_menu"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:id="@+id/rl_replace_plate"
+                        android:paddingLeft="16dp"
+                        android:background="@android:color/white"
+                        android:layout_marginTop="14dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <com.zkys.operationtool.widget.MyTextView
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:drawableLeft="@mipmap/icon_rep_plat"
+                            android:drawablePadding="16dp"
+                            app:drawableWidth="28dp"
+                            app:drawableHeight="28dp"
+                            android:textStyle="bold"
+                            android:text="更换平板"
+                            android:textColor="#ff333333"
+                            android:background="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_chevron"
+                            android:layout_marginRight="16dp"/>
+
+
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="#EEEEEE"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"/>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_replace_cabinet"
+                        android:paddingLeft="16dp"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <com.zkys.operationtool.widget.MyTextView
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:drawableLeft="@mipmap/icon_rep_cabinet"
+                            android:drawablePadding="16dp"
+                            app:drawableWidth="28dp"
+                            app:drawableHeight="28dp"
+                            android:textStyle="bold"
+                            android:text="更换柜子"
+                            android:textColor="#ff333333"
+                            android:background="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_chevron"
+                            android:layout_marginRight="16dp"/>
+
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="#EEEEEE"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"/>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_replace_sim"
+                        android:paddingLeft="16dp"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <com.zkys.operationtool.widget.MyTextView
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:drawableLeft="@mipmap/icon_rep_sim"
+                            android:drawablePadding="16dp"
+                            app:drawableWidth="28dp"
+                            app:drawableHeight="28dp"
+                            android:textStyle="bold"
+                            android:text="更换SIM卡"
+                            android:textColor="#ff333333"
+                            android:background="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_chevron"
+                            android:layout_marginRight="16dp"/>
+
+
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="#EEEEEE"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"/>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_replace_adapter"
+                        android:paddingLeft="16dp"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <com.zkys.operationtool.widget.MyTextView
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:drawableLeft="@mipmap/icon_rep_adapter"
+                            android:drawablePadding="16dp"
+                            app:drawableWidth="28dp"
+                            app:drawableHeight="28dp"
+                            android:textStyle="bold"
+                            android:text="更换适配器"
+                            android:textColor="#ff333333"
+                            android:background="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_chevron"
+                            android:layout_marginRight="16dp"/>
+
+
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="#EEEEEE"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"/>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_replace_bracket"
+                        android:paddingLeft="16dp"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <com.zkys.operationtool.widget.MyTextView
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:drawableLeft="@mipmap/icon_rep_bracket"
+                            android:drawablePadding="16dp"
+                            app:drawableWidth="28dp"
+                            app:drawableHeight="28dp"
+                            android:textStyle="bold"
+                            android:text="更换支架"
+                            android:textColor="#ff333333"
+                            android:background="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_chevron"
+                            android:layout_marginRight="16dp"/>
+
+
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="#EEEEEE"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/rl_repair_device"
+                        android:paddingLeft="16dp"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <com.zkys.operationtool.widget.MyTextView
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            android:drawableLeft="@mipmap/icon_rep_equipment"
+                            android:drawablePadding="16dp"
+                            app:drawableWidth="28dp"
+                            app:drawableHeight="28dp"
+                            android:textStyle="bold"
+                            android:text="返修设备"
+                            android:textColor="#ff333333"
+                            android:background="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_chevron"
+                            android:layout_marginRight="16dp"/>
+
+
+                        <View
+                            android:layout_alignParentBottom="true"
+                            android:background="#EEEEEE"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"/>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </LinearLayout>
+
+
+
+
+</FrameLayout>

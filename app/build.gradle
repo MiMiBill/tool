@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.zkys.operationtool"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        packagingOptions {
+            exclude 'META-INF/proguard/androidx-annotations.pro'
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../zkysphone.jks")
+            storePassword 'zkysphone'
+            keyAlias 'zkysphone'
+            keyPassword 'zkysphone'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta01'
+    // circleimageview
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    // TableLayout
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.hjq:titlebar:2.5'
+    implementation project(':lib-zxing')
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    implementation 'com.hjq:xxpermissions:5.2'
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
+
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    //时间选择器
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation 'com.contrarywind:wheelview:4.0.8'
+    implementation 'com.zhy:autolayout:1.4.5'
+    // 图表
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+
+}

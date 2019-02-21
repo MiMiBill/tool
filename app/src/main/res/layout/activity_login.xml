@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_marginTop="64dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_logo"
+        android:layout_width="93dp"
+        android:layout_height="93dp" />
+
+    <TextView
+        android:layout_marginTop="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="中科云上运营工具"
+        android:textColor="#ff333333"
+        android:textSize="18sp"
+        />
+
+    <RelativeLayout
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="34dp"
+        android:layout_width="match_parent"
+        android:layout_height="52dp">
+        
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/et_account"
+                android:maxLength="11"
+                android:inputType="number"
+                android:layout_width="341dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:textColorHint="#CCCCCC" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_delete"
+                android:src="@mipmap/icon_delete"
+                android:scaleType="centerCrop"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginRight="22dp"
+                android:layout_weight="0"/>
+        </LinearLayout>
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="#EEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="52dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/et_password"
+                android:maxLength="16"
+                android:inputType="textPassword"
+                android:layout_width="341dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入您的密码"
+                android:textColorHint="#CCCCCC" />
+
+            <ImageView
+                android:id="@+id/iv_off"
+                android:src="@mipmap/icon_sign_in_off"
+                android:scaleType="centerCrop"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="0"/>
+            <ImageView
+                android:id="@+id/iv_on"
+                android:src="@mipmap/icon_sign_in_on"
+                android:scaleType="centerCrop"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="22dp"
+                android:layout_weight="0"/>
+        </LinearLayout>
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="#EEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/tv_login"
+        android:gravity="center"
+        android:text="登录"
+        android:enabled="false"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
+        android:background="@drawable/btn_enable_selector"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="47dp" />
+
+    <FrameLayout
+        android:id="@+id/fl_wechat"
+        android:background="@drawable/btn_green_stroke_bg"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+        <com.zkys.operationtool.widget.MyTextView
+            android:layout_gravity="center"
+            android:drawableLeft="@mipmap/icon_wechat"
+            android:drawablePadding="8dp"
+            app:drawableWidth="28dp"
+            app:drawableHeight="23dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:text="微信登录"
+            android:textColor="#ff27b98d"
+            android:textSize="18sp"/>
+    </FrameLayout>
+
+
+
+</LinearLayout>

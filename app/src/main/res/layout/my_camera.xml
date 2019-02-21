@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#00000000"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+
+
+    <com.uuzuche.lib_zxing.view.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:inner_width="190dp"
+        app:inner_height="190dp"
+        app:inner_margintop="214dp"
+        app:inner_corner_color="@color/colorAccent"
+        app:inner_corner_length="13dp"
+        app:inner_corner_width="2dp"
+        app:inner_scan_bitmap="@mipmap/icon_scan_j"
+        app:inner_scan_speed="20"
+        app:inner_scan_iscircle="true"
+        />
+
+    <!--<RelativeLayout
+        android:layout_marginTop="24dp"
+        android:id="@+id/ll_scan_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+        <FrameLayout
+            android:layout_centerVertical="true"
+            android:layout_width="44dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:src="@mipmap/icon_sys_return"
+                android:layout_width="14dp"
+                android:layout_height="23dp" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扫一扫"
+            android:textColor="#ffffffff"
+            android:textSize="20sp"
+            />
+
+    </RelativeLayout>-->
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginTop="130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="扫描设备二维码"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        />
+
+</FrameLayout>

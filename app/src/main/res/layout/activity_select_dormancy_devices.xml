@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="#F5F5F5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_title"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <ImageView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_bt_return"
+                android:scaleType="centerCrop"
+                android:layout_width="11dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="22dp"/>
+            <TextView
+                android:text="休眠设备"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:textColor="#ff333333"
+                android:textSize="19sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全选"
+                android:textColor="#ff2994f1"
+                android:textSize="16sp"
+                />
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_network_exception"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_network_exception"
+                    android:layout_width="210dp"
+                    android:layout_height="130dp" />
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络异常啦~"
+                    android:textColor="#ffa8a8a8"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/sv_content"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <include layout="@layout/item_device"/>
+                    <include layout="@layout/item_device"/>
+                    <include layout="@layout/item_device"/>
+                    <include layout="@layout/item_device"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="0"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:background="@android:color/white"
+                        android:paddingLeft="16dp"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="已选择：1个"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_next"
+                        android:background="@color/colorAccent"
+                        android:gravity="center"
+                        android:layout_width="109dp"
+                        android:layout_height="match_parent"
+                        android:text="下一步"
+                        android:textColor="#ffffffff"
+                        android:textSize="16sp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

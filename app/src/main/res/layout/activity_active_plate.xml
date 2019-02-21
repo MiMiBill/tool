@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="#F5F5F5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_title"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <ImageView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_bt_return"
+                android:scaleType="centerCrop"
+                android:layout_width="11dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="22dp"/>
+            <TextView
+                android:text="激活平板"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:textColor="#ff333333"
+                android:textSize="19sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_network_exception"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/icon_network_exception"
+                    android:layout_width="210dp"
+                    android:layout_height="130dp" />
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络异常啦~"
+                    android:textColor="#ffa8a8a8"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/sv_content"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/rl_select_hospital"
+                    android:paddingLeft="16dp"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:id="@+id/tv_selected_hospital"
+                        android:layout_centerVertical="true"
+                        android:hint="请选择医院"
+                        android:textColorHint="#ff333333"
+                        android:text=""
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_chevron"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_width="8dp"
+                        android:layout_height="13dp" />
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_select_core"
+                    android:paddingLeft="16dp"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:hint="请选择科室"
+                        android:textColorHint="#ff333333"
+                        android:id="@+id/tv_selected_core"
+                        android:layout_centerVertical="true"
+                        android:text=""
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_chevron"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_width="8dp"
+                        android:layout_height="13dp" />
+                    <View
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:paddingLeft="16dp"
+                    android:orientation="horizontal"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:text="床位"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/et_bed_number"
+                        android:layout_marginLeft="26dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="请输入床位号"
+                        android:textColorHint="#CCCCCC" />
+
+                </LinearLayout>
+
+
+                <com.zkys.operationtool.widget.MyTextView
+                    android:layout_gravity="center"
+                    android:drawableLeft="@drawable/btn_blue_solid_bg"
+                    android:drawablePadding="9dp"
+                    app:drawableWidth="3dp"
+                    app:drawableHeight="17dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:text="平板"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    android:paddingLeft="16dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+                    <LinearLayout
+                        android:paddingLeft="16dp"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:visibility="gone"
+                            android:layout_gravity="center_vertical"
+                            android:text="*"
+                            android:textColor="#FC7E7E"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:text="DID"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/tv_device_code"
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="请扫描平板二维码"
+                            android:textColorHint="#CCCCCC" />
+
+                        <ImageView
+                            android:id="@+id/iv_scan_device_code"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_activation_scan"
+                            android:layout_marginRight="16dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_marginLeft="75dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+                    <LinearLayout
+                        android:paddingLeft="16dp"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:visibility="gone"
+                            android:layout_gravity="center_vertical"
+                            android:text="*"
+                            android:textColor="#FC7E7E"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:text="ICCID"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/tv_sim_bar_code"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="SIM卡条形码"
+                            android:textColorHint="#CCCCCC" />
+
+                        <ImageView
+                            android:visibility="gone"
+                            android:id="@+id/iv_scan_sim_code"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_activation_scan"
+                            android:layout_marginRight="16dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_marginLeft="75dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+                    <LinearLayout
+                        android:paddingLeft="16dp"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:visibility="gone"
+                            android:layout_gravity="center_vertical"
+                            android:text="*"
+                            android:textColor="#FC7E7E"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:text="BID"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/tv_plate_bar_code"
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="平板条形码"
+                            android:textColorHint="#CCCCCC" />
+
+                        <ImageView
+                            android:id="@+id/iv_scan_plate_bar_code"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_activation_scan"
+                            android:layout_marginRight="16dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_marginLeft="75dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:paddingLeft="16dp"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:text="商用"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_select"
+                        android:layout_marginLeft="34dp"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:checked="true"
+                            android:id="@+id/rb_yes"
+                            android:drawablePadding="12dp"
+                            android:drawableLeft="@drawable/rb_check_selector"
+                            android:button="@null"
+                            android:gravity="center_vertical"
+                            android:text="是"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <RadioButton
+                            android:id="@+id/rb_no"
+                            android:layout_marginLeft="28dp"
+                            android:drawablePadding="12dp"
+                            android:drawableLeft="@drawable/rb_check_selector"
+                            android:button="@null"
+                            android:gravity="center_vertical"
+                            android:text="否"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <com.zkys.operationtool.widget.MyTextView
+                    android:layout_gravity="center"
+                    android:drawableLeft="@drawable/btn_blue_solid_bg"
+                    android:drawablePadding="9dp"
+                    app:drawableWidth="3dp"
+                    app:drawableHeight="17dp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:text="柜子"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp"
+                    android:paddingLeft="16dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+                    <LinearLayout
+                        android:paddingLeft="16dp"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:text="DID"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/tv_cabinet_bar_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="请扫描柜子二维码"
+                            android:inputType="number"
+                            android:textColorHint="#CCCCCC" />
+
+                        <ImageView
+                            android:id="@+id/iv_scan_cabinet_code"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_activation_scan"
+                            android:layout_marginRight="16dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_marginLeft="75dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+                    <LinearLayout
+                        android:paddingLeft="16dp"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:text="SID"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/tv_adapter_bar_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="适配器条形码"
+                            android:inputType="number"
+                            android:textColorHint="#CCCCCC" />
+
+                        <ImageView
+                            android:id="@+id/iv_scan_adapter_code"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_activation_scan"
+                            android:layout_marginRight="16dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_marginLeft="75dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="ZID"
+                            android:textColor="#ff333333"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/tv_bracket_bar_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="支架条形码"
+                            android:inputType="number"
+                            android:textColorHint="#CCCCCC" />
+
+                        <ImageView
+                            android:id="@+id/iv_scan_bracket_code"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="16dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_activation_scan" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_marginLeft="75dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_active"
+                    android:gravity="center"
+                    android:enabled="false"
+                    android:text="激活设备"
+                    android:layout_marginBottom="28dp"
+                    android:textColor="#ffffffff"
+                    android:textSize="18sp"
+                    android:background="@drawable/btn_enable_selector"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
+
+</FrameLayout>

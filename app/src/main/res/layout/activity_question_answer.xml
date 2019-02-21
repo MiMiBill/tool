@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="#F5F5F5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_title"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <ImageView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_bt_return"
+                android:scaleType="centerCrop"
+                android:layout_width="11dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="22dp"/>
+            <TextView
+                android:text="疑问解答"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:textColor="#ff333333"
+                android:textSize="19sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="49dp">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="硬件"
+                    android:textColor="#ff333333"
+                    android:textSize="17sp"
+                    />
+                <View
+                    android:visibility="invisible"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginRight="33dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#2994F1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="12dp"
+                android:background="#CCCCCC"
+                android:layout_width="1px"
+                android:layout_height="match_parent"/>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络"
+                    android:textColor="#2994F1"
+                    android:textSize="17sp"
+                    />
+                <View
+                    android:visibility="visible"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginRight="33dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#2994F1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"/>
+            </RelativeLayout>
+            <View
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="12dp"
+                android:background="#CCCCCC"
+                android:layout_width="1px"
+                android:layout_height="match_parent"/>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="软件"
+                    android:textColor="#ff333333"
+                    android:textSize="17sp"
+                    />
+                <View
+                    android:visibility="invisible"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginRight="33dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#2994F1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="14dp"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:text="网速很慢很卡？"
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:text="怎么让平板连上WIFI?"
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:text="有时可以连上网有时不可以？"
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:text="怎么让的平板网速更快？"
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_centerVertical="true"
+                android:text="插入SIM卡后没网络？"
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+
+
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
