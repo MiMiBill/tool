@@ -15,8 +15,8 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.github.mikephil.charting.charts.LineChart;
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 import com.zkys.operationtool.bean.TabEntity;
 import com.zkys.operationtool.util.ChartUtils;
@@ -34,7 +34,7 @@ import butterknife.OnClick;
 /**
  * 查看订单页面
  */
-public class CheckOrderActivity extends BaseActivity {
+public class CheckOrderActivity extends BaseActivityOld {
 
     @BindView(R.id.tl_menu)
     CommonTabLayout tlMenu;
@@ -109,11 +109,11 @@ public class CheckOrderActivity extends BaseActivity {
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
 
     }
 

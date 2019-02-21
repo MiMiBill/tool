@@ -9,11 +9,11 @@ import io.reactivex.disposables.Disposable;
  * presenter中通过构造传递参数。将view的实例传递进入presenter
  * Created by DGDL-08 on ${DATA}
  */
-public abstract class BasePresenterImpl<V extends BaseView> implements BasePresenter {
+public abstract class BasePresenterImplOid<V extends BaseViewOld> implements BasePresenter {
 
     protected V view;//给子类使用view
 
-    public BasePresenterImpl(V view) {
+    public BasePresenterImplOid(V view) {
         this.view = view;
         start();
     }

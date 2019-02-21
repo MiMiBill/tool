@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 
 import butterknife.OnClick;
@@ -13,7 +13,7 @@ import butterknife.OnClick;
 /**
  * 某医院的科室的平板列表
  */
-public class PlateListActivity extends BaseActivity {
+public class PlateListActivity extends BaseActivityOld {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class PlateListActivity extends BaseActivity {
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
     @OnClick(R.id.ll_item_plate)
@@ -42,7 +42,7 @@ public class PlateListActivity extends BaseActivity {
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
 
     }
 }

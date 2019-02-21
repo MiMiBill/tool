@@ -3,14 +3,14 @@ package com.zkys.operationtool.ui.activity;
 import android.os.Bundle;
 
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 
 /**
  * 绑定条形码
  */
-public class BinderBarCodeActivity extends BaseActivity {
+public class BinderBarCodeActivity extends BaseActivityOld {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,11 @@ public class BinderBarCodeActivity extends BaseActivity {
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
 
     }
 

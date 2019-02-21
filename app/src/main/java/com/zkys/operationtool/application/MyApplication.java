@@ -10,8 +10,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.zkys.operationtool.bean.LoginResult;
-import com.zkys.operationtool.bean.UserInfo;
+import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.canstant.SharedConstant;
 
 import org.json.JSONException;
@@ -68,24 +67,22 @@ public class MyApplication extends Application {
         super.onTerminate();
     }
 
-    private UserInfo userInfo;
+    private UserInfoBean userInfo;
 
-    public UserInfo getUserInfo() {
+    public UserInfoBean getUserInfo() {
         String jsonStr = mainPreferences.getString(SharedConstant.USERINFO, "");
         if (userInfo == null) {
-            UserInfo userInfo = new Gson().fromJson(jsonStr, UserInfo.class);
+            UserInfoBean userInfo = new Gson().fromJson(jsonStr, UserInfoBean.class);
+            this.userInfo = userInfo;
             setUserInfo(userInfo);// 设置现有的数据模型
         }
         return userInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
+    public void setUserInfo(UserInfoBean userInfo) {
         this.userInfo = userInfo;
     }
 
-//    public boolean isLogin() {
-//        return userInfo != null;
-//    }
 
     public static SharedPreferences getMainPreferences() {
         return getInstance().mainPreferences;
@@ -93,23 +90,22 @@ public class MyApplication extends Application {
 
     /**
      * 存储用户数据到本地
-     * @param loginResult
      * @throws JSONException
      */
-    public void saveUserInfo(LoginResult loginResult) {
-        if (loginResult != null) {
-            UserInfo info = new UserInfo();
-            info.setToken(loginResult.getToken());
-            info.setAvatarUrl(loginResult.getAvatarUrl());
-            info.setId(loginResult.getId());
-            info.setName(loginResult.getName());
-            info.setUsername(loginResult.getUsername());
-            info.setTag(loginResult.getTag());
-            info.setRoleInfo(loginResult.getRoleInfo());
-            String json = new Gson().toJson(info);
+    public void saveUserInfo(UserInfoBean userInfo) {
+        if (userInfo != null) {
+//            UserInfo info = new UserInfo();
+//            info.setToken(loginResult.getToken());
+//            info.setAvatarUrl(loginResult.getAvatarUrl());
+//            info.setId(loginResult.getId());
+//            info.setName(loginResult.getName());
+//            info.setUsername(loginResult.getUsername());
+//            info.setTag(loginResult.getTag());
+//            info.setRoleInfo(loginResult.getRoleInfo());
+            String json = new Gson().toJson(userInfo);
             mainPreferences.edit().clear().apply();
             mainPreferences.edit().putString(SharedConstant.USERINFO, json).apply();
-            setUserInfo(info);
+            setUserInfo(userInfo);
         } else {
             Log.d(this.getClass().getSimpleName(),"用户数据保存失败！");
         }
@@ -117,21 +113,15 @@ public class MyApplication extends Application {
 
 
     public boolean isLogin() {
-        String jsonStr = mainPreferences.getString(SharedConstant.USERINFO, "");
-        if (!TextUtils.isEmpty(jsonStr) && jsonStr.length() > 0) {
-            UserInfo userInfo = new Gson().fromJson(jsonStr, UserInfo.class);
-            setUserInfo(userInfo);// 设置现有的数据模型
-            if (userInfo != null) {
-                if (!TextUtils.isEmpty(userInfo.getUsername()) && !TextUtils.isEmpty(userInfo.getToken()) && userInfo.getId() > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+        userInfo = getUserInfo();
+        if (userInfo == null) {
+            return false;
+        }
+        if (!TextUtils.isEmpty(userInfo.getLoginName()) && userInfo.getId() > 0) {
+            return true;
         } else {
             return false;
         }
-        return false;
     }
 
     /**

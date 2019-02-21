@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * Created by DGDL-08 on ${DATA}
  */
+@Deprecated
 public class UserInfo {
 
     /**

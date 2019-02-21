@@ -1,6 +1,5 @@
 package com.zkys.operationtool.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -10,12 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.application.MyApplication;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.LoginResult;
-import com.zkys.operationtool.presenter.LoginPresenter;
-import com.zkys.operationtool.util.ActivityManager;
+import com.zkys.operationtool.presenter.LoginPresenterOil;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
 
@@ -25,7 +22,7 @@ import butterknife.OnClick;
 /**
  * 绑定账号
  */
-public class BinderAccountActivity extends BaseActivity<LoginPresenter> {
+public class BinderAccountActivity extends BaseActivity<LoginPresenterOil> {
 
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
@@ -48,8 +45,8 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenter> {
     }
 
     @Override
-    public LoginPresenter initPresenter() {
-        return new LoginPresenter(this);
+    public LoginPresenterOil initPresenter() {
+        return new LoginPresenterOil(this);
     }
 
     @Override
@@ -68,13 +65,14 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenter> {
         if (result.getCode() == 200) {
             if (result.getData() instanceof LoginResult) {
                 ToastUtil.showShort("绑定成功");
-                MyApplication.getInstance().saveUserInfo((LoginResult) result.getData());
-                startActivity(new Intent(this, HomeActivity.class));
-                ActivityManager.getAppInstance().finishActivity(LoginActivity.class);
-                finish();
+                // @TODO 暂时去掉 xq
+//                MyApplication.getInstance().saveUserInfo((LoginResult) result.getData());
+//                startActivity(new Intent(this, HomeActivity.class));
+//                ActivityManager.getAppInstance().finishActivity(LoginActivity.class);
+//                finish();
             }
         } else {
-            ToastUtil.showShort("" + result.getInfo());
+            ToastUtil.showShort("" + result.getMsg());
         }
     }
 

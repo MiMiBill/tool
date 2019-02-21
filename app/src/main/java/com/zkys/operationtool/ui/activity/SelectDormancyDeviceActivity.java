@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 
 import butterknife.OnClick;
@@ -13,7 +13,7 @@ import butterknife.OnClick;
 /**
  * 休眠设备
  */
-public class SelectDormancyDeviceActivity extends BaseActivity {
+public class SelectDormancyDeviceActivity extends BaseActivityOld {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class SelectDormancyDeviceActivity extends BaseActivity {
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
     @OnClick(R.id.tv_next)
@@ -43,7 +43,7 @@ public class SelectDormancyDeviceActivity extends BaseActivity {
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
 
     }
 

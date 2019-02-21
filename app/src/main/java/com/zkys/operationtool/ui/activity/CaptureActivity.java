@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 
 import butterknife.BindView;
@@ -20,7 +20,7 @@ import butterknife.BindView;
 /**
  * 二维码及条形码扫面界面
  */
-public class CaptureActivity extends BaseActivity {
+public class CaptureActivity extends BaseActivityOld {
 
     @BindView(R.id.fl_my_container)
     FrameLayout flMyContainer;
@@ -68,7 +68,7 @@ public class CaptureActivity extends BaseActivity {
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.NO_TITLE_VIEW;
+        return BaseActivityOld.NO_TITLE_VIEW;
     }
 
 
@@ -101,7 +101,7 @@ public class CaptureActivity extends BaseActivity {
     };
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
 
     }
 

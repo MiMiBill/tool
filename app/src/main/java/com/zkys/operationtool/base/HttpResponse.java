@@ -1,37 +1,16 @@
 package com.zkys.operationtool.base;
 
-/**
- * Created by DGDL-08 on ${DATA}
- */
 public class HttpResponse<T> {
     private int code;
-    private long timestamp;
-    private String info;
-    private String version;
+    private String msg;
     private T data;
 
-    public long getTimestamp() {
-        return timestamp;
+    public String getMsg() {
+        return msg == null ? "" : msg;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public int getCode() {

@@ -86,8 +86,9 @@ public class HttpUtils {
             Request.Builder builder = chain.request().newBuilder();
             builder.addHeader("Content-Type", "application/json;charset=UTF-8");
             if (MyApplication.getInstance().getUserInfo() != null) {
-                String token = MyApplication.getInstance().getUserInfo().getToken();
-                if (!TextUtils.isEmpty(token)) builder.addHeader("Authorization","Bearer " + MyApplication.getInstance().getUserInfo().getToken());
+                //@TODO 认证暂时去掉 xq
+//                String token = MyApplication.getInstance().getUserInfo().getToken();
+//                if (!TextUtils.isEmpty(token)) builder.addHeader("Authorization","Bearer " + MyApplication.getInstance().getUserInfo().getToken());
             }
             SharedPreferences mSharedPreferences=context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
             String str = mSharedPreferences.getString(COOKIE, null);
