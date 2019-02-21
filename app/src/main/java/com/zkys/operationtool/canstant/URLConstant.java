@@ -9,6 +9,8 @@ package com.zkys.operationtool.canstant;
 
 public class URLConstant {
 
-    public static final String BASE_URL = "http://dev.zgzkys.com/";
+    //    public static final String BASE_URL = "http://dev.zgzkys.com/";
+    public static final String BASE_URL = "http://test.yw.zgzkys.com";
+
 
 }

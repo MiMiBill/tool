@@ -8,13 +8,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.bean.VolumeInfoBean;
 import com.zkys.operationtool.dialog.BottomDialog;
-import com.zkys.operationtool.presenter.VolumeControlPresenter;
+import com.zkys.operationtool.presenter.VolumeControlPresenterOid;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
 
@@ -27,7 +27,7 @@ import butterknife.OnClick;
 /**
  * 音量控制
  */
-public class VolumeControlActivity extends BaseActivity<VolumeControlPresenter> implements BottomDialog.ItemSelectedInterface, SeekBar.OnSeekBarChangeListener {
+public class VolumeControlActivity extends BaseActivityOld<VolumeControlPresenterOid> implements BottomDialog.ItemSelectedInterface, SeekBar.OnSeekBarChangeListener {
 
     @BindView(R.id.tv_selected_hospital)
     TextView tvSelectedHospital;
@@ -60,8 +60,8 @@ public class VolumeControlActivity extends BaseActivity<VolumeControlPresenter> 
     }
 
     @Override
-    public VolumeControlPresenter initPresenter() {
-        return new VolumeControlPresenter(this);
+    public VolumeControlPresenterOid initPresenter() {
+        return new VolumeControlPresenterOid(this);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class VolumeControlActivity extends BaseActivity<VolumeControlPresenter> 
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
     private void initDialog() {
@@ -82,7 +82,7 @@ public class VolumeControlActivity extends BaseActivity<VolumeControlPresenter> 
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
         if (result.getData() != null) {
             if (result.getData() instanceof List) {
                 List list = (List) result.getData();

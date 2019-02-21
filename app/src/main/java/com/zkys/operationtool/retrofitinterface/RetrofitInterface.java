@@ -1,11 +1,13 @@
 package com.zkys.operationtool.retrofitinterface;
 
 import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.bean.BedBean;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.DeviceBinderInfo;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.bean.LoginResult;
+import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.bean.VolumeInfoBean;
 
 import java.util.List;
@@ -31,9 +33,9 @@ public interface RetrofitInterface {
      */
 
     // 账号登陆
-    @POST("sys/third")
+    @POST("admin/login")
     @FormUrlEncoded
-    Observable<HttpResponse<LoginResult>> login(@Field("username") String username, @Field("password") String password);
+    Observable<HttpResponse<UserInfoBean>> login(@Field("mobile") String username, @Field("password") String password);
     // 微信登陆
     @POST("sys/third")
     @FormUrlEncoded
@@ -42,12 +44,12 @@ public interface RetrofitInterface {
     // 医院列表
     @POST("core/hospital/select")
     @FormUrlEncoded
-    Observable<HttpResponse<List<HospitalBean>>> getHospitalList(@Field("null") String n);
+    Observable<HttpResponseOld<List<HospitalBean>>> getHospitalList(@Field("null") String n);
 
     // 科室列表
     @POST("core/department/select")
     @FormUrlEncoded
-    Observable<HttpResponse<List<CoreBean>>> getCoreList(@Field("hid") int hid);
+    Observable<HttpResponseOld<List<CoreBean>>> getCoreList(@Field("hid") int hid);
 
     // 账号绑定
     @POST("sys/binding")
@@ -57,31 +59,31 @@ public interface RetrofitInterface {
     // 激活设备
     @POST("core/device/activate")
 //    @POST("core/deviceBinding/newActivate")
-    Observable<HttpResponse<Object>> activatePlate(@Body Map<String, Object> map);
+    Observable<HttpResponseOld<Object>> activatePlate(@Body Map<String, Object> map);
 
     // 床位列表
     @POST("core/deviceBinding/list")//@Field("hospitalId") int hospitalId, @Field("deptId") int deptId
-    Observable<HttpResponse<List<BedBean>>> getBedList(@Body Map<String, Integer> map);
+    Observable<HttpResponseOld<List<BedBean>>> getBedList(@Body Map<String, Integer> map);
 
     // 根据编号获取设备绑定信息
     @POST("core/device/findBindingByCode")
     @FormUrlEncoded
-    Observable<HttpResponse<DeviceBinderInfo>> findBindingByCode(@Field("code") String code);
+    Observable<HttpResponseOld<DeviceBinderInfo>> findBindingByCode(@Field("code") String code);
 
     // 更换设备
     @POST("core/device/replacing")
 //    @POST("core/deviceBinding/replacingDevice")
-    Observable<HttpResponse<Object>> replaceDevice(@Body Map<String, Object> map);
+    Observable<HttpResponseOld<Object>> replaceDevice(@Body Map<String, Object> map);
 
     // 根据科室医院ID获取科室平板原有的音量配置
     @POST("fota/padVolume/list")
     @FormUrlEncoded
-    Observable<HttpResponse<List<VolumeInfoBean>>> getPadVolume(@Field("hospitalId") int hospitalId, @Field("deptId") int deptId);
+    Observable<HttpResponseOld<List<VolumeInfoBean>>> getPadVolume(@Field("hospitalId") int hospitalId, @Field("deptId") int deptId);
 
 
     // 控制修改科室平板原有的音量配置
     @POST("fota/padVolume/insert")
     @FormUrlEncoded
-    Observable<HttpResponse<Object>> controlPadVolume(@Field("hospitalId") int hospitalId, @Field("deptId") int deptId, @Field("volume") int volume);
+    Observable<HttpResponseOld<Object>> controlPadVolume(@Field("hospitalId") int hospitalId, @Field("deptId") int deptId, @Field("volume") int volume);
 
 }

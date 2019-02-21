@@ -21,14 +21,14 @@ import com.hjq.permissions.XXPermissions;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.DeviceParameterBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.canstant.TypeCodeCanstant;
 import com.zkys.operationtool.dialog.BottomDialog;
-import com.zkys.operationtool.presenter.ActivePlatePresenter;
+import com.zkys.operationtool.presenter.ActivePlatePresenterOid;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -43,7 +43,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 激活平板
  */
-public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> implements BottomDialog.ItemSelectedInterface {
+public class ActivePlateActivity extends BaseActivityOld<ActivePlatePresenterOid> implements BottomDialog.ItemSelectedInterface {
 
     /**
      * 扫描跳转Activity RequestCode
@@ -130,8 +130,8 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
     }
 
     @Override
-    public ActivePlatePresenter initPresenter() {
-        return new ActivePlatePresenter(this);
+    public ActivePlatePresenterOid initPresenter() {
+        return new ActivePlatePresenterOid(this);
     }
 
     @Override
@@ -141,12 +141,12 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
         if (result.getData() != null) {
             if (result.getData() instanceof List) {
                 List list = (List) result.getData();

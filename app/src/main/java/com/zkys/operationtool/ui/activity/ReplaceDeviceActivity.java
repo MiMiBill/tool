@@ -18,15 +18,15 @@ import com.hjq.permissions.XXPermissions;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.bean.BedBean;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.DeviceBinderInfo;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.canstant.TypeCodeCanstant;
 import com.zkys.operationtool.dialog.BottomDialog;
-import com.zkys.operationtool.presenter.ReplaceDevicePresenter;
+import com.zkys.operationtool.presenter.ReplaceDevicePresenterOid;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -41,7 +41,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 更换设备
  */
-public class ReplaceDeviceActivity extends BaseActivity<ReplaceDevicePresenter> implements BottomDialog.ItemSelectedInterface {
+public class ReplaceDeviceActivity extends BaseActivityOld<ReplaceDevicePresenterOid> implements BottomDialog.ItemSelectedInterface {
 
     @BindView(R.id.tv_selected_hospital)
     TextView tvSelectedHospital;
@@ -87,8 +87,8 @@ public class ReplaceDeviceActivity extends BaseActivity<ReplaceDevicePresenter> 
 
 
     @Override
-    public ReplaceDevicePresenter initPresenter() {
-        return new ReplaceDevicePresenter(this);
+    public ReplaceDevicePresenterOid initPresenter() {
+        return new ReplaceDevicePresenterOid(this);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class ReplaceDeviceActivity extends BaseActivity<ReplaceDevicePresenter> 
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
     @OnClick({R.id.rl_replace_plate, R.id.rl_replace_cabinet,
@@ -189,7 +189,7 @@ public class ReplaceDeviceActivity extends BaseActivity<ReplaceDevicePresenter> 
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
         if (result.getData() != null) {
             if (result.getData() instanceof List) {
                 List list = (List) result.getData();

@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.application.MyApplication;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 import com.zkys.operationtool.ui.dialog.SimpleDialogFragment;
 import com.zkys.operationtool.util.ActivityManager;
@@ -23,7 +23,7 @@ import butterknife.OnClick;
 /**
  * 主菜单页面
  */
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivityOld {
 
     @BindView(R.id.tv_name)
     TextView tvName;
@@ -102,7 +102,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
 
     }
 

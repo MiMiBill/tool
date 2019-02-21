@@ -5,12 +5,10 @@ import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.base.HttpResultObserver;
 import com.zkys.operationtool.baseImpl.BasePresenterImpl;
 import com.zkys.operationtool.baseImpl.BaseView;
-import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.bean.LoginResult;
+import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.http.HttpUtils;
 import com.zkys.operationtool.util.ToastUtil;
-
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -22,15 +20,15 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by DGDL-08 on ${DATA}
  */
-public class LoginPresenter extends BasePresenterImpl<BaseView> {
+public class LoginPresenterOil extends BasePresenterImpl<BaseView> {
 
-    public LoginPresenter(BaseView view) {
+    public LoginPresenterOil(BaseView view) {
         super(view);
     }
 
     public void login(String username, String password) {
         HttpUtils.getRetrofit().login(username, password)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<LoginResult>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponse<UserInfoBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -45,9 +43,9 @@ public class LoginPresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<LoginResult>() {
+                .subscribe(new HttpResultObserver<UserInfoBean>() {
                     @Override
-                    public void onSuccess(HttpResponse<LoginResult> result) {
+                    public void onSuccess(HttpResponse<UserInfoBean> result) {
                         view.setData(result);
                     }
 
@@ -80,7 +78,7 @@ public class LoginPresenter extends BasePresenterImpl<BaseView> {
                     @Override
                     public void onSuccess(HttpResponse<LoginResult> result) {
                         view.setData(result);
-                        // Log.d("LoginPresenter", new Gson().toJson(result));
+                        // Log.d("LoginPresenterOil", new Gson().toJson(result));
                     }
 
                     @Override
@@ -94,7 +92,7 @@ public class LoginPresenter extends BasePresenterImpl<BaseView> {
 
 
     public void getHospitalList() {
-        HttpUtils.getRetrofit().getHospitalList("")
+        /*HttpUtils.getRetrofit().getHospitalList("")
                 .compose(((RxAppCompatActivity) view).<HttpResponse<List<HospitalBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -109,7 +107,7 @@ public class LoginPresenter extends BasePresenterImpl<BaseView> {
                     public void _onError(Throwable e) {
 
                     }
-                });
+                });*/
     }
 
 

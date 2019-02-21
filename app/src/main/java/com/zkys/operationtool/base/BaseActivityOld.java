@@ -13,7 +13,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.baseImpl.BasePresenter;
-import com.zkys.operationtool.baseImpl.BaseView;
+import com.zkys.operationtool.baseImpl.BaseViewOld;
 import com.zkys.operationtool.util.ActivityManager;
 import com.zkys.operationtool.util.DialogHelper;
 
@@ -28,7 +28,8 @@ import butterknife.Unbinder;
  * 由于每一个view都对应不同的presenter。当然对应的每个presenter也同样对应一个view。所有我们使用接口和泛型来封装了。
  * Created by DGDL-08 on ${DATA}
  */
-public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatActivity implements BaseView, View.OnClickListener {
+@Deprecated
+public abstract class BaseActivityOld<P extends BasePresenter> extends RxAppCompatActivity implements BaseViewOld, View.OnClickListener {
 //public abstract class BaseActivityOld extends AppCompatActivity implements View.OnClickListener {
     //不加载标题栏
     public static final int NO_TITLE_VIEW = -1;
@@ -36,7 +37,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     public static final int DEFAULT_TITLE_VIEW = 0;
     protected P presenter;
     public Context context;
-    private static List<BaseActivity> activityStack = new ArrayList<>();
+    private static List<BaseActivityOld> activityStack = new ArrayList<>();
     protected FrameLayout contentMain;
     ImageView ivBack;
     TextView tvTitle;

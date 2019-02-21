@@ -1,19 +1,16 @@
 package com.zkys.operationtool.presenter;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.zkys.operationtool.application.MyApplication;
-import com.zkys.operationtool.base.HttpResponse;
-import com.zkys.operationtool.base.HttpResultObserver;
-import com.zkys.operationtool.baseImpl.BasePresenterImpl;
-import com.zkys.operationtool.baseImpl.BaseView;
+import com.zkys.operationtool.base.HttpResponseOld;
+import com.zkys.operationtool.base.HttpResultObserverOld;
+import com.zkys.operationtool.baseImpl.BasePresenterImplOid;
+import com.zkys.operationtool.baseImpl.BaseViewOld;
 import com.zkys.operationtool.bean.CoreBean;
-import com.zkys.operationtool.bean.DeviceParameterBean;
 import com.zkys.operationtool.bean.HospitalBean;
+import com.zkys.operationtool.bean.VolumeInfoBean;
 import com.zkys.operationtool.http.HttpUtils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -25,15 +22,15 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by DGDL-08 on ${DATA}
  */
-public class ActivePlatePresenter extends BasePresenterImpl<BaseView> {
+public class VolumeControlPresenterOid extends BasePresenterImplOid<BaseViewOld> {
 
-    public ActivePlatePresenter(BaseView view) {
+    public VolumeControlPresenterOid(BaseViewOld view) {
         super(view);
     }
 
     public void getHospitalList() {
         HttpUtils.getRetrofit().getHospitalList("")
-                .compose(((RxAppCompatActivity) view).<HttpResponse<List<HospitalBean>>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<HospitalBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -48,9 +45,9 @@ public class ActivePlatePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<List<HospitalBean>>() {
+                .subscribe(new HttpResultObserverOld<List<HospitalBean>>() {
                     @Override
-                    public void onSuccess(HttpResponse<List<HospitalBean>> result) {
+                    public void onSuccess(HttpResponseOld<List<HospitalBean>> result) {
                         view.setData(result);
                     }
 
@@ -63,7 +60,7 @@ public class ActivePlatePresenter extends BasePresenterImpl<BaseView> {
 
     public void getCoreList(int hid) {
         HttpUtils.getRetrofit().getCoreList(hid)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<List<CoreBean>>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<CoreBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -78,9 +75,9 @@ public class ActivePlatePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<List<CoreBean>>() {
+                .subscribe(new HttpResultObserverOld<List<CoreBean>>() {
                     @Override
-                    public void onSuccess(HttpResponse<List<CoreBean>> result) {
+                    public void onSuccess(HttpResponseOld<List<CoreBean>> result) {
                         view.setData(result);
                     }
 
@@ -91,37 +88,14 @@ public class ActivePlatePresenter extends BasePresenterImpl<BaseView> {
                 });
     }
 
-
-
-    /**
-     *
-     * @param bedNumber
-     * @param cId
-     * @param list
-     * @param hId
-     * @param run 1 -->是   2 -->否
-     */
-    public void activate(String bedNumber, int cId, List<DeviceParameterBean> list, int hId, int run) {
-        /**
-         * (@Field("bedNumber") String bedNumber, @Field("deptId") int cId,
-         *                                            @Field("deviceList") String list,
-         *                                            @Field("hospitalId") int hid, @Field("run") int run);
-         */
-        Map<String, Object> map = new HashMap<>();
-        map.put("bedNumber", bedNumber);
-        map.put("deptId", cId);
-        map.put("deviceList", list);
-        map.put("hospitalId", hId);
-        map.put("run", run);
-        map.put("userId", MyApplication.getInstance().getUserInfo().getId());
-//        HttpUtils.getRetrofit().activatePlate3(RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(map)))
-        HttpUtils.getRetrofit().activatePlate(map)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<Object>>bindToLifecycle())
+    public void getPadVolume(int hid, int cid) {
+        HttpUtils.getRetrofit().getPadVolume(hid, cid)
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<VolumeInfoBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        view.showLoadingDialog("正在激活...");
+                        view.showLoadingDialog("正在获取...");
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -131,9 +105,9 @@ public class ActivePlatePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<Object>() {
+                .subscribe(new HttpResultObserverOld<List<VolumeInfoBean>>() {
                     @Override
-                    public void onSuccess(HttpResponse<Object> result) {
+                    public void onSuccess(HttpResponseOld<List<VolumeInfoBean>> result) {
                         view.setData(result);
                     }
 
@@ -142,9 +116,35 @@ public class ActivePlatePresenter extends BasePresenterImpl<BaseView> {
 
                     }
                 });
-
     }
+    public void controlPadVolume(int hid, int cid, int volume) {
+        HttpUtils.getRetrofit().controlPadVolume(hid, cid, volume)
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<Object>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        view.showLoadingDialog("正在提交...");
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        view.dismissLoadingDialog();
+                    }
+                })
+                .subscribe(new HttpResultObserverOld<Object>() {
+                    @Override
+                    public void onSuccess(HttpResponseOld<Object> result) {
+                        view.setData(result);
+                    }
 
+                    @Override
+                    public void _onError(Throwable e) {
 
+                    }
+                });
+    }
 
 }
