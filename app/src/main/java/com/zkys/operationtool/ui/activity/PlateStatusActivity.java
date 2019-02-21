@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 
 import butterknife.OnClick;
@@ -14,7 +14,7 @@ import butterknife.OnClick;
 /**
  * 平板状态界面
  */
-public class PlateStatusActivity extends BaseActivity {
+public class PlateStatusActivity extends BaseActivityOld {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class PlateStatusActivity extends BaseActivity {
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
     @OnClick({R.id.ll_item_hospital})
@@ -48,7 +48,7 @@ public class PlateStatusActivity extends BaseActivity {
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
 
     }
 

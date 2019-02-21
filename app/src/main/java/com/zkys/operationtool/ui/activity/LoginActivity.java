@@ -14,13 +14,15 @@ import android.widget.TextView;
 
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.zkys.operationtool.BuildConfig;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.application.MyApplication;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.EventBusBean;
 import com.zkys.operationtool.bean.LoginResult;
-import com.zkys.operationtool.presenter.LoginPresenter;
+import com.zkys.operationtool.bean.UserInfoBean;
+import com.zkys.operationtool.presenter.LoginPresenterOil;
 import com.zkys.operationtool.util.DialogHelper;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -40,7 +42,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 登陆界面
  */
-public class LoginActivity extends BaseActivity<LoginPresenter> {
+public class LoginActivity extends BaseActivity<LoginPresenterOil> {
 
 
     @BindView(R.id.et_account)
@@ -66,8 +68,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     }
 
     @Override
-    public LoginPresenter initPresenter() {
-        return new LoginPresenter(this);
+    public LoginPresenterOil initPresenter() {
+        return new LoginPresenterOil(this);
     }
 
     @Override
@@ -115,18 +117,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
 
     @Override
     public void setData(HttpResponse result) {
-        if (result.getData() instanceof LoginResult) {
+        if (result.getData() instanceof UserInfoBean) {
             if (result.getCode() == 200) {
-                MyApplication.getInstance().saveUserInfo((LoginResult) result.getData());
+                MyApplication.getInstance().saveUserInfo((UserInfoBean) result.getData());
                 startActivity(new Intent(this, HomeActivity.class));
                 finish();
             } else if (result.getCode() == 406) {
                 startActivity(new Intent(this, BinderAccountActivity.class).putExtra("LoginResult", (LoginResult) result.getData()));
             } else {
-                ToastUtil.showShort(result.getInfo());
+                ToastUtil.showShort(result.getMsg());
             }
         } else {
-            ToastUtil.showShort(result.getInfo());
+            ToastUtil.showShort(result.getMsg());
         }
     }
 
@@ -178,7 +180,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
         public void afterTextChanged(Editable editable) {
             String account = etAccount.getText().toString().trim().replace(" ", "");
             String password = etPassword.getText().toString().trim().replace(" ", "");
-            tvLogin.setEnabled(account.length() == 11 && password.length() >= 6);
+            if (BuildConfig.DEBUG) {
+                tvLogin.setEnabled(true);
+            } else {
+                tvLogin.setEnabled(account.length() == 11 && password.length() >= 6);
+            }
             ivDelete.setVisibility(account.length() > 0 ? View.VISIBLE : View.INVISIBLE);
         }
     }

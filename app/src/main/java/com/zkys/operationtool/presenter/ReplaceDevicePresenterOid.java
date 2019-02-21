@@ -2,10 +2,10 @@ package com.zkys.operationtool.presenter;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zkys.operationtool.application.MyApplication;
-import com.zkys.operationtool.base.HttpResponse;
-import com.zkys.operationtool.base.HttpResultObserver;
-import com.zkys.operationtool.baseImpl.BasePresenterImpl;
-import com.zkys.operationtool.baseImpl.BaseView;
+import com.zkys.operationtool.base.HttpResponseOld;
+import com.zkys.operationtool.base.HttpResultObserverOld;
+import com.zkys.operationtool.baseImpl.BasePresenterImplOid;
+import com.zkys.operationtool.baseImpl.BaseViewOld;
 import com.zkys.operationtool.bean.BedBean;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.DeviceBinderInfo;
@@ -27,15 +27,15 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by DGDL-08 on ${DATA}
  */
-public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
+public class ReplaceDevicePresenterOid extends BasePresenterImplOid<BaseViewOld> {
 
-    public ReplaceDevicePresenter(BaseView view) {
+    public ReplaceDevicePresenterOid(BaseViewOld view) {
         super(view);
     }
 
     public void getHospitalList() {
         HttpUtils.getRetrofit().getHospitalList("")
-                .compose(((RxAppCompatActivity) view).<HttpResponse<List<HospitalBean>>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<HospitalBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -50,9 +50,9 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<List<HospitalBean>>() {
+                .subscribe(new HttpResultObserverOld<List<HospitalBean>>() {
                     @Override
-                    public void onSuccess(HttpResponse<List<HospitalBean>> result) {
+                    public void onSuccess(HttpResponseOld<List<HospitalBean>> result) {
                         view.setData(result);
                     }
 
@@ -65,7 +65,7 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
 
     public void getCoreList(int hid) {
         HttpUtils.getRetrofit().getCoreList(hid)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<List<CoreBean>>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<CoreBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -80,9 +80,9 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<List<CoreBean>>() {
+                .subscribe(new HttpResultObserverOld<List<CoreBean>>() {
                     @Override
-                    public void onSuccess(HttpResponse<List<CoreBean>> result) {
+                    public void onSuccess(HttpResponseOld<List<CoreBean>> result) {
                         view.setData(result);
                     }
 
@@ -99,7 +99,7 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
         map.put("hospitalId", hid);
         map.put("deptId", cid);
         HttpUtils.getRetrofit().getBedList(map)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<List<BedBean>>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<BedBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -114,9 +114,9 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<List<BedBean>>() {
+                .subscribe(new HttpResultObserverOld<List<BedBean>>() {
                     @Override
-                    public void onSuccess(HttpResponse<List<BedBean>> result) {
+                    public void onSuccess(HttpResponseOld<List<BedBean>> result) {
                         view.setData(result);
                     }
 
@@ -130,7 +130,7 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
 
     public void getDeviceBinderInfo(String deviceCode) {
         HttpUtils.getRetrofit().findBindingByCode(deviceCode)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<DeviceBinderInfo>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<DeviceBinderInfo>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -145,9 +145,9 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<DeviceBinderInfo>() {
+                .subscribe(new HttpResultObserverOld<DeviceBinderInfo>() {
                     @Override
-                    public void onSuccess(HttpResponse<DeviceBinderInfo> result) {
+                    public void onSuccess(HttpResponseOld<DeviceBinderInfo> result) {
                         view.setData(result);
                     }
 
@@ -167,7 +167,7 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
         map.put("remark", remark);
         map.put("userId", MyApplication.getInstance().getUserInfo().getId());
         HttpUtils.getRetrofit().replaceDevice(map)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<Object>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponseOld<Object>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -182,9 +182,9 @@ public class ReplaceDevicePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<Object>() {
+                .subscribe(new HttpResultObserverOld<Object>() {
                     @Override
-                    public void onSuccess(HttpResponse<Object> result) {
+                    public void onSuccess(HttpResponseOld<Object> result) {
                         view.setData(result);
                     }
 

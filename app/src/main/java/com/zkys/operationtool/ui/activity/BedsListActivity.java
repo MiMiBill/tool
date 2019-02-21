@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.BaseActivityOld;
+import com.zkys.operationtool.base.HttpResponseOld;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 
 import butterknife.OnClick;
@@ -14,7 +14,7 @@ import butterknife.OnClick;
 /**
  * 某科室的平板状态列表
  */
-public class BedsListActivity extends BaseActivity {
+public class BedsListActivity extends BaseActivityOld {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class BedsListActivity extends BaseActivity {
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivity.DEFAULT_TITLE_VIEW;
+        return BaseActivityOld.DEFAULT_TITLE_VIEW;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class BedsListActivity extends BaseActivity {
     }
 
     @Override
-    public void setData(HttpResponse result) {
+    public void setData(HttpResponseOld result) {
 
     }
 
