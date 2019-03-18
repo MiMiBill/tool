@@ -8,13 +8,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.zkys.operationtool.R;
+import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.BaseActivityOld;
-import com.zkys.operationtool.base.HttpResponseOld;
+import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.bean.VolumeInfoBean;
 import com.zkys.operationtool.dialog.BottomDialog;
-import com.zkys.operationtool.presenter.VolumeControlPresenterOid;
+import com.zkys.operationtool.presenter.VolumeControlPresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
 
@@ -27,7 +28,7 @@ import butterknife.OnClick;
 /**
  * 音量控制
  */
-public class VolumeControlActivity extends BaseActivityOld<VolumeControlPresenterOid> implements BottomDialog.ItemSelectedInterface, SeekBar.OnSeekBarChangeListener {
+public class VolumeControlActivity extends BaseActivity<VolumeControlPresenterOld> implements BottomDialog.ItemSelectedInterface, SeekBar.OnSeekBarChangeListener {
 
     @BindView(R.id.tv_selected_hospital)
     TextView tvSelectedHospital;
@@ -47,6 +48,7 @@ public class VolumeControlActivity extends BaseActivityOld<VolumeControlPresente
     private int hid;
     private int cid;
     private int volume = 0;
+    private VolumeInfoBean volumeInfoBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,8 @@ public class VolumeControlActivity extends BaseActivityOld<VolumeControlPresente
     }
 
     @Override
-    public VolumeControlPresenterOid initPresenter() {
-        return new VolumeControlPresenterOid(this);
+    public VolumeControlPresenterOld initPresenter() {
+        return new VolumeControlPresenterOld(this);
     }
 
     @Override
@@ -82,7 +84,7 @@ public class VolumeControlActivity extends BaseActivityOld<VolumeControlPresente
     }
 
     @Override
-    public void setData(HttpResponseOld result) {
+    public void setData(HttpResponse result) {
         if (result.getData() != null) {
             if (result.getData() instanceof List) {
                 List list = (List) result.getData();
@@ -102,16 +104,18 @@ public class VolumeControlActivity extends BaseActivityOld<VolumeControlPresente
                         }
                         initDialogDataAndShow(names, 2);// 2代表选择科室的数据
                     } else if (list.get(0) instanceof VolumeInfoBean) {
-                        VolumeInfoBean volumeInfoBean = (VolumeInfoBean) list.get(0);
+                        volumeInfoBean = (VolumeInfoBean) list.get(0);
                         seekBar.setProgress(volumeInfoBean.getVolume());
                     }
+                } else {
+                    ToastUtil.showShort("暂无数据");
                 }
             }
         } else if (result.getCode() == 200) {
             ToastUtil.showShort("修改成功");
             finish();
         } else {
-            ToastUtil.showShort(result.getInfo());
+            ToastUtil.showShort(result.getMsg());
         }
     }
 
@@ -185,7 +189,7 @@ public class VolumeControlActivity extends BaseActivityOld<VolumeControlPresente
                 }
                 break;
             case R.id.tv_confirm:
-                presenter.controlPadVolume(hid,cid,volume);
+                if (volumeInfoBean != null) presenter.controlPadVolume(hid, cid, volume, volumeInfoBean.getId());
                 break;
         }
     }

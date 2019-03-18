@@ -1,6 +1,5 @@
 package com.zkys.operationtool.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -35,7 +34,7 @@ public class UIUtils {
      */
     public static boolean isNetWorkConnected() {
         ConnectivityManager mConnectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        @SuppressLint("MissingPermission") NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
         return mNetworkInfo != null && mNetworkInfo.isConnected();
     }
 
@@ -57,7 +56,8 @@ public class UIUtils {
         return Patterns.WEB_URL.matcher(query).matches()||URLUtil.isValidUrl(query);
     }
 
-    public static String getRegards(){
+    public static String getRegards() {
+
         Date d = new Date();
         String regards = "";
         if(d.getHours()<11){

@@ -8,12 +8,17 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.pgyersdk.crash.PgyCrashManager;
+import com.pgyersdk.crash.PgyerCrashObservable;
+import com.pgyersdk.crash.PgyerObserver;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.canstant.SharedConstant;
 
 import org.json.JSONException;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Desc:
@@ -52,6 +57,19 @@ public class MyApplication extends Application {
         context = this;
         mainPreferences = getSharedPreferences(SharedConstant.MAIN_PREFERENCE, MODE_PRIVATE);
         registToWX();
+
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+
+        // 蒲公英自動更新SDK初始化註冊
+        PgyCrashManager.register();
+        PgyerCrashObservable.get().attach(new PgyerObserver() {
+            @Override
+            public void receivedCrash(Thread thread, Throwable throwable) {
+                Log.e("MyApplication", throwable.getMessage());
+            }
+        });
+
     }
 
     private void registToWX() {

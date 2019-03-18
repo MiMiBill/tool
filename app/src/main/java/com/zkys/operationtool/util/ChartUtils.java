@@ -2,7 +2,6 @@ package com.zkys.operationtool.util;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.text.format.DateFormat;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -14,6 +13,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.zkys.operationtool.bean.ItemStatisticBean;
 import com.zkys.operationtool.widget.MyMarkerView;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ChartUtils {
      *
      * @param list 数据集
      */
-    public static LineChart initLineChart(LineChart lineChart, final List<Integer> list, Context context) {
+    public static LineChart initLineChart(LineChart lineChart, final List<ItemStatisticBean> list, Context context) {
 
         //显示边界
         lineChart.setDrawBorders(false);
@@ -34,7 +34,7 @@ public class ChartUtils {
         List<Entry> entries = new ArrayList<>();
         for (int i = 0; i < list.size(); i++)
         {
-            entries.add(new Entry(i, (float) list.get(i)));
+            entries.add(new Entry(i, (float) list.get(i).getMoneyTotal()));
         }
         //一个LineDataSet就是一条线
         LineDataSet lineDataSet = new LineDataSet(entries, "");
@@ -78,9 +78,13 @@ public class ChartUtils {
             @Override
             public String getFormattedValue(float value, AxisBase axis){
                 int IValue = (int) value;
-                CharSequence format = DateFormat.format("MM/dd",
-                        System.currentTimeMillis()-(long)(list.size()-IValue)*24*60*60*1000);
-                return format.toString();
+                if (IValue >= list.size()) {
+                    return "";
+                }
+                /*CharSequence format = DateFormat.format("MM/dd",
+                        System.currentTimeMillis()-(long)(list.size()-IValue)*24*60*60*1000);*/
+//                return format.toString();
+                return list.get(IValue).getData();
             }
         });
         //得到Y轴
@@ -92,14 +96,18 @@ public class ChartUtils {
         //不显示网格线
         yAxis.setDrawGridLines(true);
         //设置Y轴坐标之间的最小间隔
-        yAxis.setGranularity(100);
+        yAxis.setGranularity(1);
         //设置y轴的刻度数量
         //+2：最大值n就有n+1个刻度，在加上y轴多一个单位长度，为了好看，so+2
-        yAxis.setLabelCount(Collections.max(list) + 2, false);
+        List<Integer> floatList = new ArrayList<>();
+        for (ItemStatisticBean bean : list) {
+            floatList.add((int) (bean.getMoneyTotal() + 0.5));
+        }
+        yAxis.setLabelCount(Collections.max(floatList) + 2, false);
         //设置从Y轴值
         yAxis.setAxisMinimum(0f);
         //+1:y轴多一个单位长度，为了好看
-        yAxis.setAxisMaximum(Collections.max(list) + 200);
+        yAxis.setAxisMaximum(Collections.max(floatList) + 20);
 
         //y轴
         yAxis.setValueFormatter(new IAxisValueFormatter(){
@@ -118,7 +126,7 @@ public class ChartUtils {
         description.setEnabled(false);
         lineChart.setDescription(description);
         //折线图点的标记
-        MyMarkerView mv = new MyMarkerView(context);
+        MyMarkerView mv = new MyMarkerView(context, list);
         lineChart.setMarker(mv);
         //设置数据
         lineChart.setData(data);

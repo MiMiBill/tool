@@ -55,10 +55,32 @@ public class HttpUtils {
      * @return
      */
     public synchronized static RetrofitInterface getRetrofit() {
+        retrofit = null;// 先调接口这样定义(后面删掉)
         // 初始化
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(URLConstant.BASE_URL)
+                    .client(client)
+//                    .addConverterFactory(MGsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+
+            retrofitInterface = retrofit.create(RetrofitInterface.class);
+        }
+
+        return retrofitInterface;
+    }
+    /**
+     * 单例 （暂时定义用来测试）
+     * @return
+     */
+    public synchronized static RetrofitInterface getRetrofit(String serverUrl) {
+        retrofit = null;// 先调接口这样定义(后面删掉)
+        // 初始化
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(serverUrl)
                     .client(client)
 //                    .addConverterFactory(MGsonConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
@@ -87,8 +109,9 @@ public class HttpUtils {
             builder.addHeader("Content-Type", "application/json;charset=UTF-8");
             if (MyApplication.getInstance().getUserInfo() != null) {
                 //@TODO 认证暂时去掉 xq
-//                String token = MyApplication.getInstance().getUserInfo().getToken();
-//                if (!TextUtils.isEmpty(token)) builder.addHeader("Authorization","Bearer " + MyApplication.getInstance().getUserInfo().getToken());
+                String admin = MyApplication.getInstance().getUserInfo().getAdmin();
+                if (!TextUtils.isEmpty(admin)) builder.addHeader("USER",MyApplication.getInstance().getUserInfo().getAdmin());
+                builder.addHeader("TES","3");
             }
             SharedPreferences mSharedPreferences=context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
             String str = mSharedPreferences.getString(COOKIE, null);

@@ -17,10 +17,11 @@ import com.hjq.permissions.XXPermissions;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
+import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.BaseActivityOld;
-import com.zkys.operationtool.base.HttpResponseOld;
+import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.DeviceParameterBean;
-import com.zkys.operationtool.presenter.ReplaceDevicePresenterOid;
+import com.zkys.operationtool.presenter.ReplaceDevicePresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -35,7 +36,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 更换平板
  */
-public class ReplacePlateActivity extends BaseActivityOld<ReplaceDevicePresenterOid> {
+public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld> {
 
     @BindView(R.id.tv_device_code)
     EditText tvDeviceCode;
@@ -72,8 +73,8 @@ public class ReplacePlateActivity extends BaseActivityOld<ReplaceDevicePresenter
     }
 
     @Override
-    public ReplaceDevicePresenterOid initPresenter() {
-        return new ReplaceDevicePresenterOid(this);
+    public ReplaceDevicePresenterOld initPresenter() {
+        return new ReplaceDevicePresenterOld(this);
     }
 
     @Override
@@ -87,13 +88,13 @@ public class ReplacePlateActivity extends BaseActivityOld<ReplaceDevicePresenter
     }
 
     @Override
-    public void setData(HttpResponseOld result) {
+    public void setData(HttpResponse result) {
         if (result != null) {
             if (result.getCode() == 200) {
                 ToastUtil.showShort("更换成功");
                 finish();
             } else {
-                ToastUtil.showShort(result.getInfo());
+                ToastUtil.showShort(result.getMsg());
             }
         }
     }

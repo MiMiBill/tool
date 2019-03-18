@@ -9,24 +9,32 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.zkys.operationtool.R;
+import com.zkys.operationtool.bean.ItemStatisticBean;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class MyMarkerView extends MarkerView
 {
 
     private TextView tvContent;
+    private TextView tvDate;
+    List<ItemStatisticBean> mList;
     private DecimalFormat format = new DecimalFormat("##0");
 
-    public MyMarkerView(Context context) {
+    public MyMarkerView(Context context, List<ItemStatisticBean> list) {
         super(context, R.layout.layout_markerview);//这个布局自己定义
+        mList = list;
         tvContent = (TextView) findViewById(R.id.tvContent);
+        tvDate = findViewById(R.id.tv_date);
     }
 
 //显示的内容
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        tvContent.setText(format(e.getX())+"\n"+format.format(e.getY())+"辆");
+//        tvContent.setText(format(e.getX())+"\n"+format.format(e.getY())+"辆");
+        tvContent.setText("￥" + e.getY());
+        if (mList != null && mList.size() > 0 && (int) e.getX() < mList.size()) tvDate.setText(mList.get((int) e.getX()).getData());
         super.refreshContent(e, highlight);
     }
 

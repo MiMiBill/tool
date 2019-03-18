@@ -2,21 +2,21 @@ package com.zkys.operationtool.bean;
 
 public class DeviceParameterBean {
 
-    public DeviceParameterBean(String code, String mobileCode, int type) {
+    public DeviceParameterBean(String code, String simMobile, int type) {
         this.code = code;
-        this.mobileCode = mobileCode;
+        this.simMobile = simMobile;
         this.type = type;
     }
 
     /**
      * code : string
-     * mobileCode : string
+     * simMobile : string
      * type : 0
      */
 
 
     private String code = "";
-    private String mobileCode = "";
+    private String simMobile = "";
     private int type;
 
     public String getCode() {
@@ -27,12 +27,12 @@ public class DeviceParameterBean {
         this.code = code;
     }
 
-    public String getMobileCode() {
-        return mobileCode;
+    public String getSimMobile() {
+        return simMobile;
     }
 
-    public void setMobileCode(String mobileCode) {
-        this.mobileCode = mobileCode;
+    public void setSimMobile(String simMobile) {
+        this.simMobile = simMobile;
     }
 
     public int getType() {

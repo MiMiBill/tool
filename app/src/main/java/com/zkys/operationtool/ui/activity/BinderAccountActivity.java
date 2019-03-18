@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
-import com.zkys.operationtool.bean.LoginResult;
-import com.zkys.operationtool.presenter.LoginPresenterOil;
+import com.zkys.operationtool.bean.UserInfoBean;
+import com.zkys.operationtool.presenter.LoginPresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
 
@@ -22,7 +22,7 @@ import butterknife.OnClick;
 /**
  * 绑定账号
  */
-public class BinderAccountActivity extends BaseActivity<LoginPresenterOil> {
+public class BinderAccountActivity extends BaseActivity<LoginPresenterOld> {
 
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
@@ -34,7 +34,7 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenterOil> {
     EditText etPassword;
     @BindView(R.id.ll_root)
     LinearLayout llRoot;
-    private LoginResult loginResult;
+    private UserInfoBean loginResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenterOil> {
     }
 
     @Override
-    public LoginPresenterOil initPresenter() {
-        return new LoginPresenterOil(this);
+    public LoginPresenterOld initPresenter() {
+        return new LoginPresenterOld(this);
     }
 
     @Override
@@ -63,14 +63,12 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenterOil> {
     public void setData(HttpResponse result) {
 
         if (result.getCode() == 200) {
-            if (result.getData() instanceof LoginResult) {
-                ToastUtil.showShort("绑定成功");
-                // @TODO 暂时去掉 xq
+            ToastUtil.showShort("绑定成功");
+            // @TODO 暂时去掉 xq
 //                MyApplication.getInstance().saveUserInfo((LoginResult) result.getData());
 //                startActivity(new Intent(this, HomeActivity.class));
 //                ActivityManager.getAppInstance().finishActivity(LoginActivity.class);
-//                finish();
-            }
+                finish();
         } else {
             ToastUtil.showShort("" + result.getMsg());
         }
@@ -86,10 +84,7 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenterOil> {
             case R.id.tv_confirm:
                 String account = etAccount.getText().toString().trim().replace(" ", "");
                 String password = etPassword.getText().toString().trim().replace(" ", "");
-                presenter.bindingAccount(loginResult.getOpenid(),
-                        loginResult.getUnionid(),
-                        loginResult.getAccess_token(),
-                        loginResult.getRefresh_token(),
+                presenter.bindingAccount(loginResult.getOpenId(),
                         account, password);
                 break;
         }

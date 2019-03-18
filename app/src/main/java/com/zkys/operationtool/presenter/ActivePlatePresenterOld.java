@@ -1,14 +1,15 @@
 package com.zkys.operationtool.presenter;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zkys.operationtool.application.MyApplication;
-import com.zkys.operationtool.base.HttpResponseOld;
-import com.zkys.operationtool.base.HttpResultObserverOld;
-import com.zkys.operationtool.baseImpl.BasePresenterImplOid;
-import com.zkys.operationtool.baseImpl.BaseViewOld;
-import com.zkys.operationtool.bean.BedBean;
+import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.base.HttpResultObserver;
+import com.zkys.operationtool.baseImpl.BasePresenterImpl;
+import com.zkys.operationtool.baseImpl.BaseView;
 import com.zkys.operationtool.bean.CoreBean;
-import com.zkys.operationtool.bean.DeviceBinderInfo;
 import com.zkys.operationtool.bean.DeviceParameterBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.http.HttpUtils;
@@ -27,15 +28,18 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by DGDL-08 on ${DATA}
  */
-public class ReplaceDevicePresenterOid extends BasePresenterImplOid<BaseViewOld> {
+public class ActivePlatePresenterOld extends BasePresenterImpl<BaseView> {
 
-    public ReplaceDevicePresenterOid(BaseViewOld view) {
+    public ActivePlatePresenterOld(BaseView view) {
         super(view);
     }
 
     public void getHospitalList() {
-        HttpUtils.getRetrofit().getHospitalList("")
-                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<HospitalBean>>>bindToLifecycle())
+        /**
+         * 审核状态, 0:待审核，1：已通过，2：未通过
+         */
+        HttpUtils.getRetrofit().getHospitalList(MyApplication.getInstance().getUserInfo().getCorrelationId() + "",1)
+                .compose(((RxAppCompatActivity) view).<HttpResponse<List<HospitalBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -50,10 +54,11 @@ public class ReplaceDevicePresenterOid extends BasePresenterImplOid<BaseViewOld>
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserverOld<List<HospitalBean>>() {
+                .subscribe(new HttpResultObserver<List<HospitalBean>>() {
                     @Override
-                    public void onSuccess(HttpResponseOld<List<HospitalBean>> result) {
+                    public void onSuccess(HttpResponse<List<HospitalBean>> result) {
                         view.setData(result);
+
                     }
 
                     @Override
@@ -62,10 +67,39 @@ public class ReplaceDevicePresenterOid extends BasePresenterImplOid<BaseViewOld>
                     }
                 });
     }
+    /*public void getHospitalList2() {
+        HttpUtils.getRetrofit().getHospitalLists("")
+                .compose(((RxAppCompatActivity) view).<HttpResponse<List<HospitalBean>>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        view.showLoadingDialog("正在获取...");
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        view.dismissLoadingDialog();
+                    }
+                })
+                .subscribe(new HttpResultObserver<List<HospitalBean>>() {
+                    @Override
+                    public void onSuccess(HttpResponse<List<HospitalBean>> result) {
+                        view.setData(result);
+                    }
+
+                    @Override
+                    public void _onError(Throwable e) {
+
+                    }
+                });
+    }*/
 
     public void getCoreList(int hid) {
-        HttpUtils.getRetrofit().getCoreList(hid)
-                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<CoreBean>>>bindToLifecycle())
+        HttpUtils.getRetrofit().getCoreList(hid,  1)
+                .compose(((RxAppCompatActivity) view).<HttpResponse<List<CoreBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -80,10 +114,11 @@ public class ReplaceDevicePresenterOid extends BasePresenterImplOid<BaseViewOld>
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserverOld<List<CoreBean>>() {
+                .subscribe(new HttpResultObserver<List<CoreBean>>() {
                     @Override
-                    public void onSuccess(HttpResponseOld<List<CoreBean>> result) {
+                    public void onSuccess(HttpResponse<List<CoreBean>> result) {
                         view.setData(result);
+                        Log.d("ActivePlatePresenterOld", new Gson().toJson(result));
                     }
 
                     @Override
@@ -94,85 +129,36 @@ public class ReplaceDevicePresenterOid extends BasePresenterImplOid<BaseViewOld>
     }
 
 
-    public void getBedList(int hid, int cid) {
-        Map<String, Integer> map = new HashMap<>();
-        map.put("hospitalId", hid);
-        map.put("deptId", cid);
-        HttpUtils.getRetrofit().getBedList(map)
-                .compose(((RxAppCompatActivity) view).<HttpResponseOld<List<BedBean>>>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        view.showLoadingDialog("正在获取...");
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        view.dismissLoadingDialog();
-                    }
-                })
-                .subscribe(new HttpResultObserverOld<List<BedBean>>() {
-                    @Override
-                    public void onSuccess(HttpResponseOld<List<BedBean>> result) {
-                        view.setData(result);
-                    }
 
-                    @Override
-                    public void _onError(Throwable e) {
-
-                    }
-                });
-    }
-
-
-    public void getDeviceBinderInfo(String deviceCode) {
-        HttpUtils.getRetrofit().findBindingByCode(deviceCode)
-                .compose(((RxAppCompatActivity) view).<HttpResponseOld<DeviceBinderInfo>>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        view.showLoadingDialog("正在获取...");
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        view.dismissLoadingDialog();
-                    }
-                })
-                .subscribe(new HttpResultObserverOld<DeviceBinderInfo>() {
-                    @Override
-                    public void onSuccess(HttpResponseOld<DeviceBinderInfo> result) {
-                        view.setData(result);
-                    }
-
-                    @Override
-                    public void _onError(Throwable e) {
-
-                    }
-                });
-    }
-
-    public void replaceDevice(String bedNumber, int hospitalId, int deptId, List<DeviceParameterBean> deviceList, final String remark) {
+    /**
+     *
+     * @param bedNumber
+     * @param cId
+     * @param list
+     * @param hId
+     * @param run 1 -->是   2 -->否
+     */
+    public void activate(String bedNumber, int cId, List<DeviceParameterBean> list, int hId, int run) {
+        /**
+         * (@Field("bedNumber") String bedNumber, @Field("deptId") int cId,
+         *                                            @Field("deviceList") String list,
+         *                                            @Field("hospitalId") int hid, @Field("run") int run);
+         */
         Map<String, Object> map = new HashMap<>();
         map.put("bedNumber", bedNumber);
-        map.put("hospitalId", hospitalId);
-        map.put("deptId", deptId);
-        map.put("deviceList", deviceList);
-        map.put("remark", remark);
+        map.put("deptId", cId);
+        map.put("deviceList", list);
+        map.put("hospitalId", hId);
+        map.put("run", run);
         map.put("userId", MyApplication.getInstance().getUserInfo().getId());
-        HttpUtils.getRetrofit().replaceDevice(map)
-                .compose(((RxAppCompatActivity) view).<HttpResponseOld<Object>>bindToLifecycle())
+//        HttpUtils.getRetrofit().activatePlate3(RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(map)))
+        HttpUtils.getRetrofit().activatePlate(map)
+                .compose(((RxAppCompatActivity) view).<HttpResponse<Object>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        view.showLoadingDialog("正在提交...");
+                        view.showLoadingDialog("正在激活...");
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -182,9 +168,9 @@ public class ReplaceDevicePresenterOid extends BasePresenterImplOid<BaseViewOld>
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserverOld<Object>() {
+                .subscribe(new HttpResultObserver<Object>() {
                     @Override
-                    public void onSuccess(HttpResponseOld<Object> result) {
+                    public void onSuccess(HttpResponse<Object> result) {
                         view.setData(result);
                     }
 
@@ -193,6 +179,9 @@ public class ReplaceDevicePresenterOid extends BasePresenterImplOid<BaseViewOld>
 
                     }
                 });
+
     }
+
+
 
 }

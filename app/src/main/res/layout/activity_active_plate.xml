@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="#F5F5F5"
@@ -169,7 +170,6 @@
                         android:layout_marginLeft="26dp"
                         android:layout_marginRight="16dp"
                         android:layout_gravity="center_vertical"
-                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="24dp"
                         android:layout_weight="1"
@@ -346,7 +346,7 @@
                             android:layout_height="24dp"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:hint="平板条形码"
+                            android:hint="请扫描平板条形码"
                             android:textColorHint="#CCCCCC" />
 
                         <ImageView
@@ -513,7 +513,7 @@
                             android:layout_marginRight="16dp"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:hint="适配器条形码"
+                            android:hint="请扫描陪护床条形码"
                             android:inputType="number"
                             android:textColorHint="#CCCCCC" />
 
@@ -563,7 +563,7 @@
                             android:layout_marginRight="16dp"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:hint="支架条形码"
+                            android:hint="请扫描支架条形码"
                             android:inputType="number"
                             android:textColorHint="#CCCCCC" />
 

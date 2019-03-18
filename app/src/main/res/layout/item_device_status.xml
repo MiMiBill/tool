@@ -20,19 +20,21 @@
             android:layout_width="match_parent"
             android:layout_height="48dp">
             <TextView
+                android:id="@+id/tv_hospital"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="东莞市人民大朗人民医院"
+                android:text="***医院"
                 android:textColor="#ff333333"
                 android:textSize="14sp"/>
             <TextView
+                android:id="@+id/tv_date"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018.01.06"
+                android:text="20xx.xx.xx"
                 android:textColor="#ffcccccc"
                 android:textSize="12sp"
                 />
@@ -64,19 +66,21 @@
                     android:textSize="12sp"
                     />
                 <TextView
+                    android:id="@+id/tv_on_rates"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="51%"
+                    android:text="0%"
                     android:textColor="#ff2994f1"
                     android:textSize="26sp"
                     />
                 <TextView
+                    android:id="@+id/tv_on_count"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10000"
+                    android:text="0"
                     android:textColor="#ffa8a8a8"
                     android:textSize="14sp"
                     />
@@ -96,19 +100,21 @@
                     android:textSize="12sp"
                     />
                 <TextView
+                    android:id="@+id/tv_usage_rates"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="51%"
+                    android:text="0%"
                     android:textColor="#ff2994f1"
                     android:textSize="26sp"
                     />
                 <TextView
+                    android:id="@+id/tv_usage_count"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10000"
+                    android:text="0"
                     android:textColor="#ffa8a8a8"
                     android:textSize="14sp"
                     />
@@ -134,19 +140,21 @@
                     android:textSize="12sp"
                     />
                 <TextView
+                    android:id="@+id/tv_rent_rates"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="51%"
+                    android:text="0%"
                     android:textColor="#ff2994f1"
                     android:textSize="26sp"
                     />
                 <TextView
+                    android:id="@+id/tv_rent_count"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10000"
+                    android:text="0"
                     android:textColor="#ffa8a8a8"
                     android:textSize="14sp"
                     />
@@ -174,11 +182,12 @@
                 android:textColor="#ff333333"
                 android:textSize="14sp"/>
             <TextView
+                android:id="@+id/tv_active_count"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="984698"
+                android:text="0"
                 android:textColor="#ff333333"
                 android:textSize="12sp"
                 />

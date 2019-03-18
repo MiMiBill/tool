@@ -8,5 +8,6 @@ public interface TypeCodeCanstant {
     int TYPE_CABINET = 2;
     int TYPE_PLATE = 4;
     int TYPE_ADAPTER = 8;
+    int TYPE_BED = 32;
     int TYPE_BRACKET = 16;
 }

@@ -21,14 +21,14 @@ import com.hjq.permissions.XXPermissions;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivityOld;
-import com.zkys.operationtool.base.HttpResponseOld;
+import com.zkys.operationtool.base.BaseActivity;
+import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.DeviceParameterBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.canstant.TypeCodeCanstant;
 import com.zkys.operationtool.dialog.BottomDialog;
-import com.zkys.operationtool.presenter.ActivePlatePresenterOid;
+import com.zkys.operationtool.presenter.ActivePlatePresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -43,7 +43,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 激活平板
  */
-public class ActivePlateActivity extends BaseActivityOld<ActivePlatePresenterOid> implements BottomDialog.ItemSelectedInterface {
+public class ActivePlateActivity extends BaseActivity<ActivePlatePresenterOld> implements BottomDialog.ItemSelectedInterface {
 
     /**
      * 扫描跳转Activity RequestCode
@@ -130,8 +130,8 @@ public class ActivePlateActivity extends BaseActivityOld<ActivePlatePresenterOid
     }
 
     @Override
-    public ActivePlatePresenterOid initPresenter() {
-        return new ActivePlatePresenterOid(this);
+    public ActivePlatePresenterOld initPresenter() {
+        return new ActivePlatePresenterOld(this);
     }
 
     @Override
@@ -141,12 +141,12 @@ public class ActivePlateActivity extends BaseActivityOld<ActivePlatePresenterOid
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivityOld.DEFAULT_TITLE_VIEW;
+        return BaseActivity.DEFAULT_TITLE_VIEW;
     }
 
 
     @Override
-    public void setData(HttpResponseOld result) {
+    public void setData(HttpResponse result) {
         if (result.getData() != null) {
             if (result.getData() instanceof List) {
                 List list = (List) result.getData();
@@ -166,13 +166,15 @@ public class ActivePlateActivity extends BaseActivityOld<ActivePlatePresenterOid
                         }
                         initDialogDataAndShow(names, 2);// 2代表选择科室的数据
                     }
+                } else {
+                    ToastUtil.showShort("暂无数据");
                 }
             }
         } else if (result.getCode() == 200) {
             ToastUtil.showShort("激活成功");
             finish();
         } else {
-            ToastUtil.showShort(result.getInfo());
+            ToastUtil.showShort(result.getMsg());
         }
     }
 
@@ -297,7 +299,7 @@ public class ActivePlateActivity extends BaseActivityOld<ActivePlatePresenterOid
         list.add(new DeviceParameterBean(deviceCode, plateBarCode, TypeCodeCanstant.TYPE_PLATE));
         list.add(new DeviceParameterBean(simBarCode, "", TypeCodeCanstant.TYPE_SIM_KAR));
         list.add(new DeviceParameterBean(cabinetBarCode, "", TypeCodeCanstant.TYPE_CABINET));
-        list.add(new DeviceParameterBean(adapterBarCode, "", TypeCodeCanstant.TYPE_ADAPTER));
+        list.add(new DeviceParameterBean(adapterBarCode, "", TypeCodeCanstant.TYPE_BED));
         list.add(new DeviceParameterBean(bracketBarCode, "", TypeCodeCanstant.TYPE_BRACKET));
 
         presenter.activate(bedNumber,cid, list, hid, run);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zkys.operationtool">
+    package="com.zkys.operationtool"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -10,6 +11,30 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <uses-permission android:name="com.zkys.operationtool.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在 6.0 系统上的层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 允许程序录制音频 -->
+
+
+    <!-- 可选-->
+    <uses-permission android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" /> <!-- 获取logcat日志 -->
 
     <application
         android:name=".application.MyApplication"
@@ -25,7 +50,6 @@
             android:name=".ui.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,6 +60,20 @@
         <meta-data
             android:name="design_height"
             android:value="1280" />
+
+        <!-- Jar 包集成的方式 必填 -->
+        <provider
+            android:name="com.pgyersdk.PgyerProvider"
+            android:authorities="com.zkys.operationtool.com.pgyer.provider"
+            android:exported="false"/>
+
+        <!-- 可选-->
+        <activity android:name="com.pgyersdk.feedback.FeedbackActivity"/>
+        <!-- 必选-->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="b10c2a9401dd4ca5a662bfa21c1b7b23" >
+        </meta-data>
 
         <activity
             android:name=".ui.activity.BedsListActivity"
@@ -86,7 +124,7 @@
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|screenSize|orientation" />-->
         <activity
-            android:name=".ui.activity.PlateListActivity"
+            android:name=".ui.activity.PlateCoreListActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
@@ -138,9 +176,44 @@
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|screenSize|orientation" />
 
+        <activity android:name=".ui.activity.WebViewActivity" android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.activity.TeamAuditActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
+            android:name=".ui.activity.AuditDetailActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|orientation"/>
+
+        <receiver android:name=".receiver.MyReceiver" android:exported="false" android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
+                <!--Required 用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+                <!--Required 用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+                <!--Required 用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+                <!--Required 用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.zkys.operationtool"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- User defined. For test only 用户自定义接收消息器,3.0.7开始支持,
+        目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调-->
+        <receiver android:name=".receiver.MyJPushMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE"/>
+                <category android:name="com.zkys.operationtool"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

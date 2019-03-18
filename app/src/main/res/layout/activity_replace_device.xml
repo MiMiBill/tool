@@ -107,7 +107,6 @@
 
 
                     <ImageView
-                        android:visibility="gone"
                         android:id="@+id/iv_scan_cabinet_code"
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"

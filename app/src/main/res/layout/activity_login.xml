@@ -12,7 +12,7 @@
         android:layout_marginTop="64dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
-        android:src="@mipmap/icon_logo"
+        android:src="@mipmap/icon_logo2"
         android:layout_width="93dp"
         android:layout_height="93dp" />
 

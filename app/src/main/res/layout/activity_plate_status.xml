@@ -73,6 +73,7 @@
         </RelativeLayout>
 
         <android.support.v4.widget.NestedScrollView
+            android:visibility="gone"
             android:id="@+id/sv_content"
             android:fillViewport="true"
             android:layout_width="match_parent"
@@ -85,18 +86,17 @@
                 <include layout="@layout/item_device_status"/>
                 <include layout="@layout/item_device_status"/>
                 <include layout="@layout/item_device_status"/>
-                <include layout="@layout/item_device_status"/>
-                <include layout="@layout/item_device_status"/>
-                <include layout="@layout/item_device_status"/>
-                <include layout="@layout/item_device_status"/>
-                <include layout="@layout/item_device_status"/>
             </LinearLayout>
-
 
 
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
-
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginBottom="16dp"
+        android:id="@+id/rcv_list"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

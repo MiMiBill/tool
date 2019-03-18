@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pgyersdk.update.PgyUpdateManager;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.zkys.operationtool.BuildConfig;
@@ -20,9 +21,8 @@ import com.zkys.operationtool.application.MyApplication;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.EventBusBean;
-import com.zkys.operationtool.bean.LoginResult;
 import com.zkys.operationtool.bean.UserInfoBean;
-import com.zkys.operationtool.presenter.LoginPresenterOil;
+import com.zkys.operationtool.presenter.LoginPresenterOld;
 import com.zkys.operationtool.util.DialogHelper;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -42,7 +42,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 登陆界面
  */
-public class LoginActivity extends BaseActivity<LoginPresenterOil> {
+public class LoginActivity extends BaseActivity<LoginPresenterOld> {
 
 
     @BindView(R.id.et_account)
@@ -62,14 +62,20 @@ public class LoginActivity extends BaseActivity<LoginPresenterOil> {
             finish();
             return;
         }
+        /** 新版本 **/
+        new PgyUpdateManager.Builder()
+                .setForced(false)                //设置是否强制更新
+                .setUserCanRetry(false)         //失败后是否提示重新下载
+                .setDeleteHistroyApk(true)     // 检查更新前是否删除本地历史 Apk
+                .register();
         EventBus.getDefault().register(this);
         etAccount.addTextChangedListener(new MyTextWatcher());
         etPassword.addTextChangedListener(new MyTextWatcher());
     }
 
     @Override
-    public LoginPresenterOil initPresenter() {
-        return new LoginPresenterOil(this);
+    public LoginPresenterOld initPresenter() {
+        return new LoginPresenterOld(this);
     }
 
     @Override
@@ -123,7 +129,7 @@ public class LoginActivity extends BaseActivity<LoginPresenterOil> {
                 startActivity(new Intent(this, HomeActivity.class));
                 finish();
             } else if (result.getCode() == 406) {
-                startActivity(new Intent(this, BinderAccountActivity.class).putExtra("LoginResult", (LoginResult) result.getData()));
+                startActivity(new Intent(this, BinderAccountActivity.class).putExtra("LoginResult", (UserInfoBean) result.getData()));
             } else {
                 ToastUtil.showShort(result.getMsg());
             }
@@ -188,5 +194,6 @@ public class LoginActivity extends BaseActivity<LoginPresenterOil> {
             ivDelete.setVisibility(account.length() > 0 ? View.VISIBLE : View.INVISIBLE);
         }
     }
+
 
 }

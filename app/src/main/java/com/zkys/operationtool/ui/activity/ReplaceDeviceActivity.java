@@ -18,15 +18,16 @@ import com.hjq.permissions.XXPermissions;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
+import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.BaseActivityOld;
-import com.zkys.operationtool.base.HttpResponseOld;
+import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.BedBean;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.DeviceBinderInfo;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.canstant.TypeCodeCanstant;
 import com.zkys.operationtool.dialog.BottomDialog;
-import com.zkys.operationtool.presenter.ReplaceDevicePresenterOid;
+import com.zkys.operationtool.presenter.ReplaceDevicePresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -41,7 +42,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 更换设备
  */
-public class ReplaceDeviceActivity extends BaseActivityOld<ReplaceDevicePresenterOid> implements BottomDialog.ItemSelectedInterface {
+public class ReplaceDeviceActivity extends BaseActivity<ReplaceDevicePresenterOld> implements BottomDialog.ItemSelectedInterface {
 
     @BindView(R.id.tv_selected_hospital)
     TextView tvSelectedHospital;
@@ -87,8 +88,8 @@ public class ReplaceDeviceActivity extends BaseActivityOld<ReplaceDevicePresente
 
 
     @Override
-    public ReplaceDevicePresenterOid initPresenter() {
-        return new ReplaceDevicePresenterOid(this);
+    public ReplaceDevicePresenterOld initPresenter() {
+        return new ReplaceDevicePresenterOld(this);
     }
 
     @Override
@@ -189,7 +190,7 @@ public class ReplaceDeviceActivity extends BaseActivityOld<ReplaceDevicePresente
     }
 
     @Override
-    public void setData(HttpResponseOld result) {
+    public void setData(HttpResponse result) {
         if (result.getData() != null) {
             if (result.getData() instanceof List) {
                 List list = (List) result.getData();
@@ -212,10 +213,12 @@ public class ReplaceDeviceActivity extends BaseActivityOld<ReplaceDevicePresente
                         bedBeanList = (List<BedBean>) result.getData();
                         List<String> names = new ArrayList<>();
                         for (BedBean bedBean : bedBeanList) {
-                            names.add(bedBean.getBedNumber());
+                            names.add(bedBean.getNumber());
                         }
                         initDialogDataAndShow(names, 3);// 3代表选择床位的数据
                     }
+                } else {
+                    ToastUtil.showShort("暂无数据");
                 }
             } else if (result.getData() instanceof DeviceBinderInfo) {
                 DeviceBinderInfo binderInfo = (DeviceBinderInfo) result.getData();
@@ -227,7 +230,7 @@ public class ReplaceDeviceActivity extends BaseActivityOld<ReplaceDevicePresente
                 tvSelectedBed.setText(binderInfo.getBedNumber());
             }
         } else {
-            ToastUtil.showShort(result.getInfo());
+            ToastUtil.showShort(result.getMsg());
         }
     }
 
@@ -253,7 +256,7 @@ public class ReplaceDeviceActivity extends BaseActivityOld<ReplaceDevicePresente
             bedNumber = "";
         } else if (type == 3 && bedNames.size() > 0) {
             bid = bedBeanList.get(position).getId();
-            bedNumber = bedBeanList.get(position).getBedNumber();
+            bedNumber = bedBeanList.get(position).getNumber();
             tvSelectedBed.setText(bedNames.get(position));
         }
     }

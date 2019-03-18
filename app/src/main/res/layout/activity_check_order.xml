@@ -108,14 +108,15 @@
                                 android:textColor="#ffffffff"
                                 android:textSize="12sp"
                                 />
+
                             <TextView
-                                android:layout_gravity="center_horizontal"
+                                android:id="@+id/tv_order_total"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1204220"
+                                android:layout_gravity="center_horizontal"
+                                android:text="0"
                                 android:textColor="#ffffffff"
-                                android:textSize="26sp"
-                                />
+                                android:textSize="26sp" />
                         </LinearLayout>
                         <View
                             android:background="#CBE6FC"
@@ -140,13 +141,13 @@
                                 />
 
                             <TextView
-                                android:layout_gravity="center_horizontal"
+                                android:id="@+id/tv_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="88972.3"
+                                android:layout_gravity="center_horizontal"
+                                android:text="0.00"
                                 android:textColor="#ffffffff"
-                                android:textSize="26sp"
-                                />
+                                android:textSize="26sp" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -214,7 +215,7 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_gravity="center_vertical"
                                 android:text=""
-                                android:hint="选择开始时间"
+                                android:hint="选择结束时间"
                                 android:textColor="#ff333333"
                                 android:textColorHint="#ff333333"
                                 android:textSize="16sp"
@@ -223,6 +224,7 @@
                                 android:layout_height="wrap_content" />
 
                             <ImageView
+
                                 android:layout_gravity="center_vertical"
                                 android:scaleType="centerCrop"
                                 android:src="@mipmap/icon_chevron"
@@ -230,6 +232,7 @@
                                 android:layout_marginRight="16dp"
                                 android:layout_width="8dp"
                                 android:layout_height="13dp" />
+
 
                         </LinearLayout>
                         <View
@@ -241,6 +244,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_select_hospital"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
                     <LinearLayout
@@ -251,6 +255,7 @@
                         android:layout_height="48dp">
 
                         <TextView
+                            android:id="@+id/tv_selected_hospital"
                             android:layout_gravity="center_vertical"
                             android:text=""
                             android:hint="请选择医院"
@@ -279,6 +284,7 @@
                         android:layout_height="1px"/>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rl_select_core"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
                     <LinearLayout
@@ -289,9 +295,10 @@
                         android:layout_height="48dp">
 
                         <TextView
+                            android:id="@+id/tv_selected_core"
                             android:layout_gravity="center_vertical"
                             android:text=""
-                            android:hint="请选择医院"
+                            android:hint="请选择科室"
                             android:textColorHint="#ff333333"
                             android:textColor="#ff333333"
                             android:textSize="16sp"
@@ -333,6 +340,10 @@
                     app:tl_textSelectColor="@color/colorAccent"
                     app:tl_indicator_color="@color/colorAccent"
                     app:tl_textsize="17sp"/>
+                <View
+                    android:background="#EEEEEE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
                 <LinearLayout
                     android:visibility="gone"
                     android:layout_marginTop="14dp"
@@ -437,7 +448,7 @@
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="15dp"
                         android:layout_width="match_parent"
-                        android:layout_height="220dp"/>
+                        android:layout_height="250dp"/>
                 </LinearLayout>
 
 

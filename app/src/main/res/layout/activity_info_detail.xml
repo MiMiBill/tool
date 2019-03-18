@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:focusable="true"
     android:background="#F5F5F5"
     android:focusableInTouchMode="true"
@@ -110,11 +111,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_plate_did"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -134,11 +136,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_bid"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -158,11 +161,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_iccid"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -182,11 +186,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_cabinet_did"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -206,11 +211,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_sid"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -230,11 +236,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_zid"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -272,11 +279,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_plate_last_heart_time"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -296,11 +304,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_cabinet_last_heart_time"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -320,11 +329,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_plate_current_signal_value"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -344,11 +354,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_cabinet_current_signal_value"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="798878998"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -368,11 +379,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_lock_state"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="正常"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -392,11 +404,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_plate_state"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="在线"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -417,11 +430,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_cabinet_state"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="在线"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -458,11 +472,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_order_create_time"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2018.01.02 18:30:30"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -482,11 +497,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_order_expire_time"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2018.01.02 18:30:30"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -507,11 +523,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_order_money"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥88"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -548,11 +565,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_active_time"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2018.01.02 18:30:30"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -574,11 +592,12 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_active_person"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="滴滴"
+                        android:text=""
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />

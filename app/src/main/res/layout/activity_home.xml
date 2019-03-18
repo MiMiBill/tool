@@ -22,12 +22,14 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/iv_question_answer"
                     android:layout_marginRight="18dp"
                     android:src="@mipmap/icon_home_doubt"
                     android:scaleType="centerCrop"
                     android:layout_width="22dp"
                     android:layout_height="22dp" />
                 <ImageView
+                    android:visibility="gone"
                     android:layout_marginRight="18dp"
                     android:src="@mipmap/icon_home_news"
                     android:scaleType="centerCrop"
@@ -51,7 +53,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:src="@mipmap/ic_launcher_round"
+                android:src="@mipmap/icon_header_default"
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <LinearLayout
@@ -83,11 +85,12 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_binder_desc"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="已绑定设备n台"
+                        android:text="已绑定设备0台"
                         android:textColor="#ffa8a8a8"
                         android:textSize="14sp"
                         />
@@ -143,11 +146,12 @@
 
             <ImageView
                 android:id="@+id/iv_plate_status"
-                android:src="@mipmap/icon_home_flat_state"
-                android:scaleType="centerCrop"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="139dp" />
+                android:layout_height="139dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_home_flat_state"
+                android:visibility="visible" />
             <ImageView
                 android:id="@+id/iv_volume_control"
                 android:src="@mipmap/icon_home_volume_control"
@@ -165,16 +169,27 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="139dp" />
+
             <ImageView
                 android:id="@+id/iv_binder_bar_code"
-                android:src="@mipmap/icon_home_bar_code"
-                android:scaleType="centerCrop"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="139dp" />
+                android:layout_height="139dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_home_bar_code"
+                android:visibility="gone" />
+            <ImageView
+                android:id="@+id/iv_team_audit"
+                android:layout_width="0dp"
+                android:layout_height="139dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_home_team_audit"
+                android:visibility="visible" />
 
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginTop="4dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -182,11 +197,12 @@
 
             <ImageView
                 android:id="@+id/iv_alert_info"
-                android:src="@mipmap/icon_home_alert"
-                android:scaleType="centerCrop"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="139dp" />
+                android:layout_height="139dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_home_alert"
+                android:visibility="invisible" />
             <ImageView
                 android:visibility="invisible"
                 android:id="@+id/iv_inspection_feedback"
@@ -210,12 +226,13 @@
 
 
         <TextView
+            android:id="@+id/tv_version_name"
             android:layout_marginBottom="14dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="43dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="版本：1.0.0.0"
+            android:text="版本：1.0.0"
             android:textColor="#ff333333"
             android:textSize="14sp"/>
 
