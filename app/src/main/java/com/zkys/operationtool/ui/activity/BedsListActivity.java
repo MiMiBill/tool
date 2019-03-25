@@ -11,6 +11,7 @@ import com.zkys.operationtool.adapter.BedStatusListAdapter;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.BedOrderStateBean;
+import com.zkys.operationtool.dialog.UpdateBedNumberDialog;
 import com.zkys.operationtool.presenter.PlateStatusPresenter;
 import com.zkys.operationtool.util.ToastUtil;
 
@@ -38,11 +39,15 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
         hid = getIntent().getStringExtra("hid");
         cid = getIntent().getStringExtra("cid");
         deptName = getIntent().getStringExtra("DeptName");
+        getPadOrderStatusData();
+        setTvTitleText(deptName);
+    }
+
+    private void getPadOrderStatusData() {
         Map<String, Object> map = new HashMap<>();
         map.put("hospitalId", hid);
         map.put("deptId", cid);
         presenter.getPadOrderStatusData(map);
-        setTvTitleText(deptName);
     }
 
     @Override
@@ -71,6 +76,9 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
                 } else {
                     ToastUtil.showShort("暂无数据");
                 }
+            } else if (result.getCode() == 200) {
+                ToastUtil.showShort("修改成功");
+                getPadOrderStatusData();
             } else {
                 ToastUtil.showShort(result.getMsg());
             }
@@ -81,19 +89,9 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
 
     private void initData() {
         BedStatusListAdapter adapter = new BedStatusListAdapter(orderStateBeans);
-
-        /*adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(BedsListActivity.this, InfoDetailActivity.class)
-                        .putExtra("cid", orderStateBeans.get(position).getDeptId())
-                        .putExtra("hid", orderStateBeans.get(position).getHospitalId())
-                        .putExtra("bedNumber", orderStateBeans.get(position).getBedNumber()));
-            }
-        });*/
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 switch (view.getId()) {
                     case R.id.ll_item_normal:
                     case R.id.ll_item_exception:
@@ -104,9 +102,21 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
                         break;
                     case R.id.tv_normal_right_update:
                     case R.id.tv_exception_right_update:
-                        ToastUtil.showShort(orderStateBeans.get(position).getBedNumber());
-//                        Map<String, Object> map = new HashMap<>();
-//                        presenter.updateBedNumber(null);
+
+                        final UpdateBedNumberDialog dialog = new UpdateBedNumberDialog();
+                        dialog.setTvCurrentNumber(orderStateBeans.get(position).getBedNumber());
+                        dialog.show(getSupportFragmentManager(), "UpdateBedNumberDialog");
+                        dialog.setOnClickUpdateListener(new UpdateBedNumberDialog.OnClickUpdateListener() {
+                            @Override
+                            public void onClickUpdate(String number) {
+                               Map<String, Object> map = new HashMap<>();
+                                map.put("id", orderStateBeans.get(position).getId());
+                                map.put("bedNumber", number);
+                                map.put("randomNumber", orderStateBeans.get(position).getRandomNumber());
+                               presenter.updateBedNumber(map);
+                                dialog.dismiss();
+                            }
+                        });
                         break;
                 }
             }

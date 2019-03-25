@@ -226,17 +226,17 @@
         </LinearLayout>
 
         <TextView
-            android:visibility="visible"
             android:id="@+id/tv_get_plate_pwd"
-            android:layout_marginTop="10dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_green_stroke_bg"
             android:gravity="center"
+            android:text="获取平板密码"
             android:textColor="#17B881"
             android:textSize="18sp"
-            android:background="@drawable/btn_green_stroke_bg"
-            android:text="获取平板密码"
-            android:layout_width="250dp"
-            android:layout_height="50dp" />
+            android:visibility="gone" />
 
 
         <TextView

@@ -172,11 +172,20 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenterOld> i
             }
         } else if (result.getCode() == 200) {
             ToastUtil.showShort("激活成功");
-            finish();
+//            finish();
+            etBedNumber.setText("");
+            rgSelect.check(R.id.rb_yes);
+            tvDeviceCode.setText("");
+            tvPlateBarCode.setText("");
+            tvSimBarCode.setText("");
+            tvCabinetBarCode.setText("");
+            tvAdapterBarCode.setText("");
+            tvBracketBarCode.setText("");
         } else {
             ToastUtil.showShort(result.getMsg());
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
