@@ -73,6 +73,7 @@ public class BottomDialog extends DialogFragment implements View.OnClickListener
 
     @Override
     public void onStart() {
+
         super.onStart();
         //弹出对话框
         Dialog dialog = getDialog();//获取Dialog
