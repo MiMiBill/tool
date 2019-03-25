@@ -99,7 +99,7 @@
                         app:drawableHeight="17dp"
                         android:textStyle="bold"
                         android:textSize="16sp"
-                        android:text="选择新的适配器"
+                        android:text="选择新的陪护床"
                         android:textColor="#ff333333"
                         android:background="@android:color/white"
                         android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
                             android:layout_height="24dp"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:hint="适配器条形码"
+                            android:hint="陪护床条形码"
                             android:textColorHint="#CCCCCC" />
 
                         <ImageView

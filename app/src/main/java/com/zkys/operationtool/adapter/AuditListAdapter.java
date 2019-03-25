@@ -17,7 +17,7 @@ public class AuditListAdapter extends BaseQuickAdapter<AuditItemBean, BaseViewHo
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AuditItemBean item) {
+    protected void convert(final BaseViewHolder helper, AuditItemBean item) {
         int isAuthenticate = item.getIsAuthenticate();
         if (isAuthenticate == 2) {// (认证状态，0：未认证；1：认证通过；2：认证中)
             helper.setText(R.id.tv_state,  "审核中");
@@ -26,5 +26,7 @@ public class AuditListAdapter extends BaseQuickAdapter<AuditItemBean, BaseViewHo
         helper.setText(R.id.tv_team_name, item.getName());
         helper.setText(R.id.tv_hospital, item.getHospitalName());
         helper.setText(R.id.tv_core, item.getDeptName());
+
     }
+
 }

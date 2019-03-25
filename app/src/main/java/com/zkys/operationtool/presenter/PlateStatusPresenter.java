@@ -145,4 +145,38 @@ public class PlateStatusPresenter extends BasePresenterImpl<BaseView> {
                 });
     }
 
+    /**
+     * 修改床位号
+     * @param map
+     */
+    public void updateBedNumber(Map<String, Object> map) {
+        HttpUtils.getRetrofit().updateBedNumber(map)
+                .compose(((RxAppCompatActivity)view).<HttpResponse<Object>>bindToLifecycle())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        view.showLoadingDialog("正在提交...");
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        view.dismissLoadingDialog();
+                    }
+                })
+                .subscribe(new HttpResultObserver<Object>() {
+                    @Override
+                    public void onSuccess(HttpResponse<Object> result) {
+                        view.setData(result);
+                    }
+
+                    @Override
+                    public void _onError(Throwable e) {
+
+                    }
+                });
+    }
+
 }

@@ -383,7 +383,7 @@
                             app:drawableWidth="28dp"
                             app:drawableHeight="28dp"
                             android:textStyle="bold"
-                            android:text="更换适配器"
+                            android:text="更换陪护床"
                             android:textColor="#ff333333"
                             android:background="@android:color/white"
                             android:layout_width="wrap_content"

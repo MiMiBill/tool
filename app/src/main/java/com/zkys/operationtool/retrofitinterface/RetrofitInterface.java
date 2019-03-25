@@ -133,5 +133,9 @@ public interface RetrofitInterface {
     @GET("padStatus/deviceDetailInfo")
     Observable<HttpResponse<DeviceInfoBean>> getDeviceDetailInfo(@QueryMap Map<String, Object> map);
 
+    // 修改床位号
+    @POST("/deviceBinding/update")
+    @FormUrlEncoded
+    Observable<HttpResponse<Object>> updateBedNumber(@FieldMap Map<String, Object> map);
 
 }

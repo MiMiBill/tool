@@ -123,7 +123,7 @@ public class ReplaceDeviceActivity extends BaseActivity<ReplaceDevicePresenterOl
                 startToActivity(intent.setClass(this, ReplaceSIMActivity.class).putExtra("type", TypeCodeCanstant.TYPE_SIM_KAR));
                 break;
             case R.id.rl_replace_adapter:
-                startToActivity(intent.setClass(this, ReplaceAdapterActivity.class).putExtra("type", TypeCodeCanstant.TYPE_ADAPTER));
+                startToActivity(intent.setClass(this, ReplaceAdapterActivity.class).putExtra("type", TypeCodeCanstant.TYPE_BED));
                 break;
             case R.id.rl_replace_bracket:
                 startToActivity(intent.setClass(this, ReplaceBracketActivity.class).putExtra("type", TypeCodeCanstant.TYPE_BRACKET));

@@ -6,14 +6,17 @@ import com.zkys.operationtool.util.DateUtil;
 public class BedOrderStateBean implements MultiItemEntity {
 
 
+
     /**
-     * heartStatus : 1
-     * hospitalId : 4
-     * createTime : 1551861049000
-     * deptId : 1
-     * bedNumber : 555
-     * heartStatusName : 正常
-     * deviceStatus : 正常
+     "heartStatus": "2",
+     "hospitalId": "4",
+     "createTime": 1553311222000,
+     "deptId": "2",
+     "randomNumber": "1552706199735",
+     "id": 58,
+     "bedNumber": "03",
+     "heartStatusName": "异常",
+     "deviceStatus": "占用"
      */
 
     private String heartStatus;
@@ -23,6 +26,9 @@ public class BedOrderStateBean implements MultiItemEntity {
     private String bedNumber;
     private String heartStatusName;
     private String deviceStatus;
+    private String randomNumber;
+    private int id;
+
 
     public String getHeartStatus() {
         return heartStatus;
@@ -86,5 +92,21 @@ public class BedOrderStateBean implements MultiItemEntity {
     @Override
     public int getItemType() {
         return Integer.parseInt(getHeartStatus());
+    }
+
+    public String getRandomNumber() {
+        return randomNumber;
+    }
+
+    public void setRandomNumber(String randomNumber) {
+        this.randomNumber = randomNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

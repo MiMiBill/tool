@@ -23,6 +23,8 @@ public class BedStatusListAdapter extends BaseMultiItemQuickAdapter<BedOrderStat
         addItemType(2, R.layout.item_beds_exception_order);
     }
 
+
+
     @Override
     protected void convert(BaseViewHolder helper, BedOrderStateBean item) {
         if (helper.getItemViewType() == 1) {
@@ -36,6 +38,8 @@ public class BedStatusListAdapter extends BaseMultiItemQuickAdapter<BedOrderStat
             helper.setText(R.id.tv_exception_heart_time, item.getCreateTimeFormat());
             helper.setText(R.id.tv_exception_device_status, item.getDeviceStatus());
         }
+        helper.addOnClickListener(R.id.ll_item_normal, R.id.ll_item_exception, R.id.tv_normal_right_update,R.id.tv_exception_right_update);
     }
+
 }
 

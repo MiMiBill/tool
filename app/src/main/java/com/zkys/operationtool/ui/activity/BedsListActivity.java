@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 某科室的平板状态列表
@@ -62,16 +61,6 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
     }
 
 
-    @OnClick({R.id.ll_item_normal, R.id.ll_item_exception})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_item_normal:
-            case R.id.ll_item_exception:
-                startActivity(new Intent(this, InfoDetailActivity.class));
-                break;
-        }
-    }
-
     @Override
     public void setData(HttpResponse result) {
         if (result != null && result.getCode() == 200) {
@@ -92,8 +81,8 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
 
     private void initData() {
         BedStatusListAdapter adapter = new BedStatusListAdapter(orderStateBeans);
-        rcvList.setAdapter(adapter);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+
+        /*adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 startActivity(new Intent(BedsListActivity.this, InfoDetailActivity.class)
@@ -101,7 +90,29 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
                         .putExtra("hid", orderStateBeans.get(position).getHospitalId())
                         .putExtra("bedNumber", orderStateBeans.get(position).getBedNumber()));
             }
+        });*/
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.ll_item_normal:
+                    case R.id.ll_item_exception:
+                        startActivity(new Intent(BedsListActivity.this, InfoDetailActivity.class)
+                                .putExtra("cid", orderStateBeans.get(position).getDeptId())
+                                .putExtra("hid", orderStateBeans.get(position).getHospitalId())
+                                .putExtra("bedNumber", orderStateBeans.get(position).getBedNumber()));
+                        break;
+                    case R.id.tv_normal_right_update:
+                    case R.id.tv_exception_right_update:
+                        ToastUtil.showShort(orderStateBeans.get(position).getBedNumber());
+//                        Map<String, Object> map = new HashMap<>();
+//                        presenter.updateBedNumber(null);
+                        break;
+                }
+            }
         });
+
+        rcvList.setAdapter(adapter);
     }
 
 

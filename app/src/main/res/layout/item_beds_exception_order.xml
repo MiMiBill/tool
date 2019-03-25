@@ -1,167 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F5F5F5"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/ll_item_exception"
+    <com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
+        android:id="@+id/exception_easy_swipeMenu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentView="@+id/ll_item_exception"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="14dp"
         android:layout_marginRight="16dp"
-        android:orientation="vertical"
-        android:background="@drawable/btn_pale_pink_solid_bg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-<!--Pale pink
--->
-        <RelativeLayout
-            android:background="@drawable/btn_pink_solid_bg2"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
-            <TextView
-                android:id="@+id/tv_exception_bed_number"
-                android:layout_marginLeft="14dp"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="床位号：01"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"/>
-            <TextView
-                android:id="@+id/tv_exception_heart_status"
-                android:layout_marginRight="17dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="异常"
-                android:textColor="#ffffffff"
-                android:textSize="16sp"
-                />
-
-            <View
-                android:layout_marginLeft="9dp"
-                android:layout_marginRight="8dp"
-                android:layout_alignParentBottom="true"
-                android:background="#DEDEDE"
-                android:layout_width="match_parent"
-                android:layout_height="1px"/>
-        </RelativeLayout>
+        app:rightMenuView="@+id/tv_exception_right_update">
         <LinearLayout
+            android:id="@+id/ll_item_exception"
             android:orientation="vertical"
+            android:background="@drawable/btn_pale_pink_solid_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <!--Pale pink
+            -->
             <RelativeLayout
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal"
+                android:background="@drawable/btn_pink_solid_bg2"
                 android:layout_width="match_parent"
-                android:layout_height="39dp">
-
+                android:layout_height="48dp">
                 <TextView
+                    android:id="@+id/tv_exception_bed_number"
+                    android:layout_marginLeft="14dp"
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="最后使用时间:"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp"/>
+                    android:textStyle="bold"
+                    android:text="床位号：01"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"/>
                 <TextView
-                    android:id="@+id/tv_exception_usage_time"
+                    android:id="@+id/tv_exception_heart_status"
+                    android:layout_marginRight="17dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2018-01-02 18:30:30"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp"
+                    android:text="异常"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp"
                     />
 
+                <View
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#DEDEDE"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
             </RelativeLayout>
-            <RelativeLayout
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="39dp">
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp">
 
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="最后心跳时间:"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/tv_exception_heart_time"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2018-01-02 18:30:30"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp"
-                    />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="最后使用时间:"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:id="@+id/tv_exception_usage_time"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2018-01-02 18:30:30"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"
+                        />
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="39dp">
+                </RelativeLayout>
+                <RelativeLayout
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp">
 
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="设备状态:"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/tv_exception_device_status"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="#ff333333"
-                    android:textSize="14sp"
-                    />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="最后心跳时间:"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:id="@+id/tv_exception_heart_time"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2018-01-02 18:30:30"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"
+                        />
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:visibility="gone"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="39dp">
+                </RelativeLayout>
+                <RelativeLayout
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp">
 
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="订单到期时间:"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2018-01-02 18:30:30"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp"
-                    />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="设备状态:"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:id="@+id/tv_exception_device_status"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"
+                        />
 
-            </RelativeLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="订单到期时间:"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2018-01-02 18:30:30"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:text="修改床位号"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:background="@drawable/btn_blue_solid_bg"
+            android:id="@+id/tv_exception_right_update"
+            android:layout_width="200dp"
+            android:layout_height="match_parent" />
+    </com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>
 
 
 
-
-    </LinearLayout>
 
 </FrameLayout>

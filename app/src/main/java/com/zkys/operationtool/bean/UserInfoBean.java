@@ -10,6 +10,7 @@ public class UserInfoBean implements Parcelable {
 
     /**
      * roleId : 68
+     * roleName : "部门"
      * mobile : 18211111111
      * pageSize : 20
      * active : "prod"
@@ -32,6 +33,7 @@ public class UserInfoBean implements Parcelable {
      */
 
     private int roleId;
+    private String roleName = "";
     private String mobile;
     private int pageSize;
     private String admin;
@@ -93,6 +95,7 @@ public class UserInfoBean implements Parcelable {
         active = in.readString();
         openId = in.readString();
         deviceActiveCount = in.readInt();
+        roleName = in.readString();
     }
 
     public static final Creator<UserInfoBean> CREATOR = new Creator<UserInfoBean>() {
@@ -247,6 +250,14 @@ public class UserInfoBean implements Parcelable {
         return active;
     }
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     public void setActive(String active) {
         this.active = active;
     }
@@ -278,5 +289,7 @@ public class UserInfoBean implements Parcelable {
         dest.writeString(active);
         dest.writeString(openId);
         dest.writeInt(deviceActiveCount);
+        dest.writeString(roleName);
+
     }
 }

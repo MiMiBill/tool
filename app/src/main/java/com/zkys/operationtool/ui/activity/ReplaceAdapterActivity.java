@@ -52,7 +52,7 @@ public class ReplaceAdapterActivity extends BaseActivity<ReplaceDevicePresenterO
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTvTitleText("更换适配器");
+        setTvTitleText("更换陪护床");
         Intent intent = getIntent();
         if (intent != null) {
             hid = intent.getIntExtra("hid", 0);

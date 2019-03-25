@@ -2,7 +2,7 @@ package com.zkys.operationtool.canstant;
 
 public interface TypeCodeCanstant {
     /**
-     * type --> 1：联通卡  2：二G锁  4：屏  8：适配器  16：支架
+     * type --> 1：联通卡  2：二G锁  4：屏  8：适配器  16：支架 32：陪护床
      */
     int TYPE_SIM_KAR = 1;
     int TYPE_CABINET = 2;
