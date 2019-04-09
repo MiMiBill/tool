@@ -9,6 +9,7 @@
 /build
 /captures
 .externalNativeBuild
+<<<<<<< HEAD
 # Built application files
 *.apk*.ap_
 *.aab
@@ -49,3 +50,6 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 
+=======
+.idea/
+>>>>>>> de0683a65d86dd0921b47c643edcab00e7c4545b
