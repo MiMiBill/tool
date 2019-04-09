@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:background="#F5F5F5"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@android:color/white"
+        android:id="@+id/ll_root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl_unlock"
+            android:paddingLeft="16dp"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:hint="开锁"
+                android:textColorHint="#ff333333"
+                android:text=""
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+            <View
+                android:layout_marginRight="16dp"
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_get_pad_pwd"
+            android:paddingLeft="16dp"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:hint="获取平板密码"
+                android:textColorHint="#ff333333"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+            <View
+                android:layout_marginRight="16dp"
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+</FrameLayout>
