@@ -107,14 +107,15 @@
 
 
                     <ImageView
+                        android:paddingLeft="10dp"
+                        android:paddingRight="16dp"
+                        android:scaleType="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/iv_scan_cabinet_code"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:scaleType="centerCrop"
                         android:src="@mipmap/icon_activation_scan"
-                        android:layout_marginRight="16dp"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp" />
+                        />
 
                 </RelativeLayout>
                 <RelativeLayout

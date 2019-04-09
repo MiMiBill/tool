@@ -91,6 +91,11 @@ public class ReplaceAdapterActivity extends BaseActivity<ReplaceDevicePresenterO
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
 
     @OnClick({R.id.iv_scan_adapter_code, R.id.tv_replace})
     public void onViewClicked(View view) {

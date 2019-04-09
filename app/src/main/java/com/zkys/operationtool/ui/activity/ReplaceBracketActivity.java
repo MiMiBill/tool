@@ -91,6 +91,11 @@ public class ReplaceBracketActivity extends BaseActivity<ReplaceDevicePresenterO
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
     @OnClick({R.id.iv_scan_bracket_code, R.id.tv_replace})
     public void onViewClicked(View view) {
         Intent scanCodeIntent = new Intent(this, CaptureActivity.class);

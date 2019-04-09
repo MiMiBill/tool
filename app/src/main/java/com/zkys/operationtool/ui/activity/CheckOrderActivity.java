@@ -223,6 +223,11 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
     @OnClick({R.id.rl_select_start_time, R.id.rl_select_end_time, R.id.rl_select_hospital, R.id.rl_select_core})
     public void onViewClicked(View view) {
         switch (view.getId()) {

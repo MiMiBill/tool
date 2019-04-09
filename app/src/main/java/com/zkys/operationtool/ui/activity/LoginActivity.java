@@ -22,6 +22,7 @@ import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.EventBusBean;
 import com.zkys.operationtool.bean.UserInfoBean;
+import com.zkys.operationtool.canstant.SharedConstant;
 import com.zkys.operationtool.presenter.LoginPresenterOld;
 import com.zkys.operationtool.util.DialogHelper;
 import com.zkys.operationtool.util.ToastUtil;
@@ -58,7 +59,12 @@ public class LoginActivity extends BaseActivity<LoginPresenterOld> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (MyApplication.getInstance().isLogin()) {
-            startActivity(new Intent(this, HomeActivity.class));
+            Intent intent = new Intent(this, HomeActivity.class);
+            if(getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE) != null){
+                intent.putExtra(SharedConstant.EXTRA_BUNDLE,
+                        getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE));
+            }
+            startActivity(intent);
             finish();
             return;
         }
@@ -72,6 +78,7 @@ public class LoginActivity extends BaseActivity<LoginPresenterOld> {
         etAccount.addTextChangedListener(new MyTextWatcher());
         etPassword.addTextChangedListener(new MyTextWatcher());
     }
+
 
     @Override
     public LoginPresenterOld initPresenter() {
@@ -146,6 +153,11 @@ public class LoginActivity extends BaseActivity<LoginPresenterOld> {
     @Override
     public void dismissLoadingDialog() {
         DialogHelper.getInstance().close();
+    }
+
+    @Override
+    public void onError_(Throwable e) {
+
     }
 
     @Override

@@ -74,6 +74,11 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenterOld> {
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
 
     @OnClick({R.id.iv_delete, R.id.tv_confirm})
     public void onViewClicked(View view) {

@@ -5,6 +5,7 @@ import com.zkys.operationtool.util.DateUtil;
 public class DeviceInfoBean {
 
     /**
+     * orderId : "3553242"
      * padStatus : 正常
      * orderMoney : 0.01
      * powerSid : 10086010
@@ -24,6 +25,8 @@ public class DeviceInfoBean {
      * "activeUser": "string"
      * "padLastHeart": "string"
      * "padSignal": "string"
+     * orderId : "123112"
+     * nickname : "xxx"
      */
 
 
@@ -46,6 +49,24 @@ public class DeviceInfoBean {
     private String activeUser = "";
     private String padLastHeart = "";
     private String padSignal = "";
+    private String nickname = "";
+    private String orderId = "";
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getActiveUser() {
         return activeUser;

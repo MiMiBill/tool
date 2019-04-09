@@ -101,6 +101,7 @@ public class ReplaceDevicePresenterOld extends BasePresenterImpl<BaseView> {
         Map<String, Integer> map = new HashMap<>();
         map.put("hospitalId", hid);
         map.put("deptId", cid);
+        map.put("isDel", 1);// isDel=1 写死
         HttpUtils.getRetrofit().getBedList(map)
                 .compose(((RxAppCompatActivity) view).<HttpResponse<List<BedBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())

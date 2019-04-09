@@ -17,8 +17,8 @@
         android:id="@+id/viewfinder_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:inner_width="190dp"
-        app:inner_height="190dp"
+        app:inner_width="230dp"
+        app:inner_height="230dp"
         app:inner_margintop="214dp"
         app:inner_corner_color="@color/colorAccent"
         app:inner_corner_length="13dp"
@@ -59,7 +59,7 @@
 
     <TextView
         android:layout_gravity="center"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="145dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="扫描设备二维码"

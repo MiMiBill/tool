@@ -213,6 +213,11 @@ public class WebViewActivity extends BaseActivity implements OpenFileChooserCall
     }
 
     @Override
+    public void onError_(Throwable e) {
+
+    }
+
+    @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }

@@ -24,6 +24,7 @@ import com.zkys.operationtool.application.MyApplication;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.baseImpl.BasePresenter;
+import com.zkys.operationtool.canstant.SharedConstant;
 import com.zkys.operationtool.ui.dialog.SimpleDialogFragment;
 import com.zkys.operationtool.util.ActivityManager;
 import com.zkys.operationtool.util.DateUtil;
@@ -76,7 +77,12 @@ public class HomeActivity extends BaseActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+
+        // 处理是否含有极光推送内容
+        startAction();
     }
+
+
 
     /**
      * 检测应用消息通知是否开启
@@ -126,7 +132,7 @@ public class HomeActivity extends BaseActivity {
     @OnClick({R.id.iv_active_plate, R.id.iv_replace_device, R.id.iv_check_order, R.id.iv_plate_status,
             R.id.iv_volume_control, R.id.iv_free_time, R.id.iv_binder_bar_code,
             R.id.iv_inspection_feedback, R.id.iv_info_commit, R.id.iv_login_out, R.id.iv_alert_info,
-            R.id.iv_question_answer, R.id.iv_team_audit, R.id.tv_get_plate_pwd})
+            R.id.iv_question_answer, R.id.iv_team_audit, R.id.tv_get_plate_pwd, R.id.iv_tool})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_active_plate:
@@ -186,6 +192,10 @@ public class HomeActivity extends BaseActivity {
             case R.id.tv_get_plate_pwd:// 获取
                 scanCode(R.id.tv_get_plate_pwd, new Intent(this, CaptureActivity.class), 1000);
                 break;
+
+            case R.id.iv_tool:// 获取
+                startActivity(new Intent(this, ToolsActivity.class));
+                break;
         }
     }
 
@@ -211,6 +221,7 @@ public class HomeActivity extends BaseActivity {
     public void setData(HttpResponse result) {
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -256,4 +267,21 @@ public class HomeActivity extends BaseActivity {
             }
         }
     }
+
+    /*@OnClick(R.id.iv_tool)
+    public void onViewClicked() {
+        scanCode(R.id.iv_tool, new Intent(this, CaptureActivity.class), 1000);
+    }*/
+
+    private void startAction() {
+        //如果启动app的Intent中带有额外的参数，表明app是从点击通知栏的动作中启动的
+        //将参数取出，传递到MainActivity中
+        if(getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE) != null){
+            Intent intent = new Intent(this, CheckOrderActivity.class);
+            intent.putExtra(SharedConstant.EXTRA_BUNDLE,
+                    getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE));
+            startActivity(intent);
+        }
+    }
+
 }

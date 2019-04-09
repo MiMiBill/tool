@@ -5,6 +5,7 @@ import com.zkys.operationtool.util.ToastUtil;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -42,12 +43,12 @@ public abstract class HttpResultObserver<T> implements Observer<HttpResponse<T>>
         /*if (!UIUtils.isNetWorkConnected()) {
 
         }*/
-
+        _onError(e);
         if (e instanceof SocketTimeoutException) {
             //判断超时异常
             ToastUtil.showShort("访问数据超时");
         }
-        if (e instanceof ConnectException) {
+        if (e instanceof ConnectException || e instanceof UnknownHostException) {
             ////判断连接异常，
             ToastUtil.showShort("网络连接异常");
         }
@@ -62,7 +63,7 @@ public abstract class HttpResultObserver<T> implements Observer<HttpResponse<T>>
             }
         }
         System.out.println(e.getMessage());
-        _onError(e);
+
         /*
         * if (e instanceof SocketTimeoutException) {//请求超时
             } else if (e instanceof ConnectException) {//网络连接超时

@@ -28,13 +28,14 @@ import com.zkys.operationtool.bean.DeviceParameterBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.canstant.TypeCodeCanstant;
 import com.zkys.operationtool.dialog.BottomDialog;
-import com.zkys.operationtool.presenter.ActivePlatePresenterOld;
+import com.zkys.operationtool.presenter.ActivePlatePresenter;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
 import com.zkys.operationtool.widget.AfterTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -43,7 +44,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 激活平板
  */
-public class ActivePlateActivity extends BaseActivity<ActivePlatePresenterOld> implements BottomDialog.ItemSelectedInterface {
+public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> implements BottomDialog.ItemSelectedInterface {
 
     /**
      * 扫描跳转Activity RequestCode
@@ -130,8 +131,8 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenterOld> i
     }
 
     @Override
-    public ActivePlatePresenterOld initPresenter() {
-        return new ActivePlatePresenterOld(this);
+    public ActivePlatePresenter initPresenter() {
+        return new ActivePlatePresenter(this);
     }
 
     @Override
@@ -186,6 +187,16 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenterOld> i
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
+    private static boolean isBase64(String str) {
+        String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
+        return Pattern.matches(base64Pattern, str);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -202,9 +213,18 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenterOld> i
                 if (UIUtils.isNumeric(barCode) || UIUtils.isUrl(barCode)) {
                     tvDeviceCode.setText(barCode);
                 } else {
-                    String[] split = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT)).split(",");
-                    tvSimBarCode.setText(split[0]);
-                    tvDeviceCode.setText(split[split.length - 1]);
+                    if (isBase64(barCode.replaceAll("\n", ""))) {
+                        String codeResult = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT));
+                        if (codeResult.contains(",") && codeResult.length() == 35) {
+                            String[] split = codeResult.split(",");
+                            tvSimBarCode.setText(split[0]);
+                            tvDeviceCode.setText(split[split.length - 1]);
+                        } else {
+                            ToastUtil.showShort("请扫描正确的平板二维码");
+                        }
+                    } else {
+                        ToastUtil.showShort("请扫描正确的平板二维码");
+                    }
                 }
             } else if (requestCode == PLATE_REQUEST_CODE) {
                 tvPlateBarCode.setText(barCode);
@@ -383,14 +403,66 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenterOld> i
         String adapterBarCode = tvAdapterBarCode.getText().toString().trim();
         String bracketBarCode = tvBracketBarCode.getText().toString().trim();
         int checkedRadioButtonId = rgSelect.getCheckedRadioButtonId();
-        boolean enable = !TextUtils.isEmpty(bedNumber) && !TextUtils.isEmpty(selectHospitalName)
-                && !TextUtils.isEmpty(selectCoreName) && !TextUtils.isEmpty(deviceCode)
-                && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(simBarCode)
-                && !TextUtils.isEmpty(cabinetBarCode)
-                && !TextUtils.isEmpty(adapterBarCode)
-                && !TextUtils.isEmpty(bracketBarCode)
-                && checkedRadioButtonId != 0;
 
-        tvActive.setEnabled(enable);
+
+        tvActive.setEnabled(getSuccess(bedNumber, selectHospitalName, selectCoreName, deviceCode, plateBarCode, simBarCode, cabinetBarCode, adapterBarCode, bracketBarCode));
+
+
+
+    }
+
+    private boolean getSuccess(String bedNumber, String selectHospitalName, String selectCoreName, String deviceCode, String plateBarCode, String simBarCode, String cabinetBarCode, String adapterBarCode, String bracketBarCode) {
+        if (!TextUtils.isEmpty(bedNumber)&&!TextUtils.isEmpty(selectHospitalName)&&!TextUtils.isEmpty(selectCoreName)) {
+            //按组判断如果某一组某一个不为空就判断当前组所有的不能为空
+            ////判断第一组
+            /*if ((!TextUtils.isEmpty(deviceCode) || !TextUtils.isEmpty(plateBarCode) || !TextUtils.isEmpty(simBarCode) || !TextUtils.isEmpty(bracketBarCode))
+                    && (!TextUtils.isEmpty(deviceCode) && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(simBarCode) && !TextUtils.isEmpty(bracketBarCode))
+                    //判断第二组
+                    || ((!TextUtils.isEmpty(cabinetBarCode) || !TextUtils.isEmpty(adapterBarCode))
+                    && (!TextUtils.isEmpty(cabinetBarCode) && !TextUtils.isEmpty(adapterBarCode)))) {
+
+
+                tvActive.setEnabled(true);
+                return;
+            }*/
+            int tag1 = -1;
+            if ((!TextUtils.isEmpty(deviceCode) || !TextUtils.isEmpty(plateBarCode) || !TextUtils.isEmpty(simBarCode) || !TextUtils.isEmpty(bracketBarCode))) {
+                if ((!TextUtils.isEmpty(deviceCode) && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(simBarCode) && !TextUtils.isEmpty(bracketBarCode))) {
+                    tag1 = 1;
+                } else {
+                    tag1 = 0;
+                }
+            }
+
+            int tag2 = -1;
+            if (!TextUtils.isEmpty(cabinetBarCode) || !TextUtils.isEmpty(adapterBarCode)) {
+                if (!TextUtils.isEmpty(cabinetBarCode) && !TextUtils.isEmpty(adapterBarCode)) {
+                    tag2 = 1;
+                } else {
+                    tag2 = 0;
+                }
+            }
+            if (tag1 == 0 || tag2 == 0) {
+                return false;
+            }
+            if (tag1 == 1 || tag2 == 1) {
+                return true;
+            }
+
+//            if ((is1 || is2) && (is1 && is2)) {
+//
+//            }
+        }
+
+//        boolean enable = !TextUtils.isEmpty(bedNumber) && !TextUtils.isEmpty(selectHospitalName)
+//                && !TextUtils.isEmpty(selectCoreName) && !TextUtils.isEmpty(deviceCode)
+//                && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(simBarCode)
+//                && !TextUtils.isEmpty(cabinetBarCode)
+//                && !TextUtils.isEmpty(adapterBarCode)
+//                && !TextUtils.isEmpty(bracketBarCode)
+//                && checkedRadioButtonId != 0;
+
+
+        return false;
     }
 }

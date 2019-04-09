@@ -67,6 +67,11 @@ public class AuditDetailActivity extends BaseActivity<TeamAuditPresenter> {
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
     @OnClick({R.id.tv_no_pass, R.id.tv_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {// 状态：state 1：通过，2：不通过

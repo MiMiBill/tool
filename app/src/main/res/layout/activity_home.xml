@@ -190,7 +190,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginTop="4dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -203,7 +203,23 @@
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/icon_home_alert"
-                android:visibility="invisible" />
+                android:visibility="gone" />
+            <ImageView
+                android:id="@+id/iv_get_pad_pwd"
+                android:layout_width="0dp"
+                android:layout_height="139dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/get_pad_pwd"
+                android:visibility="gone" />
+            <ImageView
+                android:id="@+id/iv_tool"
+                android:layout_width="0dp"
+                android:layout_height="139dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/tool_icon"
+                android:visibility="visible" />
             <ImageView
                 android:visibility="invisible"
                 android:id="@+id/iv_inspection_feedback"

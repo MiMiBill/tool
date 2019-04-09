@@ -8,445 +8,78 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:background="@android:color/white"
         android:id="@+id/ll_root"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/rl_title"
+            android:id="@+id/rl_unlock"
+            android:paddingLeft="16dp"
             android:background="@android:color/white"
             android:layout_width="match_parent"
-            android:layout_height="44dp">
-            <ImageView
-                android:layout_marginLeft="16dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/icon_bt_return"
-                android:scaleType="centerCrop"
-                android:layout_width="11dp"
-                android:layout_height="20dp"
-                android:layout_marginRight="22dp"/>
+            android:layout_height="48dp">
+
             <TextView
-                android:text="巡检反馈"
-                android:textStyle="bold"
-                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:hint="开锁"
+                android:textColorHint="#ff333333"
+                android:text=""
                 android:textColor="#ff333333"
-                android:textSize="19sp"
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
             <View
+                android:layout_marginRight="16dp"
                 android:layout_alignParentBottom="true"
                 android:background="#EEEEEE"
                 android:layout_width="match_parent"
                 android:layout_height="1px"/>
-        </RelativeLayout>
 
+        </RelativeLayout>
         <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/rl_network_exception"
+            android:id="@+id/rl_get_pad_pwd"
+            android:paddingLeft="16dp"
+            android:layout_marginTop="15dp"
             android:background="@android:color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="48dp">
 
-            <LinearLayout
-                android:gravity="center_horizontal"
-                android:layout_centerInParent="true"
-                android:orientation="vertical"
+            <TextView
+                android:hint="获取平板密码"
+                android:textColorHint="#ff333333"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="#ff333333"
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/icon_network_exception"
-                    android:layout_width="210dp"
-                    android:layout_height="130dp" />
-                <TextView
-                    android:layout_marginTop="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="网络异常啦~"
-                    android:textColor="#ffa8a8a8"
-                    android:textSize="14sp"
-                    />
-            </LinearLayout>
+                android:layout_height="wrap_content" />
 
-
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+            <View
+                android:layout_marginRight="16dp"
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
 
         </RelativeLayout>
-
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/sv_content"
-            android:fillViewport="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:paddingLeft="16dp"
-                    android:background="@android:color/white"
-                    android:layout_marginTop="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp">
-
-                    <com.zkys.operationtool.widget.MyTextView
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:drawableLeft="@drawable/btn_blue_solid_bg"
-                        android:drawablePadding="9dp"
-                        app:drawableWidth="3dp"
-                        app:drawableHeight="17dp"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:text="选择设备"
-                        android:textColor="#ff333333"
-                        android:background="@android:color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/icon_activation_scan"
-                        android:layout_marginRight="16dp"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp" />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:paddingLeft="16dp"
-                    android:background="@android:color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp">
-
-                    <TextView
-                        android:layout_centerVertical="true"
-                        android:text="请选择医院"
-                        android:textColor="#ff333333"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/icon_chevron"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="16dp"
-                        android:layout_centerVertical="true"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp" />
-
-
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#EEEEEE"
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"/>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:paddingLeft="16dp"
-                    android:background="@android:color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp">
-
-                    <TextView
-                        android:layout_centerVertical="true"
-                        android:text="请选择科室"
-                        android:textColor="#ff333333"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/icon_chevron"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="16dp"
-                        android:layout_centerVertical="true"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp" />
-
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#EEEEEE"
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"/>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:paddingLeft="16dp"
-                    android:orientation="horizontal"
-                    android:background="@android:color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp">
-
-                    <TextView
-                        android:layout_centerVertical="true"
-                        android:text="请选择床位"
-                        android:textColor="#ff333333"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/icon_chevron"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="16dp"
-                        android:layout_centerVertical="true"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp" />
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#EEEEEE"
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"/>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:paddingLeft="16dp"
-                    android:orientation="horizontal"
-                    android:background="@android:color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp">
-
-                    <TextView
-                        android:layout_centerVertical="true"
-                        android:text="DID"
-                        android:textColor="#ff333333"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/icon_chevron"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="16dp"
-                        android:layout_centerVertical="true"
-                        android:layout_width="8dp"
-                        android:layout_height="13dp" />
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#EEEEEE"
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"/>
-
-                </RelativeLayout>
-
-
-
-                <RelativeLayout
-                    android:paddingLeft="16dp"
-                    android:background="@android:color/white"
-                    android:layout_marginTop="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp">
-
-                    <com.zkys.operationtool.widget.MyTextView
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:drawableLeft="@drawable/btn_blue_solid_bg"
-                        android:drawablePadding="9dp"
-                        app:drawableWidth="3dp"
-                        app:drawableHeight="17dp"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:text="使用问题"
-                        android:textColor="#ff333333"
-                        android:background="@android:color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-
-                    <com.zkys.operationtool.widget.SwitchView
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="16dp"
-                        android:id="@+id/drawableSwitch"
-                        android:layout_width="51dp"
-                        android:layout_height="31dp"
-                        app:isOpened="false"
-                        app:offColorDark="#E5E5EA"
-                        app:offColor="#E5E5EA"
-                        app:shadowColor="#121fac"
-                         />
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <RelativeLayout
-                        android:paddingLeft="16dp"
-                        android:orientation="horizontal"
-                        android:background="@android:color/white"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp">
-
-                        <TextView
-                            android:layout_centerVertical="true"
-                            android:text="请选择问题的类型"
-                            android:textColor="#ff333333"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <ImageView
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_chevron"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="16dp"
-                            android:layout_centerVertical="true"
-                            android:layout_width="8dp"
-                            android:layout_height="13dp" />
-                        <View
-                            android:layout_alignParentBottom="true"
-                            android:background="#EEEEEE"
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"/>
-
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp">
-                        <LinearLayout
-                            android:paddingLeft="16dp"
-                            android:orientation="horizontal"
-                            android:background="@android:color/white"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp">
-
-                            <TextView
-                                android:layout_gravity="center_vertical"
-                                android:text="问题描述"
-                                android:textColor="#ff333333"
-                                android:textSize="16sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                            <EditText
-                                android:layout_marginLeft="26dp"
-                                android:layout_marginRight="16dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_width="match_parent"
-                                android:layout_height="24dp"
-                                android:layout_weight="1"
-                                android:background="@null"
-                                android:hint="请输入具体描述"
-                                android:textColorHint="#CCCCCC" />
-
-
-                        </LinearLayout>
-                        <View
-                            android:layout_marginLeft="75dp"
-                            android:layout_alignParentBottom="true"
-                            android:background="#EEEEEE"
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"/>
-                    </RelativeLayout>
-                    
-                    <LinearLayout
-                        android:paddingLeft="16dp"
-                        android:background="@android:color/white"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp">
-                        <TextView
-                            android:layout_gravity="center_vertical"
-                            android:text="已解决"
-                            android:textColor="#ff333333"
-                            android:textSize="16sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <RadioGroup
-                            android:layout_marginLeft="34dp"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <RadioButton
-                                android:drawablePadding="12dp"
-                                android:drawableLeft="@drawable/rb_check_selector"
-                                android:button="@null"
-                                android:gravity="center_vertical"
-                                android:text="是"
-                                android:textColor="#ff333333"
-                                android:textSize="16sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                            <RadioButton
-                                android:layout_marginLeft="28dp"
-                                android:drawablePadding="12dp"
-                                android:drawableLeft="@drawable/rb_check_selector"
-                                android:button="@null"
-                                android:gravity="center_vertical"
-                                android:text="否"
-                                android:textColor="#ff333333"
-                                android:textSize="16sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                        </RadioGroup>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <com.zkys.operationtool.widget.MyTextView
-                    android:layout_gravity="center"
-                    android:drawableLeft="@drawable/btn_blue_solid_bg"
-                    android:drawablePadding="9dp"
-                    app:drawableWidth="3dp"
-                    app:drawableHeight="17dp"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:text="备注"
-                    android:textColor="#ff333333"
-                    android:textSize="16sp"
-                    android:paddingLeft="16dp"
-                    android:layout_marginTop="14dp"
-                    android:background="@android:color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp" />
-
-
-                <com.zkys.operationtool.widget.EditTextWithScrollView
-                    android:paddingTop="13dp"
-                    android:paddingBottom="13dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="101dp"
-                    android:background="#ffffff"
-                    android:gravity="top|left"
-                    android:hint="请填写用户的意见或建议..."
-                    android:textColorHint="#CCCCCC" />
-
-
-                <TextView
-                    android:gravity="center"
-                    android:text="绑定条码"
-                    android:layout_marginBottom="28dp"
-                    android:textColor="#ffffffff"
-                    android:textSize="18sp"
-                    android:background="@drawable/btn_blue_solid_bg"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="36dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="47dp" />
-
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
 

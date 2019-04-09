@@ -234,6 +234,11 @@ public class ReplaceDeviceActivity extends BaseActivity<ReplaceDevicePresenterOl
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
 
     @Override
     public void itemSelected(int position, int type) {

@@ -10,6 +10,7 @@ import com.zkys.operationtool.bean.DeviceInfoBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.bean.ItemStatisticBean;
 import com.zkys.operationtool.bean.ItemUsageRatesBean;
+import com.zkys.operationtool.bean.LockInfo;
 import com.zkys.operationtool.bean.OrderDataBean;
 import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.bean.VolumeInfoBean;
@@ -41,52 +42,52 @@ public interface RetrofitInterface {
      */
 
     // 账号登陆
-    @POST("admin/login")
+    @POST("/yw/admin/login")
     @FormUrlEncoded
     Observable<HttpResponse<UserInfoBean>> login(@Field("mobile") String username, @Field("password") String password);
     // 微信登陆
-    @POST("admin/wxLogin")
+    @POST("/yw/admin/wxLogin")
     @FormUrlEncoded
     Observable<HttpResponse<UserInfoBean>> wechatLogin(@Field("code") String code);
 
     // 医院列表
     @FormUrlEncoded
-    @POST("hospital/list")
+    @POST("/yw/hospital/list")
     Observable<HttpResponse<List<HospitalBean>>> getHospitalList(@Field("sydicId")String sydicId, @Field("state") int state);
 
     // 科室列表
-    @POST("hospital/deptList")
+    @POST("/yw/hospital/deptList")
     @FormUrlEncoded
     Observable<HttpResponse<List<CoreBean>>> getCoreList(@Field("hospitalId") int hid,  @Field("state") int state);
 
     // 账号绑定
-    @POST("admin/bindingOpenId")
+    @POST("/yw/admin/bindingOpenId")
     @FormUrlEncoded
     Observable<HttpResponse<UserInfoBean>> bindingAccount(@Field("openId") String openid,  @Field("mobile") String mobile, @Field("password") String password);
     // 激活设备
 //    @POST("core/device/activate")
-    @POST("deviceBinding/newActivate")
+    @POST("/yw/deviceBinding/newActivate")
     Observable<HttpResponse<Object>> activatePlate(@Body Map<String, Object> map);
 
     // 床位列表
 
 //    @POST("hospitalBed/list")//@Field("hospitalId") int hospitalId, @Field("deptId") int deptId
-    @POST("deviceBinding/list")//@Field("hospitalId") int hospitalId, @Field("deptId") int deptId
+    @POST("/yw/deviceBinding/list")//@Field("hospitalId") int hospitalId, @Field("deptId") int deptId
     @FormUrlEncoded
     Observable<HttpResponse<List<BedBean>>> getBedList(@FieldMap Map<String, Integer> map);
 
 
     // 根据编号获取设备绑定信息
-    @POST("deviceBinding/findBindingByCode")
+    @POST("/yw/deviceBinding/findBindingByCode")
     @FormUrlEncoded
     Observable<HttpResponse<DeviceBinderInfo>> findBindingByCode(@Field("code") String code);
 
     // 更换设备
-    @POST("deviceBinding/replacingDevice")
+    @POST("/yw/deviceBinding/replacingDevice")
     Observable<HttpResponse<Object>> replaceDevice(@Body Map<String, Object> map);
 
     // 根据科室医院ID获取科室平板原有的音量配置
-    @POST("padVolume/list")
+    @POST("/padVolume/list")
     @FormUrlEncoded
     Observable<HttpResponse<List<VolumeInfoBean>>> getPadVolume(@Field("hospitalId") int hospitalId, @Field("deptId") int deptId);
 
@@ -98,44 +99,55 @@ public interface RetrofitInterface {
 
 
     // 訂單列表
-    @POST("wxOrder/list")
+    @POST("/yw/wxOrder/list")
     @FormUrlEncoded
     Observable<HttpResponse<OrderDataBean>> getOderData(@FieldMap Map<String, Object> map);
 
     // 获取统计图表数据
-    @POST("/wxOrder/wxOrderStatistics")
+    @POST("/yw/wxOrder/wxOrderStatistics")
     @FormUrlEncoded
     Observable<HttpResponse<List<ItemStatisticBean>>> getOrderStatistics(@FieldMap Map<String, Object> map);
 
     // 获取团队审核
-    @GET("teamAuthenticate/findAllUnaudited")
+    @GET("/yw/teamAuthenticate/findAllUnaudited")
     Observable<HttpResponse<List<AuditItemBean>>> getTeamAuditData();
 
     // 审核团队认证申请
-    @GET("teamAuthenticate/audit")
+    @GET("/yw/teamAuthenticate/audit")
     Observable<HttpResponse<Object>> audit(@Query("teamId") int teamId, @Query("state") int state);
 
     // 所有医院的平板使用率
-    @POST("padStatus/allPadUsageRates")
+    @POST("/yw/padStatus/allPadUsageRates")
     @FormUrlEncoded
     Observable<HttpResponse<List<ItemUsageRatesBean>>> getAllPadUsageRates(@FieldMap Map<String, Object> map);
 
     // 指定医院所有科室的平板使用率
-    @POST("padStatus/allDeptPadUsageRates")
+    @POST("/yw/padStatus/allDeptPadUsageRates")
     @FormUrlEncoded
     Observable<HttpResponse<List<ItemUsageRatesBean>>> getAllDeptPadUsageRates(@FieldMap Map<String, Object> map);
 
     // 平板订单状态状态
-    @GET("padStatus/padOrderStatus")
+    @GET("/yw/padStatus/padOrderStatus")
     Observable<HttpResponse<List<BedOrderStateBean>>> getPadOrderStatusData(@QueryMap Map<String, Object> map);
 
     // 设备详细信息
-    @GET("padStatus/deviceDetailInfo")
+    @GET("/yw/padStatus/deviceDetailInfo")
     Observable<HttpResponse<DeviceInfoBean>> getDeviceDetailInfo(@QueryMap Map<String, Object> map);
 
     // 修改床位号
-    @POST("/deviceBinding/update")
+    @POST("/yw/deviceBinding/update")
     @FormUrlEncoded
     Observable<HttpResponse<Object>> updateBedNumber(@FieldMap Map<String, Object> map);
+
+    // 开锁
+    @POST("lock/unlock")
+    @FormUrlEncoded
+    Observable<HttpResponse<Object>> unlock(@FieldMap Map<String, Object> map);
+
+    // 查询锁开关状态
+    @POST("lock/findByDid")
+    @FormUrlEncoded
+    Observable<HttpResponse<LockInfo>> getLockInfo(@FieldMap Map<String, Object> map);
+
 
 }

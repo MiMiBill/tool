@@ -67,6 +67,10 @@ public class InfoDetailActivity extends BaseActivity<PlateStatusPresenter> {
     NestedScrollView svContent;
     @BindView(R.id.ll_root)
     LinearLayout llRoot;
+    @BindView(R.id.tv_order_number)
+    TextView tvOrderNumber;
+    @BindView(R.id.tv_user)
+    TextView tvUser;
     private String hid;
     private String cid;
     private String bedNumber;
@@ -114,7 +118,13 @@ public class InfoDetailActivity extends BaseActivity<PlateStatusPresenter> {
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
     private void initData(DeviceInfoBean data) {
+        tvPlateDid.setText(data.getPadDid());
         tvBid.setText(data.getPadBid());
         tvIccid.setText(data.getIccid());
         tvCabinetDid.setText(data.getCabinetDid());
@@ -129,18 +139,12 @@ public class InfoDetailActivity extends BaseActivity<PlateStatusPresenter> {
         tvCabinetState.setText(data.getLockStatus());
         tvOrderCreateTime.setText(data.getOrderCreateDate());
         tvOrderExpireTime.setText(data.getOrderExpireDate());
+        tvOrderNumber.setText(data.getOrderId());
+        tvUser.setText(data.getNickname());
         tvOrderMoney.setText(data.getOrderMoney());
         tvActiveTime.setText(data.getActiveDate());
         tvActivePerson.setText(data.getActiveUser());
     }
 
-    @Override
-    public void showLoadingDialog(String msg) {
 
-    }
-
-    @Override
-    public void dismissLoadingDialog() {
-
-    }
 }

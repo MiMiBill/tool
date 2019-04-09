@@ -18,7 +18,6 @@ import com.jakewharton.rxbinding3.view.RxView;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.BaseActivityOld;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.DeviceParameterBean;
 import com.zkys.operationtool.presenter.ReplaceDevicePresenterOld;
@@ -84,7 +83,7 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivityOld.DEFAULT_TITLE_VIEW;
+        return BaseActivity.DEFAULT_TITLE_VIEW;
     }
 
     @Override
@@ -97,6 +96,11 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
                 ToastUtil.showShort(result.getMsg());
             }
         }
+    }
+
+    @Override
+    public void onError_(Throwable e) {
+
     }
 
     @OnClick({R.id.iv_scan_device_code, R.id.iv_scan_plate_bar_code, R.id.tv_replace})
@@ -171,7 +175,7 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
             }
             if (requestCode == DEVICE_REQUEST_CODE) {
                 if (UIUtils.isNumeric(barCode) || UIUtils.isUrl(barCode)) {
-                    tvDeviceCode.setText(barCode);
+                     tvDeviceCode.setText(barCode);
                 } else {
                     String[] split = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT)).split(",");
                     tvDeviceCode.setText(split[split.length - 1]);

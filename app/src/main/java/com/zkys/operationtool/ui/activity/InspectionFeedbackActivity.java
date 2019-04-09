@@ -3,14 +3,14 @@ package com.zkys.operationtool.ui.activity;
 import android.os.Bundle;
 
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivityOld;
-import com.zkys.operationtool.base.HttpResponseOld;
+import com.zkys.operationtool.base.BaseActivity;
+import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.baseImpl.BasePresenter;
 
 /**
  * 巡检反馈
  */
-public class InspectionFeedbackActivity extends BaseActivityOld {
+public class InspectionFeedbackActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,11 @@ public class InspectionFeedbackActivity extends BaseActivityOld {
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivityOld.DEFAULT_TITLE_VIEW;
+        return BaseActivity.DEFAULT_TITLE_VIEW;
     }
 
     @Override
-    public void setData(HttpResponseOld result) {
+    public void setData(HttpResponse result) {
 
     }
 
@@ -45,6 +45,11 @@ public class InspectionFeedbackActivity extends BaseActivityOld {
 
     @Override
     public void dismissLoadingDialog() {
+
+    }
+
+    @Override
+    public void onError_(Throwable e) {
 
     }
 }

@@ -19,4 +19,6 @@ public interface BaseView {
     //取消dialog
     void dismissLoadingDialog();
 
+    void onError_(Throwable e);
+
 }

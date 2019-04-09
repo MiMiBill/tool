@@ -66,6 +66,11 @@ public class TeamAuditActivity extends BaseActivity<TeamAuditPresenter> {
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
     private void bindData(HttpResponse result) {
         auditItemBeans = (List<AuditItemBean>) result.getData();
         adapter = new AuditListAdapter(auditItemBeans);

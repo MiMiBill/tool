@@ -137,6 +137,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         return 0;
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
     /**
      * 是否使用沉浸式
      * Is immersion bar enabled boolean.

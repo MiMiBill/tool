@@ -26,7 +26,7 @@ public class JpushUtil {
             return;
         }
         Set<String> set = new HashSet<>();
-        set.add("屏安柜运维");
+        set.add("运维工具");
 
         JPushInterface.setTags(MyApplication.getContext(), set, new TagAliasCallback() {
             @Override

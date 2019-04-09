@@ -119,6 +119,11 @@ public class VolumeControlActivity extends BaseActivity<VolumeControlPresenterOl
         }
     }
 
+    @Override
+    public void onError_(Throwable e) {
+
+    }
+
     void initDialogDataAndShow(List<String> names, int type) {
 
         if (bottomDialog != null) {

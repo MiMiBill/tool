@@ -2,10 +2,14 @@ package com.zkys.operationtool.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.adapter.UsageRatesAdapter;
 import com.zkys.operationtool.application.MyApplication;
@@ -29,16 +33,26 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
 
     @BindView(R.id.rcv_list)
     RecyclerView rcvList;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
     private List<ItemUsageRatesBean> usageRatesBeans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTvTitleText("平板状态");
-        Map<String, Object> map = new HashMap<>();
+        final Map<String, Object> map = new HashMap<>();
         map.put("id", MyApplication.getInstance().getUserInfo().getId());
         map.put("sydicId", MyApplication.getInstance().getUserInfo().getCorrelationId());
         presenter.getAllPadUsageRates(map);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                presenter.getAllPadUsageRates(map);
+            }
+        });
+
+
     }
 
     @Override
@@ -82,6 +96,14 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
         } else {
             ToastUtil.showShort("数据获取失败");
         }
+        refreshLayout.finishRefresh();
+        refreshLayout.resetNoMoreData();
+    }
+
+    @Override
+    public void onError_(Throwable e) {
+        refreshLayout.finishRefresh();
+        refreshLayout.resetNoMoreData();
     }
 
     private void initData() {
@@ -97,13 +119,4 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
         });
     }
 
-    @Override
-    public void showLoadingDialog(String msg) {
-
-    }
-
-    @Override
-    public void dismissLoadingDialog() {
-
-    }
 }

@@ -1,88 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:focusable="true"
-    android:background="#F5F5F5"
-    android:focusableInTouchMode="true"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <LinearLayout
-        android:background="@android:color/white"
-        android:id="@+id/ll_root"
-        android:orientation="vertical"
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:id="@+id/rl_unlock"
-            android:paddingLeft="16dp"
-            android:background="@android:color/white"
+        android:layout_height="48dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <EditText
+            android:id="@+id/et_code"
+            android:maxLength="10"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
-
-            <TextView
-                android:layout_centerVertical="true"
-                android:hint="开锁"
-                android:textColorHint="#ff333333"
-                android:text=""
-                android:textColor="#ff333333"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:src="@mipmap/icon_chevron"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
-                android:layout_centerVertical="true"
-                android:layout_width="8dp"
-                android:layout_height="13dp" />
-            <View
-                android:layout_marginRight="16dp"
-                android:layout_alignParentBottom="true"
-                android:background="#EEEEEE"
-                android:layout_width="match_parent"
-                android:layout_height="1px"/>
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/rl_get_pad_pwd"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/ivScan"
+            android:background="@null"
+            android:hint="请扫描柜子二维码"
+            android:inputType="number"
             android:paddingLeft="16dp"
-            android:layout_marginTop="15dp"
-            android:background="@android:color/white"
+            android:textColor="#ff333333"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/ivScan"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="16dp"
+            android:scaleType="center"
+            android:src="@mipmap/scan_icon" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#EEEEEE" />
 
-            <TextView
-                android:hint="获取平板密码"
-                android:textColorHint="#ff333333"
-                android:layout_centerVertical="true"
-                android:text=""
-                android:textColor="#ff333333"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-            <ImageView
-                android:scaleType="centerCrop"
-                android:src="@mipmap/icon_chevron"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
-                android:layout_centerVertical="true"
-                android:layout_width="8dp"
-                android:layout_height="13dp" />
-            <View
-                android:layout_marginRight="16dp"
-                android:layout_alignParentBottom="true"
-                android:background="#EEEEEE"
-                android:layout_width="match_parent"
-                android:layout_height="1px"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-        </RelativeLayout>
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_unlock"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_blue_solid_bg"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
+        android:text="开锁"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <Button
+        android:id="@+id/btn_lock"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_blue_solid_bg"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="关锁"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/btn_unlock" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="日志"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/btn_unlock"
+        app:layout_constraintTop_toBottomOf="@+id/btn_unlock" />
+
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/rcv_list"
+        android:layout_width="0dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#333333"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
-
-
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

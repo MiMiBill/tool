@@ -50,7 +50,7 @@ public class PlateStatusPresenter extends BasePresenterImpl<BaseView> {
 
                     @Override
                     public void _onError(Throwable e) {
-
+                        view.onError_(e);
                     }
                 });
     }

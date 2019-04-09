@@ -2,10 +2,14 @@ package com.zkys.operationtool.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.adapter.UsageRatesAdapter;
 import com.zkys.operationtool.base.BaseActivity;
@@ -27,6 +31,8 @@ public class PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
 
     @BindView(R.id.rcv_list)
     RecyclerView rcvList;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
     private String hid;
     private List<ItemUsageRatesBean> usageRatesBeans;
 
@@ -36,9 +42,15 @@ public class PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
         String hospitalName = getIntent().getStringExtra("HospitalName");
         setTvTitleText(hospitalName);
         hid = getIntent().getStringExtra("hid");
-        Map<String, Object> map = new HashMap<>();
+        final Map<String, Object> map = new HashMap<>();
         map.put("id", hid);
         presenter.getAllDeptPadUsageRates(map);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                presenter.getAllDeptPadUsageRates(map);
+            }
+        });
     }
 
     @Override
@@ -72,6 +84,14 @@ public class PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
         } else {
             ToastUtil.showShort("数据获取失败");
         }
+        refreshLayout.finishRefresh();
+        refreshLayout.resetNoMoreData();
+    }
+
+    @Override
+    public void onError_(Throwable e) {
+        refreshLayout.finishRefresh();
+        refreshLayout.resetNoMoreData();
     }
 
     private void initData() {
@@ -87,4 +107,5 @@ public class PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
             }
         });
     }
+
 }

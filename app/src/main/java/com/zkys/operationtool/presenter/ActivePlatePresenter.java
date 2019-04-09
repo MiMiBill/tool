@@ -28,9 +28,9 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by DGDL-08 on ${DATA}
  */
-public class ActivePlatePresenterOld extends BasePresenterImpl<BaseView> {
+public class ActivePlatePresenter extends BasePresenterImpl<BaseView> {
 
-    public ActivePlatePresenterOld(BaseView view) {
+    public ActivePlatePresenter(BaseView view) {
         super(view);
     }
 
@@ -67,6 +67,7 @@ public class ActivePlatePresenterOld extends BasePresenterImpl<BaseView> {
                     }
                 });
     }
+
     /*public void getHospitalList2() {
         HttpUtils.getRetrofit().getHospitalLists("")
                 .compose(((RxAppCompatActivity) view).<HttpResponse<List<HospitalBean>>>bindToLifecycle())
@@ -118,7 +119,7 @@ public class ActivePlatePresenterOld extends BasePresenterImpl<BaseView> {
                     @Override
                     public void onSuccess(HttpResponse<List<CoreBean>> result) {
                         view.setData(result);
-                        Log.d("ActivePlatePresenterOld", new Gson().toJson(result));
+                        Log.d("ActivePlatePresenter", new Gson().toJson(result));
                     }
 
                     @Override

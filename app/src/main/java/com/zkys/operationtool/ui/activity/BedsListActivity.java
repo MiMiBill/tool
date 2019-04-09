@@ -2,10 +2,14 @@ package com.zkys.operationtool.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.adapter.BedStatusListAdapter;
 import com.zkys.operationtool.base.BaseActivity;
@@ -28,6 +32,8 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
 
     @BindView(R.id.rcv_list)
     RecyclerView rcvList;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
     private String hid;
     private String cid;
     private String deptName;
@@ -39,6 +45,12 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
         hid = getIntent().getStringExtra("hid");
         cid = getIntent().getStringExtra("cid");
         deptName = getIntent().getStringExtra("DeptName");
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                getPadOrderStatusData();
+            }
+        });
         getPadOrderStatusData();
         setTvTitleText(deptName);
     }
@@ -85,6 +97,14 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
         } else {
             ToastUtil.showShort("数据获取失败");
         }
+        refreshLayout.finishRefresh();
+        refreshLayout.resetNoMoreData();
+    }
+
+    @Override
+    public void onError_(Throwable e) {
+        refreshLayout.finishRefresh();
+        refreshLayout.resetNoMoreData();
     }
 
     private void initData() {
@@ -109,11 +129,11 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
                         dialog.setOnClickUpdateListener(new UpdateBedNumberDialog.OnClickUpdateListener() {
                             @Override
                             public void onClickUpdate(String number) {
-                               Map<String, Object> map = new HashMap<>();
+                                Map<String, Object> map = new HashMap<>();
                                 map.put("id", orderStateBeans.get(position).getId());
                                 map.put("bedNumber", number);
                                 map.put("randomNumber", orderStateBeans.get(position).getRandomNumber());
-                               presenter.updateBedNumber(map);
+                                presenter.updateBedNumber(map);
                                 dialog.dismiss();
                             }
                         });
@@ -124,6 +144,5 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
 
         rcvList.setAdapter(adapter);
     }
-
 
 }

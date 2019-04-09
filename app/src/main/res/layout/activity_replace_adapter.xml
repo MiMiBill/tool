@@ -151,13 +151,14 @@
                             android:textColorHint="#CCCCCC" />
 
                         <ImageView
+                            android:paddingLeft="10dp"
+                            android:paddingRight="16dp"
+                            android:scaleType="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:id="@+id/iv_scan_adapter_code"
                             android:layout_gravity="center_vertical"
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/icon_activation_scan"
-                            android:layout_marginRight="16dp"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:src="@mipmap/icon_activation_scan"/>
 
                     </LinearLayout>
                     <View
