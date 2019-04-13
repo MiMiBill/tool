@@ -1,6 +1,7 @@
 package com.zkys.operationtool.retrofitinterface;
 
 import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.bean.AlertBean;
 import com.zkys.operationtool.bean.AuditItemBean;
 import com.zkys.operationtool.bean.BedBean;
 import com.zkys.operationtool.bean.BedOrderStateBean;
@@ -149,5 +150,8 @@ public interface RetrofitInterface {
     @FormUrlEncoded
     Observable<HttpResponse<LockInfo>> getLockInfo(@FieldMap Map<String, Object> map);
 
+    // 查询锁开关状态
+    @GET("/yw/alarm/list")
+    Observable<HttpResponse<List<AlertBean>>> getAlertInfo();
 
 }

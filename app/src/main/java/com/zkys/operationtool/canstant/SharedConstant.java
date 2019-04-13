@@ -14,4 +14,5 @@ public interface SharedConstant {
     String ROLEINFO = "ROLEINFO";
 
     String EXTRA_BUNDLE = "pushMessageNotificationDataBundle";// 推送的消息通知数据包标识;
+    String MSGTYPE = "msgType";// 消息类型
 }

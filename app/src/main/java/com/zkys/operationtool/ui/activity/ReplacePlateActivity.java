@@ -20,6 +20,7 @@ import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.DeviceParameterBean;
+import com.zkys.operationtool.canstant.TypeCodeCanstant;
 import com.zkys.operationtool.presenter.ReplaceDevicePresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
@@ -27,6 +28,7 @@ import com.zkys.operationtool.widget.AfterTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,6 +47,8 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
     EditText etRemark;
     @BindView(R.id.tv_replace)
     TextView tvReplace;
+    @BindView(R.id.tv_sim_bar_code)
+    EditText tvSimBarCode;
 
     public static final int DEVICE_REQUEST_CODE = 111;
     public static final int PLATE_REQUEST_CODE = 112;
@@ -69,6 +73,7 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
         tvDeviceCode.addTextChangedListener(new MyTextWatcher());
         tvPlateBarCode.addTextChangedListener(new MyTextWatcher());
         etRemark.addTextChangedListener(new MyTextWatcher());
+        tvSimBarCode.addTextChangedListener(new MyTextWatcher());
     }
 
     @Override
@@ -122,9 +127,11 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
     private void replaceDevice() {
         String deviceCode = tvDeviceCode.getText().toString().trim();
         String plateBarCode = tvPlateBarCode.getText().toString().trim();
+        String simBarCode = tvSimBarCode.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
         List<DeviceParameterBean> list = new ArrayList<>();
         list.add(new DeviceParameterBean(deviceCode, plateBarCode, type));
+        list.add(new DeviceParameterBean(simBarCode, "", TypeCodeCanstant.TYPE_SIM_KAR));
         presenter.replaceDevice(bedNumber, hid, cid, list, remark);
     }
 
@@ -158,7 +165,8 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
         String deviceCode = tvDeviceCode.getText().toString().trim();
         String plateBarCode = tvPlateBarCode.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
-        boolean enable = !TextUtils.isEmpty(deviceCode) && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(remark);
+        String simCode = tvSimBarCode.getText().toString().trim();
+        boolean enable = !TextUtils.isEmpty(deviceCode) && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(remark) && !TextUtils.isEmpty(simCode);
         tvReplace.setEnabled(enable);
     }
 
@@ -174,16 +182,38 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
                 }
             }
             if (requestCode == DEVICE_REQUEST_CODE) {
-                if (UIUtils.isNumeric(barCode) || UIUtils.isUrl(barCode)) {
-                     tvDeviceCode.setText(barCode);
+                /*if (UIUtils.isNumeric(barCode) || UIUtils.isUrl(barCode)) {
+                    tvDeviceCode.setText(barCode);
                 } else {
                     String[] split = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT)).split(",");
                     tvDeviceCode.setText(split[split.length - 1]);
+
+                }*/
+                if (UIUtils.isNumeric(barCode) || UIUtils.isUrl(barCode)) {
+                    tvDeviceCode.setText(barCode);
+                } else {
+                    if (isBase64(barCode.replaceAll("\n", ""))) {
+                        String codeResult = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT));
+                        if (codeResult.contains(",") && codeResult.length() == 35) {
+                            String[] split = codeResult.split(",");
+                            tvSimBarCode.setText(split[0]);
+                            tvDeviceCode.setText(split[split.length - 1]);
+                        } else {
+                            ToastUtil.showShort("请扫描正确的平板二维码");
+                        }
+                    } else {
+                        ToastUtil.showShort("请扫描正确的平板二维码");
+                    }
                 }
             } else if (requestCode == PLATE_REQUEST_CODE) {
                 tvPlateBarCode.setText(barCode);
             }
         }
+    }
+
+    private static boolean isBase64(String str) {
+        String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
+        return Pattern.matches(base64Pattern, str);
     }
 
 }

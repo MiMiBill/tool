@@ -7,6 +7,7 @@
     android:layout_height="wrap_content">
 
     <com.zkys.operationtool.widget.MyTextView
+        android:id="@+id/tv_title"
         android:layout_marginTop="18dp"
         android:layout_marginLeft="14dp"
         android:layout_centerVertical="true"
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/tv_content"
         android:layout_marginTop="1dp"
         android:layout_marginLeft="29dp"
         android:layout_width="wrap_content"
@@ -32,6 +34,7 @@
         android:textSize="14sp"
         />
     <TextView
+        android:id="@+id/tv_date"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="19dp"
         android:layout_marginLeft="29dp"

@@ -1,28 +1,53 @@
 package com.zkys.operationtool.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zkys.operationtool.R;
-import com.zkys.operationtool.base.BaseActivityOld;
-import com.zkys.operationtool.base.HttpResponseOld;
-import com.zkys.operationtool.baseImpl.BasePresenter;
+import com.zkys.operationtool.adapter.AlertInfoListAdapter;
+import com.zkys.operationtool.base.BaseActivity;
+import com.zkys.operationtool.base.HttpResponse;
+import com.zkys.operationtool.bean.AlertBean;
+import com.zkys.operationtool.presenter.AlertInfoPresenter;
+import com.zkys.operationtool.util.ToastUtil;
 
-public class AlertInfoActivity extends BaseActivityOld {
+import java.util.List;
+
+import butterknife.BindView;
+
+public class AlertInfoActivity extends BaseActivity<AlertInfoPresenter> {
+
+    @BindView(R.id.rcv_list)
+    RecyclerView rcvList;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+    private List<AlertBean> alertBeans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTvTitleText("警报信息");
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                presenter.getAlertInfo();
+            }
+        });
+        presenter.getAlertInfo();
     }
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivityOld.DEFAULT_TITLE_VIEW;
+        return BaseActivity.DEFAULT_TITLE_VIEW;
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public AlertInfoPresenter initPresenter() {
+        return new AlertInfoPresenter(this);
     }
 
     @Override
@@ -31,9 +56,34 @@ public class AlertInfoActivity extends BaseActivityOld {
     }
 
     @Override
-    public void setData(HttpResponseOld result) {
-
+    public void setData(HttpResponse result) {
+        if (result != null && result.getCode() == 200) {
+            if (result.getData() instanceof List) {
+                alertBeans = (List<AlertBean>) result.getData();
+                if (alertBeans != null && alertBeans.size() > 0) {
+                    initData();
+                } else {
+                    ToastUtil.showShort("暂无数据");
+                }
+            }  else {
+                ToastUtil.showShort(result.getMsg());
+            }
+        } else {
+            ToastUtil.showShort("数据获取失败");
+        }
+        refreshLayout.finishRefresh();
+        refreshLayout.resetNoMoreData();
     }
 
+    private void initData() {
+        AlertInfoListAdapter adapter = new AlertInfoListAdapter(alertBeans);
+        rcvList.setAdapter(adapter);
+    }
+
+    @Override
+    public void onError_(Throwable e) {
+        refreshLayout.finishRefresh();
+        refreshLayout.resetNoMoreData();
+    }
 
 }

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.zkys.operationtool.canstant.SharedConstant;
+import com.zkys.operationtool.ui.activity.AlertInfoActivity;
 import com.zkys.operationtool.ui.activity.CheckOrderActivity;
 import com.zkys.operationtool.ui.activity.HomeActivity;
 import com.zkys.operationtool.util.SystemUtil;
@@ -61,14 +62,13 @@ public class MyReceiver extends BroadcastReceiver {
 					e.printStackTrace();
 				}
 				Log.d("msgType", msgType);
-				if (msgType.equals("1")) {
-					//打开自定义的Activity
+				//打开自定义的Activity
 					/*Intent i = new Intent(context, CheckOrderActivity.class);
 					i.putExtras(bundle);
 					i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					context.startActivity(i);*/
-					goToActivity(context, bundle);
-				}
+				bundle.putString(SharedConstant.MSGTYPE, msgType);
+				goToActivity(context, bundle, msgType);
 
 			} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 				Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
@@ -142,7 +142,7 @@ public class MyReceiver extends BroadcastReceiver {
 		}*/
 	}
 
-	void goToActivity(Context context, Bundle bundle) {
+	void goToActivity(Context context, Bundle bundle, String msgType) {
 		//判断app进程是否存活
 		if (SystemUtil.isAppRunning(context, context.getPackageName()) ||
 				SystemUtil.isProcessRunning(context, SystemUtil.getPackageUid(context, context.getPackageName()))) {
@@ -157,11 +157,18 @@ public class MyReceiver extends BroadcastReceiver {
 			//如果Task栈中有MainActivity的实例，就会把它移到栈顶，把在它之上的Activity都清理出栈，
 			//如果Task栈不存在MainActivity实例，则在栈顶创建
 			mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			Intent checkOrderIntent = new Intent(context, CheckOrderActivity.class);
-			checkOrderIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			checkOrderIntent.putExtra(SharedConstant.EXTRA_BUNDLE,bundle);
-			Intent[] intents = {mainIntent, checkOrderIntent};
-			context.startActivities(intents);
+			if (!TextUtils.isEmpty(msgType)) {
+				Intent intent = new Intent();
+				if (msgType.equals("1")) {
+					intent.setClass(context, CheckOrderActivity.class);
+				} else if (msgType.equals("2")) {
+					intent.setClass(context, AlertInfoActivity.class);
+				}
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra(SharedConstant.EXTRA_BUNDLE,bundle);
+				Intent[] intents = {mainIntent, intent};
+				context.startActivities(intents);
+			}
 		} else {
 			/**
 			 * //如果app进程已经被杀死，先重新启动app，将DetailActivity的启动参数传入Intent中，参数经过

@@ -276,11 +276,20 @@ public class HomeActivity extends BaseActivity {
     private void startAction() {
         //如果启动app的Intent中带有额外的参数，表明app是从点击通知栏的动作中启动的
         //将参数取出，传递到MainActivity中
-        if(getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE) != null){
-            Intent intent = new Intent(this, CheckOrderActivity.class);
-            intent.putExtra(SharedConstant.EXTRA_BUNDLE,
-                    getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE));
-            startActivity(intent);
+        Bundle bundle = getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE);
+        if(bundle != null){
+            String msgType = bundle.getString(SharedConstant.MSGTYPE, "");
+            Intent intent = new Intent();
+            if (!TextUtils.isEmpty(msgType)) {
+                if (msgType.equals("1")) {
+                    intent.setClass(this, CheckOrderActivity.class);
+                } else if (msgType.equals("2")) {
+                    intent.setClass(this, AlertInfoActivity.class);
+                }
+                intent.putExtra(SharedConstant.EXTRA_BUNDLE,
+                        getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE));
+                startActivity(intent);
+            }
         }
     }
 
