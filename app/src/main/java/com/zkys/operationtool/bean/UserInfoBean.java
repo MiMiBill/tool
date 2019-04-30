@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * 登陆返回数据
  */
-public class UserInfoBean implements Parcelable {
+public class UserInfoBean  implements Parcelable {
 
     /**
      * roleId : 68
@@ -53,7 +53,12 @@ public class UserInfoBean implements Parcelable {
     private String active;
     private String openId;
     private int deviceActiveCount;
-
+    private String access_token;
+    private String refresh_token;
+    private String unionid;
+    private String openid;
+    private String scope;
+    private int expires_in;
     public int getDeviceActiveCount() {
         return deviceActiveCount;
     }
@@ -72,6 +77,54 @@ public class UserInfoBean implements Parcelable {
 
     public static Creator<UserInfoBean> getCREATOR() {
         return CREATOR;
+    }
+
+    public String getAccess_token() {
+        return access_token;
+    }
+
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
+    }
+
+    public String getRefresh_token() {
+        return refresh_token;
+    }
+
+    public void setRefresh_token(String refresh_token) {
+        this.refresh_token = refresh_token;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public int getExpires_in() {
+        return expires_in;
+    }
+
+    public void setExpires_in(int expires_in) {
+        this.expires_in = expires_in;
     }
 
     protected UserInfoBean(Parcel in) {
@@ -96,6 +149,12 @@ public class UserInfoBean implements Parcelable {
         openId = in.readString();
         deviceActiveCount = in.readInt();
         roleName = in.readString();
+        expires_in = in.readInt();
+        scope = in.readString();
+        openid = in.readString();
+        unionid = in.readString();
+        refresh_token = in.readString();
+        access_token = in.readString();
     }
 
     public static final Creator<UserInfoBean> CREATOR = new Creator<UserInfoBean>() {
@@ -290,6 +349,11 @@ public class UserInfoBean implements Parcelable {
         dest.writeString(openId);
         dest.writeInt(deviceActiveCount);
         dest.writeString(roleName);
-
+        dest.writeInt(expires_in);
+        dest.writeString(scope);
+        dest.writeString(openid);
+        dest.writeString(unionid);
+        dest.writeString(refresh_token);
+        dest.writeString(access_token);
     }
 }

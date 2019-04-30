@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">屏安柜运维</string>
+    <string name="no_data">暂无数据</string>
 </resources>

@@ -8,6 +8,7 @@ import com.zkys.operationtool.bean.BedOrderStateBean;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.DeviceBinderInfo;
 import com.zkys.operationtool.bean.DeviceInfoBean;
+import com.zkys.operationtool.bean.HomeListBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.bean.ItemStatisticBean;
 import com.zkys.operationtool.bean.ItemUsageRatesBean;
@@ -46,15 +47,31 @@ public interface RetrofitInterface {
     @POST("/yw/admin/login")
     @FormUrlEncoded
     Observable<HttpResponse<UserInfoBean>> login(@Field("mobile") String username, @Field("password") String password);
+
+    // 账号登陆新接口
+    @POST("/sys/login")
+    @FormUrlEncoded
+    Observable<HttpResponse<UserInfoBean>> newlogin(@FieldMap Map<String, Object> map);
+
     // 微信登陆
     @POST("/yw/admin/wxLogin")
     @FormUrlEncoded
     Observable<HttpResponse<UserInfoBean>> wechatLogin(@Field("code") String code);
 
+    // 微信登陆
+    @POST("/sys/thirdLogin")
+    @FormUrlEncoded
+    Observable<HttpResponse<UserInfoBean>> thirdLogin(@Field("code") String code, @Field("type") int type);
+
     // 医院列表
     @FormUrlEncoded
     @POST("/yw/hospital/list")
     Observable<HttpResponse<List<HospitalBean>>> getHospitalList(@Field("sydicId")String sydicId, @Field("state") int state);
+
+    // 医院列表(新接口)
+    @FormUrlEncoded
+    @POST("/yw/hospital/list")
+    Observable<HttpResponse<List<HospitalBean>>> getnewHospitalList( @Field("state") int state);
 
     // 科室列表
     @POST("/yw/hospital/deptList")
@@ -154,4 +171,12 @@ public interface RetrofitInterface {
     @GET("/yw/alarm/list")
     Observable<HttpResponse<List<AlertBean>>> getAlertInfo();
 
+    // 获取首页列表数据
+    @GET("/yw/admin/authority")
+    Observable<HttpResponse<List<HomeListBean>>> getAuthority();
+
+    // 账号绑定
+    @POST("/sys/loginOrBind")
+    @FormUrlEncoded
+    Observable<HttpResponse<UserInfoBean>> bindingWechat(@Field("openId") String openid,  @Field("mobile") String mobile, @Field("captcha") String password,@Field("type") int type);
 }

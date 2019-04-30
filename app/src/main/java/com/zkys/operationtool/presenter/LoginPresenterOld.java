@@ -78,6 +78,7 @@ public class LoginPresenterOld extends BasePresenterImpl<BaseView> {
                 .subscribe(new HttpResultObserver<UserInfoBean>() {
                     @Override
                     public void onSuccess(HttpResponse<UserInfoBean> result) {
+                        Log.e("mpk",""+result.getCode());
                         view.setData(result);
                         // Log.d("LoginPresenterOld", new Gson().toJson(result));
                     }
@@ -119,8 +120,9 @@ public class LoginPresenterOld extends BasePresenterImpl<BaseView> {
      * @param mobile
      * @param password
      */
-    public void bindingAccount(String openid, String mobile, String password) {
-        HttpUtils.getRetrofit().bindingAccount(openid,mobile,password)
+    public void bindingAccount(String openid, String mobile, String password,int type) {
+//        HttpUtils.getRetrofit().bindingAccount(openid,mobile,password)
+        HttpUtils.getRetrofit().bindingWechat(openid,mobile,password,type)
                 .compose(((RxAppCompatActivity) view).<HttpResponse<UserInfoBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {

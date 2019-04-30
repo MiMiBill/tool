@@ -23,7 +23,7 @@ import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.EventBusBean;
 import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.canstant.SharedConstant;
-import com.zkys.operationtool.presenter.LoginPresenterOld;
+import com.zkys.operationtool.presenter.LoginPresenter;
 import com.zkys.operationtool.util.DialogHelper;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -43,7 +43,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 登陆界面
  */
-public class LoginActivity extends BaseActivity<LoginPresenterOld> {
+public class LoginActivity extends BaseActivity<LoginPresenter> {
 
 
     @BindView(R.id.et_account)
@@ -81,8 +81,8 @@ public class LoginActivity extends BaseActivity<LoginPresenterOld> {
 
 
     @Override
-    public LoginPresenterOld initPresenter() {
-        return new LoginPresenterOld(this);
+    public LoginPresenter initPresenter() {
+        return new LoginPresenter(this);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class LoginActivity extends BaseActivity<LoginPresenterOld> {
             if (result.getCode() == 200) {
                 MyApplication.getInstance().saveUserInfo((UserInfoBean) result.getData());
                 startActivity(new Intent(this, HomeActivity.class));
-                finish();
+//                finish();
             } else if (result.getCode() == 406) {
                 startActivity(new Intent(this, BinderAccountActivity.class).putExtra("LoginResult", (UserInfoBean) result.getData()));
             } else {

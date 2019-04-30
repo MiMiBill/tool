@@ -135,7 +135,7 @@ public class MyApplication extends Application {
         if (userInfo == null) {
             return false;
         }
-        if (!TextUtils.isEmpty(userInfo.getLoginName()) && userInfo.getId() > 0) {
+        if (!TextUtils.isEmpty(userInfo.getName()) && userInfo.getId() > 0) {
             return true;
         } else {
             return false;

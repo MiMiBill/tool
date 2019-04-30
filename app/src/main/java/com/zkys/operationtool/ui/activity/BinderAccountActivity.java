@@ -12,7 +12,7 @@ import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.UserInfoBean;
-import com.zkys.operationtool.presenter.LoginPresenterOld;
+import com.zkys.operationtool.presenter.LoginPresenter;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
 
@@ -22,7 +22,7 @@ import butterknife.OnClick;
 /**
  * 绑定账号
  */
-public class BinderAccountActivity extends BaseActivity<LoginPresenterOld> {
+public class BinderAccountActivity extends BaseActivity<LoginPresenter> {
 
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
@@ -34,19 +34,19 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenterOld> {
     EditText etPassword;
     @BindView(R.id.ll_root)
     LinearLayout llRoot;
-    private UserInfoBean loginResult;
+    private UserInfoBean userinfoBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         etAccount.addTextChangedListener(new MyTextWatcher());
         etPassword.addTextChangedListener(new MyTextWatcher());
-        loginResult = getIntent().getParcelableExtra("LoginResult");
+        userinfoBean = getIntent().getParcelableExtra("LoginResult");
     }
 
     @Override
-    public LoginPresenterOld initPresenter() {
-        return new LoginPresenterOld(this);
+    public LoginPresenter initPresenter() {
+        return new LoginPresenter(this);
     }
 
     @Override
@@ -89,8 +89,8 @@ public class BinderAccountActivity extends BaseActivity<LoginPresenterOld> {
             case R.id.tv_confirm:
                 String account = etAccount.getText().toString().trim().replace(" ", "");
                 String password = etPassword.getText().toString().trim().replace(" ", "");
-                presenter.bindingAccount(loginResult.getOpenId(),
-                        account, password);
+                presenter.bindingAccount(userinfoBean.getOpenid(),
+                        account, password,1);
                 break;
         }
     }

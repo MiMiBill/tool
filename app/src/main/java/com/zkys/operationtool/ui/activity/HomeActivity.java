@@ -10,28 +10,39 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hjq.permissions.XXPermissions;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
+import com.zkys.operationtool.adapter.HomeListAdapter;
 import com.zkys.operationtool.application.MyApplication;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
-import com.zkys.operationtool.baseImpl.BasePresenter;
+import com.zkys.operationtool.bean.HomeListBean;
+import com.zkys.operationtool.canstant.Constant;
 import com.zkys.operationtool.canstant.SharedConstant;
+import com.zkys.operationtool.presenter.HomePresenter;
 import com.zkys.operationtool.ui.dialog.SimpleDialogFragment;
 import com.zkys.operationtool.util.ActivityManager;
 import com.zkys.operationtool.util.DateUtil;
+import com.zkys.operationtool.util.DensityUtil;
 import com.zkys.operationtool.util.JpushUtil;
 import com.zkys.operationtool.util.NotificationsUtils;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
+import com.zkys.operationtool.widget.VerticalLineDecoration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,7 +51,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 主菜单页面
  */
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity<HomePresenter> {
 
     @BindView(R.id.tv_name)
     TextView tvName;
@@ -50,18 +61,25 @@ public class HomeActivity extends BaseActivity {
     TextView tvVersionName;
     @BindView(R.id.tv_role_name)
     TextView tvRoleName;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
     private boolean isBackPressed;
+    private HomeListAdapter homeListAdapter;
+    private List<HomeListBean> list=new ArrayList<>();
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initRecyclerView();
+        presenter.getAuthority();
+
         mImmersionBar.titleBar(R.id.ll_root)
                 .init();
         tvName.setText(UIUtils.getRegards() + "-" + MyApplication.getInstance().getUserInfo().getName());
         tvBinderDesc.setText(tvBinderDesc.getText().toString().replace("0", MyApplication.getInstance().getUserInfo().getDeviceActiveCount() + ""));
-        tvRoleName.setText(MyApplication.getInstance().getUserInfo().getRoleName());
+        tvRoleName.setText(MyApplication.getInstance().getUserInfo().getTag());
         JpushUtil.setJPush();// 设置极光推送
         checkNotificationIsOpen();
 
@@ -81,7 +99,6 @@ public class HomeActivity extends BaseActivity {
         // 处理是否含有极光推送内容
         startAction();
     }
-
 
 
     /**
@@ -120,8 +137,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public HomePresenter initPresenter() {
+        return new HomePresenter(this);
     }
 
     @Override
@@ -129,27 +146,11 @@ public class HomeActivity extends BaseActivity {
         return R.layout.activity_home;
     }
 
-    @OnClick({R.id.iv_active_plate, R.id.iv_replace_device, R.id.iv_check_order, R.id.iv_plate_status,
-            R.id.iv_volume_control, R.id.iv_free_time, R.id.iv_binder_bar_code,
-            R.id.iv_inspection_feedback, R.id.iv_info_commit, R.id.iv_login_out, R.id.iv_alert_info,
-            R.id.iv_question_answer, R.id.iv_team_audit, R.id.tv_get_plate_pwd, R.id.iv_tool})
+    @OnClick({R.id.iv_free_time, R.id.iv_binder_bar_code,
+            R.id.iv_inspection_feedback, R.id.iv_info_commit, R.id.iv_login_out,
+            R.id.iv_question_answer, R.id.tv_get_plate_pwd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_active_plate:
-                startActivity(new Intent(this, ActivePlateActivity.class));// 激活设备
-                break;
-            case R.id.iv_replace_device:
-                startActivity(new Intent(this, ReplaceDeviceActivity.class));// 更换设备
-                break;
-            case R.id.iv_check_order:
-                startActivity(new Intent(this, CheckOrderActivity.class));// 查看订单
-                break;
-            case R.id.iv_plate_status:
-                startActivity(new Intent(this, PlateStatusActivity.class));// 设备状态
-                break;
-            case R.id.iv_volume_control:
-                startActivity(new Intent(this, VolumeControlActivity.class));// 音量控制
-                break;
             case R.id.iv_free_time:
                 startActivity(new Intent(this, ScanOnTimeActivity.class));// 免费时长（隐藏）
                 break;
@@ -178,23 +179,13 @@ public class HomeActivity extends BaseActivity {
                 }, getSupportFragmentManager());
 
                 break;
-            case R.id.iv_alert_info:// 警报信息
-                startActivity(new Intent(this, AlertInfoActivity.class));
-                break;
+
             case R.id.iv_question_answer:// 疑问解答
                 startActivity(new Intent(this, WebViewActivity.class)
-                        .putExtra("url", "http://test.hp.zgzkys.com/#/answer"));
+                        .putExtra("url", "http://taocan.zgzkys.com/#/answer"));
                 break;
-            case R.id.iv_team_audit:
-                startActivity(new Intent(this, TeamAuditActivity.class));
-                break;
-
             case R.id.tv_get_plate_pwd:// 获取
                 scanCode(R.id.tv_get_plate_pwd, new Intent(this, CaptureActivity.class), 1000);
-                break;
-
-            case R.id.iv_tool:// 获取
-                startActivity(new Intent(this, ToolsActivity.class));
                 break;
         }
     }
@@ -219,9 +210,67 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void setData(HttpResponse result) {
+        if (result.getData() != null) {
+            if (result.getData() instanceof List) {
+                list = (List<HomeListBean>) result.getData();
+                homeListAdapter.setNewData(list);
+            } else {
+                ToastUtil.showShort("暂无数据");
+            }
+        } else {
+            ToastUtil.showShort(result.getMsg());
+        }
+    }
+
+
+    private void initRecyclerView(){
+
+        GridLayoutManager lin = new GridLayoutManager(this,3);
+        recyclerView.setLayoutManager(lin);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setFadingEdgeLength(0);
+        homeListAdapter=new HomeListAdapter(HomeActivity.this,list);
+        recyclerView.setAdapter(homeListAdapter);
+        recyclerView.setFocusable(false);
+        homeListAdapter.setOnItemChildClickListener(listener);
+        recyclerView.addItemDecoration(new VerticalLineDecoration(DensityUtil.dip2px(this,12),true));
 
     }
 
+    BaseQuickAdapter.OnItemChildClickListener listener=new BaseQuickAdapter.OnItemChildClickListener() {
+        @Override
+        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            HomeListBean listBean = list.get(position);
+            switch (listBean.getCode()){
+                    case Constant.ACTIVE_CODE:
+                        startActivity(new Intent(HomeActivity.this, ActivePlateActivity.class));// 激活设备
+                        break;
+                    case Constant.ALERT_CODE:
+                        startActivity(new Intent(HomeActivity.this, AlertInfoActivity.class));  //警报信息
+                        break;
+                    case Constant.AUDIT_CODE:
+                        startActivity(new Intent(HomeActivity.this, TeamAuditActivity.class));  //团队审核
+                        break;
+                    case Constant.CHANGE_CODE:
+                        startActivity(new Intent(HomeActivity.this, ReplaceDeviceActivity.class));// 更换设备
+                        break;
+                    case Constant.ORDER_CODE:
+                        startActivity(new Intent(HomeActivity.this, CheckOrderActivity.class));// 查看订单
+                        break;
+                    case Constant.STATE_CODE:
+                        startActivity(new Intent(HomeActivity.this, PlateStatusActivity.class));// 设备状态
+                        break;
+                    case Constant.VOICE_CODE:
+                        startActivity(new Intent(HomeActivity.this, VolumeControlActivity.class));// 音量控制
+                        break;
+                    case Constant.TOOLS_CODE:
+                        startActivity(new Intent(HomeActivity.this, ToolsActivity.class));
+                        break;
+                    default:
+                        break;
+            }
+        }
+    };
 
     @Override
     public void onBackPressed() {
@@ -277,7 +326,7 @@ public class HomeActivity extends BaseActivity {
         //如果启动app的Intent中带有额外的参数，表明app是从点击通知栏的动作中启动的
         //将参数取出，传递到MainActivity中
         Bundle bundle = getIntent().getBundleExtra(SharedConstant.EXTRA_BUNDLE);
-        if(bundle != null){
+        if (bundle != null) {
             String msgType = bundle.getString(SharedConstant.MSGTYPE, "");
             Intent intent = new Intent();
             if (!TextUtils.isEmpty(msgType)) {

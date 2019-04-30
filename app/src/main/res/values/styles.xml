@@ -12,7 +12,7 @@
     <style name="CustomSeekbarStyle" >
         <item name="android:maxHeight">11dp</item>
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:indeterminateDrawable">@color/colorAccent</item>
+        <item name="android:indeterminateDrawable">@color/color_f98248</item>
         <item name="android:progressDrawable">@drawable/seekbar_bg</item>
         <item name="android:minHeight">11dp</item>
         <item name="android:thumb">@drawable/test_point</item>

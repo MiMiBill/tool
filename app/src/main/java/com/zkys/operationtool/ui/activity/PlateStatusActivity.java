@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,6 +36,8 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
     RecyclerView rcvList;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.rl_network_exception)
+    RelativeLayout rlNetworkException;
     private List<ItemUsageRatesBean> usageRatesBeans;
 
     @Override
@@ -43,7 +46,7 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
         setTvTitleText("平板状态");
         final Map<String, Object> map = new HashMap<>();
         map.put("id", MyApplication.getInstance().getUserInfo().getId());
-        map.put("sydicId", MyApplication.getInstance().getUserInfo().getCorrelationId());
+//        map.put("sydicId", MyApplication.getInstance().getUserInfo().getCorrelationId());
         presenter.getAllPadUsageRates(map);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -88,7 +91,7 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
                 if (usageRatesBeans != null && usageRatesBeans.size() > 0) {
                     initData();
                 } else {
-                    ToastUtil.showShort("暂无数据");
+                    rlNetworkException.setVisibility(View.VISIBLE);
                 }
             } else {
                 ToastUtil.showShort(result.getMsg());

@@ -29,6 +29,15 @@ public class ItemUsageRatesBean {
     private String padUseRate;
     private String deptId;
     private String deptName;
+    private int offLineCount;
+
+    public int getOffLineCount() {
+        return offLineCount;
+    }
+
+    public void setOffLineCount(int offLineCount) {
+        this.offLineCount = offLineCount;
+    }
 
     public String getDeptId() {
         return deptId;

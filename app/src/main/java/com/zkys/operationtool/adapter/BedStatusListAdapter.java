@@ -31,12 +31,12 @@ public class BedStatusListAdapter extends BaseMultiItemQuickAdapter<BedOrderStat
             helper.setText(R.id.tv_normal_bed_number, "床位号：" + item.getBedNumber());
             helper.setText(R.id.tv_normal_usage_time, item.getCreateTimeFormat());
             helper.setText(R.id.tv_normal_heart_time, item.getCreateTimeFormat());
-            helper.setText(R.id.tv_normal_device_status, item.getDeviceStatus());
+            helper.setText(R.id.tv_normal_device_status, item.getHeartStatusName());
         } else {
             helper.setText(R.id.tv_exception_bed_number, "床位号：" + item.getBedNumber());
             helper.setText(R.id.tv_exception_usage_time, item.getCreateTimeFormat());
             helper.setText(R.id.tv_exception_heart_time, item.getCreateTimeFormat());
-            helper.setText(R.id.tv_exception_device_status, item.getDeviceStatus());
+            helper.setText(R.id.tv_exception_device_status, item.getHeartStatusName());
         }
         helper.addOnClickListener(R.id.ll_item_normal, R.id.ll_item_exception, R.id.tv_normal_right_update,R.id.tv_exception_right_update);
     }

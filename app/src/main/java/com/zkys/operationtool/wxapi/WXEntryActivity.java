@@ -58,6 +58,15 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
                 Log.d(TAG, "onResp: 成功");
+//                if (resp instanceof SendAuth.Resp) {  //登陆成功返回类型SendAuth.Resp
+//                    //发送成功
+//                    SendAuth.Resp sendResp = (SendAuth.Resp) resp;
+//                    if (sendResp != null) {
+//                        //请求个人信息
+//                        String code = sendResp.code;
+//                        getAccess_token(code);
+//                    }
+//                }
                 EventBus.getDefault().post(new EventBusBean(code));
                 finish();
                 break;
@@ -71,4 +80,59 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                 break;
         }
     }
+
+   /* private void getAccess_token(String code) {
+        final String path = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
+                + Constants.WeChat_APP_ID
+                + "&secret="
+                + Constants.WeChat_APP_SECRET
+                + "&code="
+                + code
+                + "&grant_type=authorization_code";
+
+
+        OkHttpUtils.get().url(path).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                String access = null;
+                String openId = null;
+                try {
+                    JSONObject jsonObject =JSON.parseObject(response);
+                    access = jsonObject.getString("access_token");
+                    openId = jsonObject.getString("openid");
+                    getUserInfo(access,openId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void getUserInfo(String accessToken, final String wxopenId){
+        String path = "https://api.weixin.qq.com/sns/userinfo?access_token="
+                + accessToken
+                + "&openid="+wxopenId;
+        OkHttpUtils.get().url(path).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                finish();
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                WXUserInfo wxResponse = JSON.parseObject(response,WXUserInfo.class);
+                avatar = wxResponse.getHeadimgurl();
+                memberName=wxResponse.getNickname();
+                gender=wxResponse.getSex();
+                openId=wxResponse.getOpenid();
+
+
+            }
+        });
+    }*/
 }

@@ -20,6 +20,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,21 +35,42 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpUtils {
 
     private static final int DEFAULT_TIMEOUT = 10;// 连接超时，单位：秒
-
     /**
      * 配置Okhttp
      */
-    private static final OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(new GetCookiesInterceptor(MyApplication.getContext()))
-//            .addInterceptor(new UserAgentIntercepter())
-            .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-            .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-            .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-            .build();
+//    private static final OkHttpClient client = new OkHttpClient.Builder()
+//            .addInterceptor(new GetCookiesInterceptor(MyApplication.getContext()))
+////            .addInterceptor(new UserAgentIntercepter()
+//            .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+//            .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+//            .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+//            .build();
 
     private static HttpUtils httpUtils;
     private static Retrofit retrofit;
     private static RetrofitInterface retrofitInterface;
+
+    public static OkHttpClient configOkHttpClient() {
+        //日志拦截器
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Log.e("mpk", message);
+            }
+        });
+        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        //添加参数 Header
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .addInterceptor(logInterceptor)
+                .addInterceptor(new GetCookiesInterceptor(MyApplication.getContext()))
+//            .addInterceptor(new UserAgentIntercepter()
+                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        return builder.build();
+    }
+
 
     /**
      * 单例
@@ -60,7 +82,7 @@ public class HttpUtils {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(URLConstant.BASE_URL)
-                    .client(client)
+                    .client(configOkHttpClient())
 //                    .addConverterFactory(MGsonConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -81,7 +103,7 @@ public class HttpUtils {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(serverUrl)
-                    .client(client)
+                    .client(configOkHttpClient())
 //                    .addConverterFactory(MGsonConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -109,9 +131,10 @@ public class HttpUtils {
             builder.addHeader("Content-Type", "application/json;charset=UTF-8");
             if (MyApplication.getInstance().getUserInfo() != null) {
                 //@TODO 认证暂时去掉 xq
-                String admin = MyApplication.getInstance().getUserInfo().getAdmin();
-                if (!TextUtils.isEmpty(admin)) builder.addHeader("USER",MyApplication.getInstance().getUserInfo().getAdmin());
-                builder.addHeader("TES","3");
+                String access_token = MyApplication.getInstance().getUserInfo().getAccess_token();
+                Log.e("mpk","access_token=="+access_token);
+                if (!TextUtils.isEmpty(access_token)) builder.addHeader("access_token",access_token);
+//                builder.addHeader("TES","3");
             }
             SharedPreferences mSharedPreferences=context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
             String str = mSharedPreferences.getString(COOKIE, null);

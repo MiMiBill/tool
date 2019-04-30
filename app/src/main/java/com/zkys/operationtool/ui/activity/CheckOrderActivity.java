@@ -16,7 +16,6 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.github.mikephil.charting.charts.LineChart;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.adapter.OrderListAdapter;
-import com.zkys.operationtool.application.MyApplication;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.CoreBean;
@@ -44,7 +43,8 @@ import butterknife.OnClick;
 /**
  * 查看订单页面
  */
-public class CheckOrderActivity extends BaseActivity<OrderListPresenter> implements BottomDialog.ItemSelectedInterface {
+public class CheckOrderActivity extends BaseActivity<OrderListPresenter> implements BottomDialog
+        .ItemSelectedInterface {
 
     @BindView(R.id.tl_menu)
     CommonTabLayout tlMenu;
@@ -79,14 +79,16 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
     Calendar dateAndTime = Calendar.getInstance(Locale.CHINA);
     DateFormat fmtDate = new SimpleDateFormat("yyyy.MM.dd");
     private BottomDialog bottomDialog;
-    private List<HospitalBean> hospitalBeanList;
-    private List<CoreBean> coreBeanList;
+    private List<HospitalBean> hospitalBeanList=new ArrayList<>();
+    private List<CoreBean> coreBeanList=new ArrayList<>();
     private List<String> hospitalNames = new ArrayList<>();
     private List<String> coreNames = new ArrayList<>();
     private long startTime;
     private long endTime;
     private int hid;
     private int cid;
+    private List<OrderDataBean.ArrayBean> orderDataBeanArray=new ArrayList<>();
+    private OrderDataBean orderDataBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,16 +198,17 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
                             names.add(coreBean.getName());
                         }
                         initDialogDataAndShow(names, 2);// 2代表选择科室的数据
-                    } else if(list.get(0) instanceof ItemStatisticBean) {
-                        List<ItemStatisticBean> statisticBeanList = (List<ItemStatisticBean>) result.getData();
+                    } else if (list.get(0) instanceof ItemStatisticBean) {
+                        List<ItemStatisticBean> statisticBeanList = (List<ItemStatisticBean>)
+                                result.getData();
                         ChartUtils.initLineChart(lineChart, statisticBeanList, context);
                     }
                 } else {
                     ToastUtil.showShort("暂无数据");
                 }
             } else if (result.getData() instanceof OrderDataBean) {
-                OrderDataBean orderDataBean = (OrderDataBean) result.getData();
-                List<OrderDataBean.ArrayBean> orderDataBeanArray = orderDataBean.getArray();
+                orderDataBean = (OrderDataBean) result.getData();
+                orderDataBeanArray = orderDataBean.getArray();
                 tvMoney.setText("" + orderDataBean.getMoneyTotal());
                 tvOrderTotal.setText("" + orderDataBean.getOrderCount());
                 if (orderDataBeanArray != null && orderDataBeanArray.size() > 0) {
@@ -213,6 +216,7 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
                 } else {
                     lineChart.clear();
                 }
+//                mAdapter.setNewData(orderDataBeanArray);
                 rcvList.setAdapter(new OrderListAdapter(orderDataBeanArray));
             }
         } else if (result.getCode() == 200) {
@@ -228,7 +232,8 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
 
     }
 
-    @OnClick({R.id.rl_select_start_time, R.id.rl_select_end_time, R.id.rl_select_hospital, R.id.rl_select_core})
+    @OnClick({R.id.rl_select_start_time, R.id.rl_select_end_time, R.id.rl_select_hospital, R.id
+            .rl_select_core})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_select_start_time:
@@ -276,7 +281,8 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
     }
 
 
-    DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+    DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener
+            () {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
@@ -328,14 +334,15 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
 
     private void getOrderListStatistics() {
         Map<String, Object> map = new HashMap<>();
-        map.put("sydicId", MyApplication.getInstance().getUserInfo().getCorrelationId());
+//        map.put("sydicId", MyApplication.getInstance().getUserInfo().getCorrelationId());
         map.put("hospitalId", hid > 0 ? hid : "");
         map.put("deptId", cid > 0 ? cid : "");
-        map.put("startTime", startTime > 0? startTime : "");
-        map.put("endTime", endTime > 0? endTime + 60*60*24 - 1 : "");
+        map.put("startTime", startTime > 0 ? startTime : "");
+        map.put("endTime", endTime > 0 ? endTime + 60 * 60 * 24 - 1 : "");
         map.put("pageNumber", 1);
-        map.put("pageSize", 1000);
+        map.put("pageSize", 100);
         presenter.getOderData(map);// 订单列表
         presenter.getOrderStatistics(map);
     }
+
 }

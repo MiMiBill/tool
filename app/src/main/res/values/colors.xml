@@ -9,4 +9,7 @@
     <!--<color name="colorAccent">#D81B60</color>-->
     <color name="colorAccent">#2994F1</color>
     <color name="zxing_transparent">#00000000</color>
+    <color name="textcolor_333333">#333333</color>
+    <color name="color_f98248">#F98248</color>
+    <color name="color_f3f7fa">#f3f7fa</color>
 </resources>

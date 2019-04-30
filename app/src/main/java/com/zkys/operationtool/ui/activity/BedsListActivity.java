@@ -59,6 +59,8 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
         Map<String, Object> map = new HashMap<>();
         map.put("hospitalId", hid);
         map.put("deptId", cid);
+        map.put("pageNum",1);
+        map.put("pageSize",10);
         presenter.getPadOrderStatusData(map);
     }
 

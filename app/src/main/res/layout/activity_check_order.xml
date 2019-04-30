@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <LinearLayout
-                        android:background="@drawable/btn_blue_solid_bg"
+                        android:background="@mipmap/icon_bg"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="83dp">
@@ -409,7 +409,6 @@
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rcv_list"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"

@@ -26,8 +26,6 @@
             <include layout="@layout/item_alert_info"/>
         </LinearLayout>
 
-
-
     </android.support.v4.widget.NestedScrollView>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -51,5 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <include layout="@layout/view_no_data"/>
 
 </RelativeLayout>

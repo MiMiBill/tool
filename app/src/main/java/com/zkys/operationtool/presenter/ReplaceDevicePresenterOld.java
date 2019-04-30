@@ -37,7 +37,8 @@ public class ReplaceDevicePresenterOld extends BasePresenterImpl<BaseView> {
         /**
          * 审核状态, 0:待审核，1：已通过，2：未通过
          */
-        HttpUtils.getRetrofit().getHospitalList(MyApplication.getInstance().getUserInfo().getCorrelationId() + "",1)
+//        HttpUtils.getRetrofit().getHospitalList(MyApplication.getInstance().getUserInfo().getCorrelationId() + "",1)
+        HttpUtils.getRetrofit().getnewHospitalList(1)
                 .compose(((RxAppCompatActivity) view).<HttpResponse<List<HospitalBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {

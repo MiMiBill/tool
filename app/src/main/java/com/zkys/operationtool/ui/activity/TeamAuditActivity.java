@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zkys.operationtool.R;
@@ -23,6 +24,8 @@ public class TeamAuditActivity extends BaseActivity<TeamAuditPresenter> {
 
     @BindView(R.id.rcv_list)
     RecyclerView rcvList;
+    @BindView(R.id.rel_nodata)
+    RelativeLayout relNodata;
     private AuditListAdapter adapter;
     private List<AuditItemBean> auditItemBeans;
 
@@ -52,16 +55,19 @@ public class TeamAuditActivity extends BaseActivity<TeamAuditPresenter> {
     public void setData(HttpResponse result) {
         if (result != null) {
             if (result.getData() instanceof List) {
-                if (((List) result.getData()).size() > 0 && ((List) result.getData()).get(0) instanceof AuditItemBean) {
+                if (((List) result.getData()).size() > 0 && ((List) result.getData()).get(0)
+                        instanceof AuditItemBean) {
                     bindData(result);
                 } else {
                     bindData(result);
-                    ToastUtil.showShort("暂无数据");
+                    relNodata.setVisibility(View.VISIBLE);
                 }
             } else {
+                relNodata.setVisibility(View.VISIBLE);
                 ToastUtil.showShort(result.getMsg());
             }
         } else {
+            relNodata.setVisibility(View.VISIBLE);
             ToastUtil.showShort("数据获取失败");
         }
     }

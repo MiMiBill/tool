@@ -31,5 +31,6 @@ public class UsageRatesAdapter extends BaseQuickAdapter<ItemUsageRatesBean, Base
         helper.setText(R.id.tv_rent_rates, item.getDeviceRentRate() + "%");
         helper.setText(R.id.tv_rent_count, item.getDeviceRentCount());
         helper.setText(R.id.tv_active_count, item.getActivationCount());
+        helper.setText(R.id.tv_offline_count, String.valueOf(item.getOffLineCount()));
     }
 }

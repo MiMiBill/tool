@@ -3,6 +3,8 @@ package com.zkys.operationtool.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -25,6 +27,8 @@ public class AlertInfoActivity extends BaseActivity<AlertInfoPresenter> {
     RecyclerView rcvList;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.rel_nodata)
+    RelativeLayout RelNodata;
     private List<AlertBean> alertBeans;
 
     @Override
@@ -63,12 +67,14 @@ public class AlertInfoActivity extends BaseActivity<AlertInfoPresenter> {
                 if (alertBeans != null && alertBeans.size() > 0) {
                     initData();
                 } else {
-                    ToastUtil.showShort("暂无数据");
+                    RelNodata.setVisibility(View.VISIBLE);
                 }
-            }  else {
+            } else {
+                RelNodata.setVisibility(View.VISIBLE);
                 ToastUtil.showShort(result.getMsg());
             }
         } else {
+            RelNodata.setVisibility(View.VISIBLE);
             ToastUtil.showShort("数据获取失败");
         }
         refreshLayout.finishRefresh();
