@@ -110,6 +110,7 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
             public void onTabSelect(int position) {
                 flList.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
                 flTable.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
+
             }
 
             @Override

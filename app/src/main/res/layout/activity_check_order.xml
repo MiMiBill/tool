@@ -336,10 +336,12 @@
                     app:tl_indicator_margin_right="48dp"
                     app:tl_divider_width="1px"
                     app:tl_divider_color="#CCCCCC"
-                    app:tl_textUnselectColor="#333333"
-                    app:tl_textSelectColor="@color/colorAccent"
-                    app:tl_indicator_color="@color/colorAccent"
-                    app:tl_textsize="17sp"/>
+                    app:tl_textUnselectColor="#999999"
+                    app:tl_textSelectColor="@color/white"
+                    app:tl_indicator_style="BLOCK"
+                    app:tl_indicator_corner_radius="24dp"
+                    app:tl_indicator_color="@color/color_f98248"
+                    app:tl_textsize="13sp"/>
                 <View
                     android:background="#EEEEEE"
                     android:layout_width="match_parent"
