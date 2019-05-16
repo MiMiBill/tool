@@ -94,7 +94,7 @@ public class VolumeControlPresenterOld extends BasePresenterImpl<BaseView> {
     }
 
     public void getPadVolume(int hid, int cid) {
-        HttpUtils.getRetrofit(URLConstant.BASE_URL2).getPadVolume(hid, cid)
+        HttpUtils.getRetrofit(URLConstant.BASE_URL).getPadVolume(hid, cid)
                 .compose(((RxAppCompatActivity) view).<HttpResponse<List<VolumeInfoBean>>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -123,7 +123,7 @@ public class VolumeControlPresenterOld extends BasePresenterImpl<BaseView> {
                 });
     }
     public void controlPadVolume(int hid, int cid, int volume, int vid) {
-        HttpUtils.getRetrofit(URLConstant.BASE_URL2).controlPadVolume(hid, cid, volume, vid)
+        HttpUtils.getRetrofit(URLConstant.BASE_URL).controlPadVolume(hid, cid, volume, vid)
                 .compose(((RxAppCompatActivity) view).<HttpResponse<Object>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {

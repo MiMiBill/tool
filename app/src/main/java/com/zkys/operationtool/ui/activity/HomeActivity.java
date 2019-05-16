@@ -210,6 +210,10 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
 
     @Override
     public void setData(HttpResponse result) {
+        if(result.getCode()==1001){ //token失效,退出登录
+            MyApplication.getInstance().clearUserInfo();
+            MyApplication.getInstance().restartApplication();
+        }
         if (result.getData() != null) {
             if (result.getData() instanceof List) {
                 list = (List<HomeListBean>) result.getData();
@@ -217,8 +221,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
             } else {
                 ToastUtil.showShort("暂无数据");
             }
-        } else {
-            ToastUtil.showShort(result.getMsg());
         }
     }
 
