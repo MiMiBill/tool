@@ -28,6 +28,7 @@ import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.canstant.TypeCodeCanstant;
 import com.zkys.operationtool.dialog.BottomDialog;
 import com.zkys.operationtool.presenter.ReplaceDevicePresenterOld;
+import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -192,6 +193,9 @@ public class ReplaceDeviceActivity extends BaseActivity<ReplaceDevicePresenterOl
     @Override
     public void setData(HttpResponse result) {
         if (result.getData() != null) {
+            if(result.getCode()==1001){ //token失效,退出登录
+                LogOutUtil.LogOut();
+            }
             if (result.getData() instanceof List) {
                 List list = (List) result.getData();
                 if (list != null && list.size() > 0) {

@@ -14,6 +14,7 @@ import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.AuditItemBean;
 import com.zkys.operationtool.presenter.TeamAuditPresenter;
+import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 
 import java.util.List;
@@ -54,6 +55,9 @@ public class TeamAuditActivity extends BaseActivity<TeamAuditPresenter> {
     @Override
     public void setData(HttpResponse result) {
         if (result != null) {
+            if(result.getCode()==1001){ //token失效,退出登录
+                LogOutUtil.LogOut();
+            }
             if (result.getData() instanceof List) {
                 if (((List) result.getData()).size() > 0 && ((List) result.getData()).get(0)
                         instanceof AuditItemBean) {
