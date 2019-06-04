@@ -27,7 +27,7 @@ import butterknife.BindView;
 /**
  * 某医院的科室的平板列表
  */
-public class PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
+public class  PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
 
     @BindView(R.id.rcv_list)
     RecyclerView rcvList;

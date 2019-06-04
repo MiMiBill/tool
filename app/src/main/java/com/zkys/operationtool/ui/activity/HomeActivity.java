@@ -248,7 +248,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
                         startActivity(new Intent(HomeActivity.this, ActivePlateActivity.class));// 激活设备
                         break;
                     case Constant.ALERT_CODE:
-                        startActivity(new Intent(HomeActivity.this, AlertInfoActivity.class));  //警报信息
+                        startActivity(new Intent(HomeActivity.this, NotificationActivity.class));  //通知
                         break;
                     case Constant.AUDIT_CODE:
                         startActivity(new Intent(HomeActivity.this, TeamAuditActivity.class));  //团队审核
@@ -257,7 +257,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
                         startActivity(new Intent(HomeActivity.this, ReplaceDeviceActivity.class));// 更换设备
                         break;
                     case Constant.ORDER_CODE:
-                        startActivity(new Intent(HomeActivity.this, CheckOrderActivity.class));// 查看订单
+                        startActivity(new Intent(HomeActivity.this, OrderViewActivity.class));// 查看订单
                         break;
                     case Constant.STATE_CODE:
                         startActivity(new Intent(HomeActivity.this, PlateStatusActivity.class));// 设备状态

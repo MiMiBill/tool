@@ -5,8 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hjq.permissions.XXPermissions;
@@ -32,7 +29,6 @@ import com.zkys.operationtool.presenter.ActivePlatePresenter;
 import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
-import com.zkys.operationtool.widget.AfterTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +52,7 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
     public static final int ADAPTER_REQUEST_CODE = 114;
     public static final int BRACKET_REQUEST_CODE = 115;
     public static final int CABINET_REQUEST_CODE = 116;
-    @BindView(R.id.rl_network_exception)
-    RelativeLayout rlNetworkException;
+
     @BindView(R.id.et_bed_number)
     EditText etBedNumber;
     @BindView(R.id.tv_device_code)
@@ -108,15 +103,6 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
         super.onCreate(savedInstanceState);
 
         setTvTitleText("激活设备");
-        etBedNumber.addTextChangedListener(new MyTextWatcher());
-        tvSelectedHospital.addTextChangedListener(new MyTextWatcher());
-        tvSelectedCore.addTextChangedListener(new MyTextWatcher());
-        tvDeviceCode.addTextChangedListener(new MyTextWatcher());
-        tvPlateBarCode.addTextChangedListener(new MyTextWatcher());
-        tvSimBarCode.addTextChangedListener(new MyTextWatcher());
-        tvCabinetBarCode.addTextChangedListener(new MyTextWatcher());
-        tvAdapterBarCode.addTextChangedListener(new MyTextWatcher());
-        tvBracketBarCode.addTextChangedListener(new MyTextWatcher());
         rgSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -125,7 +111,6 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
                 } else if (checkedId == R.id.rb_no) {
                     run = 2;
                 }
-                changeBtnState();
             }
         });
         initDialog();
@@ -317,17 +302,31 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
         /**
          * type --> 1：联通卡  2：二G锁  4：屏  8：适配器  16：支架
          */
-        String bedNumber = etBedNumber.getText().toString().trim();
         String selectHospitalName = tvSelectedHospital.getText().toString().trim();
+        if("".equals(selectHospitalName)){
+            ToastUtil.showShort("请选择医院");
+            return;
+        }
         String selectCoreName = tvSelectedCore.getText().toString().trim();
-
+        if("".equals(selectCoreName)){
+            ToastUtil.showShort("请选择科室");
+            return;
+        }
+        String bedNumber = etBedNumber.getText().toString().trim();
+        if("".equals(bedNumber)){
+            ToastUtil.showShort("请输入床位号");
+            return;
+        }
         String deviceCode = tvDeviceCode.getText().toString().trim();
         String simBarCode = tvSimBarCode.getText().toString().trim();
         String plateBarCode = tvPlateBarCode.getText().toString().trim();
         String cabinetBarCode = tvCabinetBarCode.getText().toString().trim();
         String adapterBarCode = tvAdapterBarCode.getText().toString().trim();
         String bracketBarCode = tvBracketBarCode.getText().toString().trim();
-
+        if("".equals(deviceCode) || "".equals(simBarCode) || "".equals(plateBarCode) || "".equals(bracketBarCode)){
+            ToastUtil.showShort("设备信息不能为空");
+            return;
+        }
         List<DeviceParameterBean> list = new ArrayList<>();
         list.add(new DeviceParameterBean(deviceCode, plateBarCode, TypeCodeCanstant.TYPE_PLATE));
         list.add(new DeviceParameterBean(simBarCode, "", TypeCodeCanstant.TYPE_SIM_KAR));
@@ -386,87 +385,5 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
                 }
             }
         }
-    }
-
-    class MyTextWatcher extends AfterTextWatcher {
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            changeBtnState();
-        }
-    }
-
-    void changeBtnState() {
-        String bedNumber = etBedNumber.getText().toString().trim();
-        String selectHospitalName = tvSelectedHospital.getText().toString().trim();
-        String selectCoreName = tvSelectedCore.getText().toString().trim();
-        String deviceCode = tvDeviceCode.getText().toString().trim();
-        String plateBarCode = tvPlateBarCode.getText().toString().trim();
-        String simBarCode = tvSimBarCode.getText().toString().trim();
-        String cabinetBarCode = tvCabinetBarCode.getText().toString().trim();
-        String adapterBarCode = tvAdapterBarCode.getText().toString().trim();
-        String bracketBarCode = tvBracketBarCode.getText().toString().trim();
-        int checkedRadioButtonId = rgSelect.getCheckedRadioButtonId();
-
-
-        tvActive.setEnabled(getSuccess(bedNumber, selectHospitalName, selectCoreName, deviceCode, plateBarCode, simBarCode, cabinetBarCode, adapterBarCode, bracketBarCode));
-
-
-
-    }
-
-    private boolean getSuccess(String bedNumber, String selectHospitalName, String selectCoreName, String deviceCode, String plateBarCode, String simBarCode, String cabinetBarCode, String adapterBarCode, String bracketBarCode) {
-        if (!TextUtils.isEmpty(bedNumber)&&!TextUtils.isEmpty(selectHospitalName)&&!TextUtils.isEmpty(selectCoreName)) {
-            //按组判断如果某一组某一个不为空就判断当前组所有的不能为空
-            ////判断第一组
-            /*if ((!TextUtils.isEmpty(deviceCode) || !TextUtils.isEmpty(plateBarCode) || !TextUtils.isEmpty(simBarCode) || !TextUtils.isEmpty(bracketBarCode))
-                    && (!TextUtils.isEmpty(deviceCode) && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(simBarCode) && !TextUtils.isEmpty(bracketBarCode))
-                    //判断第二组
-                    || ((!TextUtils.isEmpty(cabinetBarCode) || !TextUtils.isEmpty(adapterBarCode))
-                    && (!TextUtils.isEmpty(cabinetBarCode) && !TextUtils.isEmpty(adapterBarCode)))) {
-
-
-                tvActive.setEnabled(true);
-                return;
-            }*/
-            int tag1 = -1;
-            if ((!TextUtils.isEmpty(deviceCode) || !TextUtils.isEmpty(plateBarCode) || !TextUtils.isEmpty(simBarCode) || !TextUtils.isEmpty(bracketBarCode))) {
-                if ((!TextUtils.isEmpty(deviceCode) && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(simBarCode) && !TextUtils.isEmpty(bracketBarCode))) {
-                    tag1 = 1;
-                } else {
-                    tag1 = 0;
-                }
-            }
-
-            int tag2 = -1;
-            if (!TextUtils.isEmpty(cabinetBarCode) || !TextUtils.isEmpty(adapterBarCode)) {
-                if (!TextUtils.isEmpty(cabinetBarCode) && !TextUtils.isEmpty(adapterBarCode)) {
-                    tag2 = 1;
-                } else {
-                    tag2 = 0;
-                }
-            }
-            if (tag1 == 0 || tag2 == 0) {
-                return false;
-            }
-            if (tag1 == 1 || tag2 == 1) {
-                return true;
-            }
-
-//            if ((is1 || is2) && (is1 && is2)) {
-//
-//            }
-        }
-
-//        boolean enable = !TextUtils.isEmpty(bedNumber) && !TextUtils.isEmpty(selectHospitalName)
-//                && !TextUtils.isEmpty(selectCoreName) && !TextUtils.isEmpty(deviceCode)
-//                && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(simBarCode)
-//                && !TextUtils.isEmpty(cabinetBarCode)
-//                && !TextUtils.isEmpty(adapterBarCode)
-//                && !TextUtils.isEmpty(bracketBarCode)
-//                && checkedRadioButtonId != 0;
-
-
-        return false;
     }
 }

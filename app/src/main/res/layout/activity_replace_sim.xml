@@ -251,7 +251,6 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="更换SIM卡"
-        android:enabled="false"
         android:layout_marginBottom="28dp"
         android:textColor="#ffffffff"
         android:textSize="18sp"

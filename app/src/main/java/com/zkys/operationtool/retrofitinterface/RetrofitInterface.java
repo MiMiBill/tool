@@ -179,4 +179,17 @@ public interface RetrofitInterface {
     @POST("/sys/loginOrBind")
     @FormUrlEncoded
     Observable<HttpResponse<UserInfoBean>> bindingWechat(@Field("openId") String openid,  @Field("mobile") String mobile, @Field("captcha") String password,@Field("type") int type);
+
+    // 获取逾期订单数量
+    @GET("yw/wxOrder/getExpireTotal")
+    Observable<HttpResponse<Object>> getExpireTotal();
+
+    // 获取警报信息订单数量
+    @GET("/yw/alarm/getTotal")
+    Observable<HttpResponse<Object>> getAlarmTotal();
+
+    // 获取逾期订单
+    @POST("/yw/wxOrder/list")
+    @FormUrlEncoded
+    Observable<HttpResponse<Object>> wxOrderList(@FieldMap Map<String, Object> map);
 }

@@ -9,6 +9,7 @@ import android.webkit.URLUtil;
 
 import com.zkys.operationtool.application.MyApplication;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,6 +71,11 @@ public class UIUtils {
             regards = "晚上好";
         }
         return regards;
+    }
+
+    public static int getInt(double number){
+        BigDecimal bd=new BigDecimal(number).setScale(0, BigDecimal.ROUND_HALF_UP);
+        return Integer.parseInt(bd.toString());
     }
 
 }

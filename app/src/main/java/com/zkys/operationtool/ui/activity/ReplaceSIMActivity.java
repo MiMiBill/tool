@@ -5,8 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +22,6 @@ import com.zkys.operationtool.bean.DeviceParameterBean;
 import com.zkys.operationtool.presenter.ReplaceDevicePresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
-import com.zkys.operationtool.widget.AfterTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +58,6 @@ public class ReplaceSIMActivity extends BaseActivity<ReplaceDevicePresenterOld> 
             bedNumber = intent.getStringExtra("bedNumber");
             type = intent.getIntExtra("type", 0);
         }
-        tvSimBarCode.addTextChangedListener(new MyTextWatcher());
-        etRemark.addTextChangedListener(new MyTextWatcher());
     }
 
     @Override
@@ -113,6 +108,14 @@ public class ReplaceSIMActivity extends BaseActivity<ReplaceDevicePresenterOld> 
     private void replaceDevice() {
         String simBarCode = tvSimBarCode.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
+        if("".equals(simBarCode)){
+            ToastUtil.showShort("请输入SIM卡ICCID");
+            return;
+        }
+        if("".equals(remark)){
+            ToastUtil.showShort("请填写备注");
+            return;
+        }
         List<DeviceParameterBean> list = new ArrayList<>();
         list.add(new DeviceParameterBean(simBarCode, "", type));
         presenter.replaceDevice(bedNumber, hid, cid, list, remark);
@@ -136,20 +139,6 @@ public class ReplaceSIMActivity extends BaseActivity<ReplaceDevicePresenterOld> 
                 });
     }
 
-    class MyTextWatcher extends AfterTextWatcher {
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            changeBtnState();
-        }
-    }
-
-    void changeBtnState() {
-        String simCode = tvSimBarCode.getText().toString().trim();
-        String remark = etRemark.getText().toString().trim();
-        boolean enable = !TextUtils.isEmpty(simCode) && !TextUtils.isEmpty(remark);
-        tvReplace.setEnabled(enable);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

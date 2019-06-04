@@ -80,6 +80,40 @@
                 android:layout_height="1px"/>
 
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_pad_tool"
+            android:paddingLeft="16dp"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:hint="生产工具"
+                android:textColorHint="#ff333333"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="#ff333333"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_chevron"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_centerVertical="true"
+                android:layout_width="8dp"
+                android:layout_height="13dp" />
+            <View
+                android:layout_marginRight="16dp"
+                android:layout_alignParentBottom="true"
+                android:background="#EEEEEE"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+        </RelativeLayout>
     </LinearLayout>
 
 

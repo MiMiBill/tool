@@ -60,7 +60,7 @@ public class ToolsActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_unlock, R.id.rl_get_pad_pwd})
+    @OnClick({R.id.rl_unlock, R.id.rl_get_pad_pwd,R.id.rl_pad_tool})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_unlock:
@@ -68,6 +68,9 @@ public class ToolsActivity extends BaseActivity {
                 break;
             case R.id.rl_get_pad_pwd:
                 scanCode(R.id.rl_get_pad_pwd, new Intent(this, CaptureActivity.class), 1000);
+                break;
+            case R.id.rl_pad_tool:
+                startActivity(new Intent(this, PadToolActivity.class));
                 break;
         }
     }

@@ -3,31 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <android.support.v4.widget.NestedScrollView
-        android:visibility="gone"
-        android:id="@+id/sv_content"
-        android:fillViewport="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <include layout="@layout/item_alert_info"/>
-            <include layout="@layout/item_alert_info"/>
-            <include layout="@layout/item_alert_info"/>
-            <include layout="@layout/item_alert_info"/>
-            <include layout="@layout/item_alert_info"/>
-            <include layout="@layout/item_alert_info"/>
-            <include layout="@layout/item_alert_info"/>
-            <include layout="@layout/item_alert_info"/>
-            <include layout="@layout/item_alert_info"/>
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
 
         android:id="@+id/refreshLayout"

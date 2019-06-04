@@ -2,6 +2,7 @@ package com.zkys.operationtool.ui.activity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +15,10 @@ import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.github.mikephil.charting.charts.LineChart;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.adapter.OrderListAdapter;
 import com.zkys.operationtool.base.BaseActivity;
@@ -26,6 +31,7 @@ import com.zkys.operationtool.bean.TabEntity;
 import com.zkys.operationtool.dialog.BottomDialog;
 import com.zkys.operationtool.presenter.OrderListPresenter;
 import com.zkys.operationtool.util.ChartUtils;
+import com.zkys.operationtool.util.LogFactory;
 import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 
@@ -44,7 +50,7 @@ import butterknife.OnClick;
 /**
  * 查看订单页面
  */
-public class CheckOrderActivity extends BaseActivity<OrderListPresenter> implements BottomDialog
+public class OrderViewActivity extends BaseActivity<OrderListPresenter> implements BottomDialog
         .ItemSelectedInterface {
 
     @BindView(R.id.tl_menu)
@@ -59,8 +65,6 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
     LineChart lineChart;
     @BindView(R.id.sv_content)
     NestedScrollView svContent;
-    @BindView(R.id.ll_root)
-    LinearLayout llRoot;
     @BindView(R.id.fl_list)
     FrameLayout flList;
     @BindView(R.id.fl_table)
@@ -73,6 +77,8 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
     TextView tvOrderTotal;
     @BindView(R.id.tv_money)
     TextView tvMoney;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
     private int selectType = 1;// 1 开始时间 2结束时间
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private String[] mTitles = {"全部", "统计图表"};
@@ -80,30 +86,33 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
     Calendar dateAndTime = Calendar.getInstance(Locale.CHINA);
     DateFormat fmtDate = new SimpleDateFormat("yyyy.MM.dd");
     private BottomDialog bottomDialog;
-    private List<HospitalBean> hospitalBeanList=new ArrayList<>();
-    private List<CoreBean> coreBeanList=new ArrayList<>();
+    private List<HospitalBean> hospitalBeanList = new ArrayList<>();
+    private List<CoreBean> coreBeanList = new ArrayList<>();
     private List<String> hospitalNames = new ArrayList<>();
     private List<String> coreNames = new ArrayList<>();
     private long startTime;
     private long endTime;
     private int hid;
     private int cid;
-    private List<OrderDataBean.ArrayBean> orderDataBeanArray=new ArrayList<>();
+    private List<OrderDataBean.ArrayBean> orderDataBeanArray = new ArrayList<>();
+    private List<OrderDataBean.ArrayBean> temporderDataBeanArray = new ArrayList<>();
     private OrderDataBean orderDataBean;
-    private int pageNum=0;
+    private int pageNum = 1;
+    private OrderListAdapter orderListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTvTitleText("订单查看");
         initView();
-        getOrderListStatistics();
+        getOrderListStatistics(1);
     }
 
     private void initView() {
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], 0, 0));
         }
-
+        orderListAdapter = new OrderListAdapter(orderDataBeanArray);
         tlMenu.setTabData(mTabEntities);
         tlMenu.setCurrentTab(0);
         tlMenu.setOnTabSelectListener(new OnTabSelectListener() {
@@ -111,7 +120,6 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
             public void onTabSelect(int position) {
                 flList.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
                 flTable.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
-
             }
 
             @Override
@@ -119,7 +127,23 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
 
             }
         });
+//        refreshLayout.setEnableLoadMore(true);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                pageNum=1;
+                getOrderListStatistics(1);
+            }
+        });
 
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                pageNum++;
+                LogFactory.l().e("pageNum==="+pageNum);
+                getOrderListStatistics(pageNum);
+            }
+        });
         initDialog();
     }
 
@@ -172,7 +196,7 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
 
     @Override
     public int getViewLayout() {
-        return R.layout.activity_check_order;
+        return R.layout.activity_order_view;
     }
 
     @Override
@@ -183,7 +207,7 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
     @Override
     public void setData(HttpResponse result) {
         if (result.getData() != null) {
-            if(result.getCode()==1001){ //token失效,退出登录
+            if (result.getCode() == 1001) { //token失效,退出登录
                 LogOutUtil.LogOut();
             }
             if (result.getData() instanceof List) {
@@ -212,8 +236,30 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
                     ToastUtil.showShort("暂无数据");
                 }
             } else if (result.getData() instanceof OrderDataBean) {
+                refreshLayout.finishRefresh();
+                refreshLayout.finishLoadMore(true);
                 orderDataBean = (OrderDataBean) result.getData();
-                orderDataBeanArray = orderDataBean.getArray();
+                if(pageNum==1){
+                    orderDataBeanArray = orderDataBean.getArray();
+                    if(orderDataBeanArray!=null && orderDataBeanArray.size()>0){
+                        if(orderDataBeanArray.size()<10){
+                            refreshLayout.setEnableLoadMore(false);
+                        }else {
+                            refreshLayout.setEnableLoadMore(true);
+                        }
+                    }
+                }else {
+                    temporderDataBeanArray=orderDataBean.getArray();
+                    if(temporderDataBeanArray!=null && temporderDataBeanArray.size()>0){
+                        if(temporderDataBeanArray.size()<10){
+                            refreshLayout.setEnableLoadMore(false);
+                        }else {
+                            refreshLayout.setEnableLoadMore(true);
+                        }
+                        orderDataBeanArray.addAll(temporderDataBeanArray);
+                    }
+                }
+                orderListAdapter.setNewData(orderDataBeanArray);
                 tvMoney.setText("" + orderDataBean.getMoneyTotal());
                 tvOrderTotal.setText("" + orderDataBean.getOrderCount());
                 if (orderDataBeanArray != null && orderDataBeanArray.size() > 0) {
@@ -222,7 +268,7 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
                     lineChart.clear();
                 }
 //                mAdapter.setNewData(orderDataBeanArray);
-                rcvList.setAdapter(new OrderListAdapter(orderDataBeanArray));
+                rcvList.setAdapter(orderListAdapter);
             }
         } else if (result.getCode() == 200) {
             ToastUtil.showShort("修改成功");
@@ -311,13 +357,26 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
                     ToastUtil.showShort("开始时间不能大于结束时间");
                     return;
                 } else {
-                    getOrderListStatistics();
+                    reGetOrder();
                 }
 
             }
 
         }
     };
+
+
+    //选择条件改变,重新请求
+    private void reGetOrder() {
+        if(orderDataBeanArray!=null){
+            orderDataBeanArray.clear();
+        }
+        if(temporderDataBeanArray!=null){
+            temporderDataBeanArray.clear();
+        }
+        pageNum=1;
+        getOrderListStatistics(1);
+    }
 
     @Override
     public void itemSelected(int position, int type) {
@@ -334,18 +393,18 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
         }
 
         // 调用订单列表与图表统计
-        getOrderListStatistics();
+        reGetOrder();
     }
 
-    private void getOrderListStatistics() {
+    private void getOrderListStatistics(int pageNum) {
         Map<String, Object> map = new HashMap<>();
 //        map.put("sydicId", MyApplication.getInstance().getUserInfo().getCorrelationId());
         map.put("hospitalId", hid > 0 ? hid : "");
         map.put("deptId", cid > 0 ? cid : "");
         map.put("startTime", startTime > 0 ? startTime : "");
         map.put("endTime", endTime > 0 ? endTime + 60 * 60 * 24 - 1 : "");
-        map.put("pageNumber", 1);
-        map.put("pageSize", 100);
+        map.put("pageNumber", pageNum);
+        map.put("pageSize", 10);
         presenter.getOderData(map);// 订单列表
         presenter.getOrderStatistics(map);
     }

@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 平板状态界面
@@ -55,8 +54,6 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
                 presenter.getAllPadUsageRates(map);
             }
         });
-
-
     }
 
     @Override
@@ -72,16 +69,6 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
     @Override
     protected int getTitleViewType() {
         return BaseActivity.DEFAULT_TITLE_VIEW;
-    }
-
-    @OnClick({R.id.ll_item_hospital})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_item_hospital:
-//                startActivity(new Intent(this, PlateCoreListActivity.class));
-                break;
-
-        }
     }
 
     @Override

@@ -73,11 +73,7 @@
 
         </RelativeLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/sv_content"
-            android:fillViewport="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -337,13 +333,8 @@
                     android:gravity="top|left"
                     android:hint="请填写备注...."
                     android:textColorHint="#CCCCCC" />
-
-
             </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/tv_replace"
@@ -353,12 +344,12 @@
         android:layout_marginBottom="28dp"
         android:textColor="#ffffffff"
         android:textSize="18sp"
-        android:enabled="false"
         android:background="@mipmap/icon_button_bg"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="36dp"
         android:layout_width="match_parent"
         android:layout_height="47dp" />
+
 
 </RelativeLayout>

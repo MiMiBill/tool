@@ -246,7 +246,6 @@
 
 
     <TextView
-        android:enabled="false"
         android:id="@+id/tv_replace"
         android:layout_alignParentBottom="true"
         android:gravity="center"

@@ -19,6 +19,7 @@ import com.zkys.operationtool.dialog.UpdateBedNumberDialog;
 import com.zkys.operationtool.presenter.PlateStatusPresenter;
 import com.zkys.operationtool.util.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
     private String hid;
     private String cid;
     private String deptName;
-    private List<BedOrderStateBean> orderStateBeans;
+    private List<BedOrderStateBean> orderStateBeans=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

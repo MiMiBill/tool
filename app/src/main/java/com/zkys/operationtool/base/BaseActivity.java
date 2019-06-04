@@ -160,8 +160,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         }
         mImmersionBar.statusBarAlpha(0.0f)
                 .statusBarDarkFont(true)   //状态栏字体是深色，不写默认为亮色
-                .keyboardEnable(true)  //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
-                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)  //单独指定软键盘模式
+                .keyboardEnable(false)  //解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
+                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)  //单独指定软键盘模式
                 .init();
     }
 

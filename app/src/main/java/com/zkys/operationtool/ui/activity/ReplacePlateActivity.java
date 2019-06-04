@@ -5,8 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +22,6 @@ import com.zkys.operationtool.canstant.TypeCodeCanstant;
 import com.zkys.operationtool.presenter.ReplaceDevicePresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
-import com.zkys.operationtool.widget.AfterTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,11 +66,6 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
             bedNumber = intent.getStringExtra("bedNumber");
             type = intent.getIntExtra("type", 0);
         }
-
-        tvDeviceCode.addTextChangedListener(new MyTextWatcher());
-        tvPlateBarCode.addTextChangedListener(new MyTextWatcher());
-        etRemark.addTextChangedListener(new MyTextWatcher());
-        tvSimBarCode.addTextChangedListener(new MyTextWatcher());
     }
 
     @Override
@@ -129,6 +121,23 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
         String plateBarCode = tvPlateBarCode.getText().toString().trim();
         String simBarCode = tvSimBarCode.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
+        if("".equals(deviceCode)){
+            ToastUtil.showShort("请输入平板DID");
+            return;
+        }
+        if("".equals(simBarCode)){
+            ToastUtil.showShort("请输入SIM卡条形码");
+            return;
+        }
+        if("".equals(plateBarCode)){
+            ToastUtil.showShort("请输入平板BID");
+            return;
+        }
+        if("".equals(remark)){
+            ToastUtil.showShort("请填写备注");
+            return;
+        }
+
         List<DeviceParameterBean> list = new ArrayList<>();
         list.add(new DeviceParameterBean(deviceCode, plateBarCode, type));
         list.add(new DeviceParameterBean(simBarCode, "", TypeCodeCanstant.TYPE_SIM_KAR));
@@ -151,23 +160,6 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
                         }
                     }
                 });
-    }
-
-    class MyTextWatcher extends AfterTextWatcher {
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            changeBtnState();
-        }
-    }
-
-    void changeBtnState() {
-        String deviceCode = tvDeviceCode.getText().toString().trim();
-        String plateBarCode = tvPlateBarCode.getText().toString().trim();
-        String remark = etRemark.getText().toString().trim();
-        String simCode = tvSimBarCode.getText().toString().trim();
-        boolean enable = !TextUtils.isEmpty(deviceCode) && !TextUtils.isEmpty(plateBarCode) && !TextUtils.isEmpty(remark) && !TextUtils.isEmpty(simCode);
-        tvReplace.setEnabled(enable);
     }
 
     @Override

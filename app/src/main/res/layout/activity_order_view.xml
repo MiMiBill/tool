@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlAccentColor="@android:color/white"
+        app:srlEnableLoadMore="false"
+        app:srlEnablePreviewInEditMode="true"
+        app:srlPrimaryColor="#444444">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/sv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="83dp"
+                        android:background="@mipmap/icon_bg"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="15dp"
+                                android:text="(单)"
+                                android:textColor="#ffffffff"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_order_total"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="0"
+                                android:textColor="#ffffffff"
+                                android:textSize="26sp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="19dp"
+                            android:background="#CBE6FC" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="15dp"
+                                android:text="(元)"
+                                android:textColor="#ffffffff"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:text="0.00"
+                                android:textColor="#ffffffff"
+                                android:textSize="26sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_select_start_time"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@android:color/white"
+                            android:orientation="horizontal"
+                            android:paddingLeft="16dp">
+
+                            <TextView
+                                android:id="@+id/tv_start_time"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:hint="选择开始时间"
+                                android:text=""
+                                android:textColor="#ff333333"
+                                android:textColorHint="#ff333333"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="13dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="16dp"
+                                android:layout_weight="0"
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/icon_chevron" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="16dp"
+                            android:background="#EEEEEE" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_select_end_time"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@android:color/white"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_end_time"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="16dp"
+                                android:layout_weight="1"
+                                android:hint="选择结束时间"
+                                android:text=""
+                                android:textColor="#ff333333"
+                                android:textColorHint="#ff333333"
+                                android:textSize="16sp" />
+
+                            <ImageView
+
+                                android:layout_width="8dp"
+                                android:layout_height="13dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="16dp"
+                                android:layout_weight="0"
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/icon_chevron" />
+
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_alignParentBottom="true"
+                            android:background="#EEEEEE" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_select_hospital"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp">
+
+                        <TextView
+                            android:id="@+id/tv_selected_hospital"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:hint="请选择医院"
+                            android:text=""
+                            android:textColor="#ff333333"
+                            android:textColorHint="#ff333333"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="16dp"
+                            android:layout_weight="0"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_chevron" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="16dp"
+                        android:background="#EEEEEE" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_select_core"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp">
+
+                        <TextView
+                            android:id="@+id/tv_selected_core"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:hint="请选择科室"
+                            android:text=""
+                            android:textColor="#ff333333"
+                            android:textColorHint="#ff333333"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="16dp"
+                            android:layout_weight="0"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/icon_chevron" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="16dp"
+                        android:background="#EEEEEE" />
+                </RelativeLayout>
+
+                <com.flyco.tablayout.CommonTabLayout
+                    android:id="@+id/tl_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@android:color/white"
+                    app:tl_divider_color="#CCCCCC"
+                    app:tl_divider_width="1px"
+                    app:tl_iconVisible="false"
+                    app:tl_indicator_color="@color/color_f98248"
+                    app:tl_indicator_corner_radius="24dp"
+                    app:tl_indicator_margin_left="48dp"
+                    app:tl_indicator_margin_right="48dp"
+                    app:tl_indicator_style="BLOCK"
+                    app:tl_textBold="SELECT"
+                    app:tl_textSelectColor="@color/white"
+                    app:tl_textUnselectColor="#999999"
+                    app:tl_textsize="13sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#EEEEEE" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="全部"
+                            android:textColor="#2994F1"
+                            android:textSize="17sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="33dp"
+                            android:layout_marginRight="33dp"
+                            android:background="#2994F1"
+                            android:visibility="visible" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="#CCCCCC" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="统计图表"
+                            android:textColor="#333333"
+                            android:textSize="17sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="33dp"
+                            android:layout_marginRight="33dp"
+                            android:background="#2994F1"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/fl_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rcv_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/fl_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.zkys.operationtool.widget.MyTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="14dp"
+                        android:background="@android:color/white"
+                        android:drawableLeft="@drawable/btn_blue_solid_bg"
+                        android:drawablePadding="9dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16dp"
+                        android:text="收益统计"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:drawableHeight="17dp"
+                        app:drawableWidth="3dp" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="37dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+</RelativeLayout>

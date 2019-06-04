@@ -5,8 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -23,7 +21,6 @@ import com.zkys.operationtool.bean.DeviceParameterBean;
 import com.zkys.operationtool.presenter.ReplaceDevicePresenterOld;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
-import com.zkys.operationtool.widget.AfterTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +57,6 @@ public class ReplaceCabinetActivity extends BaseActivity<ReplaceDevicePresenterO
             bedNumber = intent.getStringExtra("bedNumber");
             type = intent.getIntExtra("type", 0);
         }
-        tvDeviceCode.addTextChangedListener(new MyTextWatcher());
-        etRemark.addTextChangedListener(new MyTextWatcher());
-
     }
 
     @Override
@@ -113,6 +107,14 @@ public class ReplaceCabinetActivity extends BaseActivity<ReplaceDevicePresenterO
     private void replaceDevice() {
         String deviceCode = tvDeviceCode.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
+        if("".equals(deviceCode)){
+            ToastUtil.showShort("请输入柜子DID");
+            return;
+        }
+        if("".equals(remark)){
+            ToastUtil.showShort("请填写备注");
+            return;
+        }
         List<DeviceParameterBean> list = new ArrayList<>();
         list.add(new DeviceParameterBean(deviceCode, "", type));
         presenter.replaceDevice(bedNumber, hid, cid, list, remark);
@@ -135,23 +137,6 @@ public class ReplaceCabinetActivity extends BaseActivity<ReplaceDevicePresenterO
                     }
                 });
     }
-
-    class MyTextWatcher extends AfterTextWatcher {
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            changeBtnState();
-        }
-    }
-
-    void changeBtnState() {
-        String deviceCode = tvDeviceCode.getText().toString().trim();
-        String remark = etRemark.getText().toString().trim();
-        boolean enable = !TextUtils.isEmpty(deviceCode) && !TextUtils.isEmpty(remark);
-        tvReplace.setEnabled(enable);
-    }
-
-
 
 
     @Override
