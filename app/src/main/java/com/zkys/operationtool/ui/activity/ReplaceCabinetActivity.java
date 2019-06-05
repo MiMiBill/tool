@@ -34,7 +34,7 @@ import io.reactivex.functions.Consumer;
  */
 public class ReplaceCabinetActivity extends BaseActivity<ReplaceDevicePresenterOld> {
 
-    public static final int CABINET_REQUEST_CODE = 116;
+    private   int CABINET_REQUEST_CODE = 116;
     @BindView(R.id.tv_device_code)
     EditText tvDeviceCode;
     @BindView(R.id.et_remark)

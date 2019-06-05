@@ -9,13 +9,12 @@ import android.widget.TextView;
 
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
-import com.zkys.operationtool.base.BaseActivityOld;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.CoreBean;
 import com.zkys.operationtool.bean.HospitalBean;
 import com.zkys.operationtool.bean.VolumeInfoBean;
 import com.zkys.operationtool.dialog.BottomDialog;
-import com.zkys.operationtool.presenter.VolumeControlPresenterOld;
+import com.zkys.operationtool.presenter.VolumeControlPresenter;
 import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.widget.AfterTextWatcher;
@@ -29,7 +28,7 @@ import butterknife.OnClick;
 /**
  * 音量控制
  */
-public class VolumeControlActivity extends BaseActivity<VolumeControlPresenterOld> implements BottomDialog.ItemSelectedInterface, SeekBar.OnSeekBarChangeListener {
+public class VolumeControlActivity extends BaseActivity<VolumeControlPresenter> implements BottomDialog.ItemSelectedInterface, SeekBar.OnSeekBarChangeListener {
 
     @BindView(R.id.tv_selected_hospital)
     TextView tvSelectedHospital;
@@ -63,8 +62,8 @@ public class VolumeControlActivity extends BaseActivity<VolumeControlPresenterOl
     }
 
     @Override
-    public VolumeControlPresenterOld initPresenter() {
-        return new VolumeControlPresenterOld(this);
+    public VolumeControlPresenter initPresenter() {
+        return new VolumeControlPresenter(this);
     }
 
     @Override
@@ -74,7 +73,7 @@ public class VolumeControlActivity extends BaseActivity<VolumeControlPresenterOl
 
     @Override
     protected int getTitleViewType() {
-        return BaseActivityOld.DEFAULT_TITLE_VIEW;
+        return BaseActivity.DEFAULT_TITLE_VIEW;
     }
 
     private void initDialog() {

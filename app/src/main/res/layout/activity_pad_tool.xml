@@ -14,10 +14,11 @@
         android:id="@+id/tv_busy"
         android:layout_width="match_parent"
         android:layout_height="@dimen/padding_45"
+        android:clickable="true"
         android:layout_marginTop="@dimen/padding_35"
         android:background="@color/white"
         android:gravity="center"
-        android:text="请选择供应商"
+        android:text="@string/please_check_busy"
         android:textColor="@color/textcolor_333333" />
 
     <LinearLayout
@@ -43,6 +44,7 @@
             android:background="@color/color_cccccc" />
 
         <TextView
+            android:id="@+id/tv_plate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
@@ -50,7 +52,7 @@
             android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="请扫描柜子二维码"
+            android:text="@string/get_plate_code"
             android:textColor="@color/textcolor_333333" />
 
         <View
@@ -93,6 +95,7 @@
             android:background="@color/color_cccccc" />
 
         <TextView
+            android:id="@+id/tv_lock"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
@@ -100,7 +103,7 @@
             android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="请扫描锁二维码"
+            android:text="@string/get_lock_code"
             android:textColor="@color/textcolor_333333" />
 
         <View
@@ -124,7 +127,7 @@
         android:layout_marginTop="100dp"
         android:text="绑定"
         android:textColor="@color/white"
-        android:background="#4DA635"
+        android:background="@drawable/btn_green_bind_bg"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
     <Button
@@ -132,7 +135,7 @@
         android:layout_marginTop="25dp"
         android:text="解绑"
         android:textColor="@color/white"
-        android:background="@color/color_red"
+        android:background="@drawable/btn_green_unbind_bg"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 
@@ -141,7 +144,7 @@
         android:layout_marginTop="25dp"
         android:text="第三方开锁"
         android:textColor="@color/textcolor_333333"
-        android:background="@color/white"
+        android:background="@drawable/btn_white_bg"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 </LinearLayout>

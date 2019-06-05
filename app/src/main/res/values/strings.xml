@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">屏安柜运维</string>
     <string name="no_data">暂无数据</string>
+    <string name="please_check_busy">请选择供应商</string>
+    <string name="get_plate_code">请扫描柜子二维码</string>
+    <string name="get_lock_code">请扫描锁二维码</string>
 </resources>

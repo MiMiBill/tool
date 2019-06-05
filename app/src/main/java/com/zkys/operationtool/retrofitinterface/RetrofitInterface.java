@@ -1,5 +1,6 @@
 package com.zkys.operationtool.retrofitinterface;
 
+import com.google.gson.JsonObject;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.AlertBean;
 import com.zkys.operationtool.bean.AuditItemBean;
@@ -14,6 +15,8 @@ import com.zkys.operationtool.bean.ItemStatisticBean;
 import com.zkys.operationtool.bean.ItemUsageRatesBean;
 import com.zkys.operationtool.bean.LockInfo;
 import com.zkys.operationtool.bean.OrderDataBean;
+import com.zkys.operationtool.bean.OrderTailBean;
+import com.zkys.operationtool.bean.OverDueBean;
 import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.bean.VolumeInfoBean;
 
@@ -191,5 +194,30 @@ public interface RetrofitInterface {
     // 获取逾期订单
     @POST("/yw/wxOrder/list")
     @FormUrlEncoded
-    Observable<HttpResponse<Object>> wxOrderList(@FieldMap Map<String, Object> map);
+    Observable<HttpResponse<OverDueBean>> wxOrderList(@FieldMap Map<String, Object> map);
+
+    // 生产工具绑定设备
+    @POST("/lockDid/batch")
+    @FormUrlEncoded
+    Observable<HttpResponse<Object>> bindLock(@FieldMap Map<String, Object> map);
+
+    // 生产工具解绑设备
+    @POST("/lockDid/delete")
+    @FormUrlEncoded
+    Observable<HttpResponse<Object>> unbindLock(@FieldMap Map<String, Object> map);
+
+
+    // 第三方解锁
+    @POST("/api")
+    Observable<HttpResponse<Object>> thridunLock(@Body JsonObject obj);
+
+    // 根据订单查询订单详情
+    @POST("/yw/wxOrder/findById")
+    @FormUrlEncoded
+    Observable<HttpResponse<OrderTailBean>> findById(@FieldMap Map<String, Object> map);
+
+    // 订单退款
+    @POST("/yw/wxOrder/refund")
+    @FormUrlEncoded
+    Observable<HttpResponse<Object>> refund(@FieldMap Map<String, Object> map);
 }

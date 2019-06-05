@@ -12,10 +12,16 @@ public class URLConstant {
     //    public static final String BASE_URL = "http://dev.zgzkys.com/";
 //    public static final String BASE_URL = "http://test.yw.zgzkys.com/";
 //    public static final String BASE_URL = "http://admin.zgzkys.com/";
-    public static final String BASE_URL = "http://test.admin.zgzkys.com/";
+    public static final String BASE_URL = "http://test.admin.zgzkys.com/";   //运维工具url
 //    public static final String BASE_URL = "http://pad.zgzkys.com/";
 
 //    public static final String BASE_URL = "http://192.168.1.151:8089/";
 //    public static final String BASE_URL2 = "http://192.168.1.151:8086/";
+
+//    public static final String PAD_DEFAULT_URL = "http://pad.zgzkys.com";
+    public static final String PAD_DEFAULT_URL= "http://test.pad.zgzkys.com";   //平板url(音量控制用)
+
+
+    public static final String THRID_URL="http://gps.wwtiot.com/";  //第三方解锁
 
 }

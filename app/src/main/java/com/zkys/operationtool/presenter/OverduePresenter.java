@@ -5,9 +5,11 @@ import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.base.HttpResultObserver;
 import com.zkys.operationtool.baseImpl.BasePresenterImpl;
 import com.zkys.operationtool.baseImpl.BaseView;
+import com.zkys.operationtool.bean.OverDueBean;
 import com.zkys.operationtool.http.HttpUtils;
+import com.zkys.operationtool.util.LogFactory;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -21,11 +23,9 @@ public class OverduePresenter extends BasePresenterImpl<BaseView> {
         super(view);
     }
 
-    public void wxOrderList(int status) {
-        HashMap<String,Object> map=new HashMap<>();
-        map.put("status",status);
+    public void wxOrderList(Map<String, Object> map) {
         HttpUtils.getRetrofit().wxOrderList(map)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<Object>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponse<OverDueBean>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -40,14 +40,15 @@ public class OverduePresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<Object>() {
+                .subscribe(new HttpResultObserver<OverDueBean>() {
                     @Override
-                    public void onSuccess(HttpResponse<Object> result) {
+                    public void onSuccess(HttpResponse<OverDueBean> result) {
                         view.setData(result);
                     }
 
                     @Override
                     public void _onError(Throwable e) {
+                        LogFactory.l().i("e==="+e.getMessage());
                         view.onError_(e);
                     }
                 });

@@ -9,6 +9,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zkys.operationtool.R;
 import com.zkys.operationtool.adapter.BedStatusListAdapter;
@@ -17,6 +18,8 @@ import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.BedOrderStateBean;
 import com.zkys.operationtool.dialog.UpdateBedNumberDialog;
 import com.zkys.operationtool.presenter.PlateStatusPresenter;
+import com.zkys.operationtool.util.LogFactory;
+import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -39,6 +42,9 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
     private String cid;
     private String deptName;
     private List<BedOrderStateBean> orderStateBeans=new ArrayList<>();
+    private List<BedOrderStateBean> temporderStateBeans=new ArrayList<>();
+    private int pageNum=1;
+    private BedStatusListAdapter bedStatusListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,21 +52,35 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
         hid = getIntent().getStringExtra("hid");
         cid = getIntent().getStringExtra("cid");
         deptName = getIntent().getStringExtra("DeptName");
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                getPadOrderStatusData();
-            }
-        });
-        getPadOrderStatusData();
+        getPadOrderStatusData(1);
+        bedStatusListAdapter = new BedStatusListAdapter(orderStateBeans);
+        initListener();
         setTvTitleText(deptName);
     }
 
-    private void getPadOrderStatusData() {
+    private void initListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                pageNum=1;
+                getPadOrderStatusData(1);
+            }
+        });
+
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                pageNum++;
+                getPadOrderStatusData(pageNum);
+            }
+        });
+    }
+
+    private void getPadOrderStatusData(int pageNum) {
         Map<String, Object> map = new HashMap<>();
         map.put("hospitalId", hid);
         map.put("deptId", cid);
-        map.put("pageNum",1);
+        map.put("pageNum",pageNum);
         map.put("pageSize",10);
         presenter.getPadOrderStatusData(map);
     }
@@ -83,36 +103,57 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
 
     @Override
     public void setData(HttpResponse result) {
+        refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore();
+        if (result != null && result.getCode() == 1001) { //token失效,退出登录
+            LogOutUtil.LogOut();
+        }
         if (result != null && result.getCode() == 200) {
             if (result.getData() instanceof List) {
-                orderStateBeans = (List<BedOrderStateBean>) result.getData();
-                if (orderStateBeans != null && orderStateBeans.size() > 0) {
-                    initData();
-                } else {
-                    ToastUtil.showShort("暂无数据");
+                LogFactory.l().i("pageNum==="+pageNum);
+                if(pageNum==1){
+                    if(temporderStateBeans!=null){
+                        temporderStateBeans.clear();
+                    }
+                    orderStateBeans = (List<BedOrderStateBean>) result.getData();
+                    if(orderStateBeans.size()<10){
+                        refreshLayout.setEnableLoadMore(false);
+                    }else {
+                        refreshLayout.setEnableLoadMore(true);
+                    }
+                }else {
+                    temporderStateBeans=(List<BedOrderStateBean>) result.getData();
+                    if(temporderStateBeans.size()<10){
+                        refreshLayout.setEnableLoadMore(false);
+                    }else {
+                        refreshLayout.setEnableLoadMore(true);
+                    }
+                    orderStateBeans.addAll(temporderStateBeans);
                 }
+                bedStatusListAdapter.setNewData(orderStateBeans);
+                rcvList.setAdapter(bedStatusListAdapter);
+                initData();
             } else if (result.getCode() == 200) {
                 ToastUtil.showShort("修改成功");
-                getPadOrderStatusData();
+                pageNum=1;
+                getPadOrderStatusData(pageNum);
             } else {
                 ToastUtil.showShort(result.getMsg());
             }
         } else {
             ToastUtil.showShort("数据获取失败");
         }
-        refreshLayout.finishRefresh();
-        refreshLayout.resetNoMoreData();
     }
 
     @Override
     public void onError_(Throwable e) {
         refreshLayout.finishRefresh();
-        refreshLayout.resetNoMoreData();
+        refreshLayout.finishLoadMore();
     }
 
     private void initData() {
-        BedStatusListAdapter adapter = new BedStatusListAdapter(orderStateBeans);
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+
+        bedStatusListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 switch (view.getId()) {
@@ -145,7 +186,7 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
             }
         });
 
-        rcvList.setAdapter(adapter);
+
     }
 
 }

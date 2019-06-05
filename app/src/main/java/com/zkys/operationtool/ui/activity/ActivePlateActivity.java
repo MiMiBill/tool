@@ -32,7 +32,6 @@ import com.zkys.operationtool.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -181,10 +180,7 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
 
     }
 
-    private static boolean isBase64(String str) {
-        String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
-        return Pattern.matches(base64Pattern, str);
-    }
+
 
 
     @Override
@@ -202,7 +198,7 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
                 if (UIUtils.isNumeric(barCode) || UIUtils.isUrl(barCode)) {
                     tvDeviceCode.setText(barCode);
                 } else {
-                    if (isBase64(barCode.replaceAll("\n", ""))) {
+                    if (UIUtils.isBase64(barCode.replaceAll("\n", ""))) {
                         String codeResult = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT));
                         if (codeResult.contains(",") && codeResult.length() == 35) {
                             String[] split = codeResult.split(",");
