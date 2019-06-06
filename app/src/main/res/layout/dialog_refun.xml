@@ -58,6 +58,8 @@
                 android:id="@+id/tv_refun_price"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:digits="0123456789."
+                android:textColor="@color/textcolor_333333"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/edit_bg"
                 android:hint="请输入退款金额"
@@ -71,7 +73,7 @@
             android:layout_marginLeft="80dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="最大退款金额不能超过1.01"
+            android:text=""
             android:textColor="@color/color_f98248"
             android:textSize="10sp" />
 

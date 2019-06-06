@@ -29,11 +29,16 @@ public class RefundDialog extends Dialog {
     private TextView tv_remark;
     private TextView tvRefunPrice;
     private RelativeLayout rel_close;
+    private int payPrice;
+    private double rentPrice;
+    private TextView tv_price;
 
-    public RefundDialog(Context context, boolean isCancelable) {
+    public RefundDialog(Context context, boolean isCancelable,int payPrice,double rentPrice) {
         super(context, R.style.MyDialog);
         this.context = context;
         this.iscancelable = isCancelable;
+        this.payPrice = payPrice;
+        this.rentPrice = rentPrice;
     }
 
 
@@ -56,7 +61,8 @@ public class RefundDialog extends Dialog {
         tv_remark = window.findViewById(R.id.tv_remark);
         tvRefunPrice = window.findViewById(R.id.tv_refun_price);
         rel_close = window.findViewById(R.id.rel_close);
-
+        tv_price = window.findViewById(R.id.tv_price);
+        tv_price.setText("最大退款金额不能超过"+(payPrice+rentPrice)+"元");
         rgSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -76,6 +82,10 @@ public class RefundDialog extends Dialog {
                 String remark= tv_remark.getText().toString().trim();
                 if(refunPrice.equals("")){
                     ToastUtil.showShort("请输入退款金额");
+                    return;
+                }
+                if(Float.valueOf(refunPrice)*100>(payPrice+rentPrice)*100){
+                    ToastUtil.showShort("最大退款金额不能超过1.01元");
                     return;
                 }
                 if(remark.equals("")){
