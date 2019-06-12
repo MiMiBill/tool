@@ -10,7 +10,6 @@ import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.presenter.NotificationPresenter;
-import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.UIUtils;
 
 import butterknife.BindView;
@@ -45,9 +44,6 @@ public class NotificationActivity extends BaseActivity<NotificationPresenter> {
         presenter.setOnExperTolalListener(new NotificationPresenter.OnExperTolalListener() {
             @Override
             public void onSuccess(HttpResponse result) {
-                if (result.getCode() == 1001) { //token失效,退出登录
-                    LogOutUtil.LogOut();
-                }
                 if (result != null && result.getCode() == 200) {
                     int size = UIUtils.getInt((Double) result.getData());
                     if (size > 0) {
@@ -81,9 +77,6 @@ public class NotificationActivity extends BaseActivity<NotificationPresenter> {
 
     @Override
     public void setData(HttpResponse result) {
-        if (result.getCode() == 1001) { //token失效,退出登录
-            LogOutUtil.LogOut();
-        }
         if (result != null && result.getCode() == 200) {
             int size = UIUtils.getInt((Double) result.getData());
             if (size > 0) {

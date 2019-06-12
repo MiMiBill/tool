@@ -19,7 +19,6 @@ import com.zkys.operationtool.bean.BedOrderStateBean;
 import com.zkys.operationtool.dialog.UpdateBedNumberDialog;
 import com.zkys.operationtool.presenter.PlateStatusPresenter;
 import com.zkys.operationtool.util.LogFactory;
-import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -105,9 +104,6 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
     public void setData(HttpResponse result) {
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
-        if (result != null && result.getCode() == 1001) { //token失效,退出登录
-            LogOutUtil.LogOut();
-        }
         if (result != null && result.getCode() == 200) {
             if (result.getData() instanceof List) {
                 LogFactory.l().i("pageNum==="+pageNum);

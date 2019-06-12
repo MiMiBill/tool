@@ -36,7 +36,6 @@ import com.zkys.operationtool.util.ActivityManager;
 import com.zkys.operationtool.util.DateUtil;
 import com.zkys.operationtool.util.DensityUtil;
 import com.zkys.operationtool.util.JpushUtil;
-import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.NotificationsUtils;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
@@ -211,9 +210,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
 
     @Override
     public void setData(HttpResponse result) {
-        if(result.getCode()==1001){ //token失效,退出登录
-            LogOutUtil.LogOut();
-        }
         if (result.getData() != null) {
             if (result.getData() instanceof List) {
                 list = (List<HomeListBean>) result.getData();

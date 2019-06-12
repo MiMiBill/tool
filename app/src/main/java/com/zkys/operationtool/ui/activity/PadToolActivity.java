@@ -23,7 +23,6 @@ import com.zkys.operationtool.bean.ToolBean;
 import com.zkys.operationtool.dialog.BottomDialog;
 import com.zkys.operationtool.presenter.PadToolPresenter;
 import com.zkys.operationtool.util.LogFactory;
-import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
 
@@ -101,9 +100,6 @@ public class PadToolActivity extends BaseActivity<PadToolPresenter> implements B
 
     @Override
     public void setData(HttpResponse result) {
-        if (result.getCode() == 1001) { //token失效,退出登录
-            LogOutUtil.LogOut();
-        }
         if (result != null && result.getCode() == 200) {
             ToastUtil.showShort("绑定成功");
         } else {
@@ -269,9 +265,6 @@ public class PadToolActivity extends BaseActivity<PadToolPresenter> implements B
 
     @Override
     public void onSuccess(HttpResponse result) {
-        if (result.getCode() == 1001) { //token失效,退出登录
-            LogOutUtil.LogOut();
-        }
         if (result != null && result.getCode() == 200) {
             ToastUtil.showShort("解绑成功");
         } else {

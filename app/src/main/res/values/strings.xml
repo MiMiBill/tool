@@ -4,4 +4,5 @@
     <string name="please_check_busy">请选择供应商</string>
     <string name="get_plate_code">请扫描柜子二维码</string>
     <string name="get_lock_code">请扫描锁二维码</string>
+    <string name="get_lock_code_status">锁当前状态:\n此二维码未绑定物联锁</string>
 </resources>

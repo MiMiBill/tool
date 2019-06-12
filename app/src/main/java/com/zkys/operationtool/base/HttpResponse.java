@@ -1,5 +1,8 @@
 package com.zkys.operationtool.base;
 
+import com.zkys.operationtool.util.LogFactory;
+import com.zkys.operationtool.util.LogOutUtil;
+
 public class HttpResponse<T> {
     private int code;
     private String msg;
@@ -14,6 +17,10 @@ public class HttpResponse<T> {
     }
 
     public int getCode() {
+        LogFactory.l().i("code==="+code);
+        if(code==1001){ //token失效,退出登录
+            LogOutUtil.LogOut();
+        }
         return code;
     }
 

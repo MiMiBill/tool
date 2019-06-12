@@ -118,32 +118,36 @@ public class OverdueActivity extends BaseActivity<OverduePresenter> {
             refreshLayout.finishLoadMore();
             if (result.getData() instanceof OverDueBean){
                 overDueBean= (OverDueBean) result.getData();
-                LogFactory.l().i("size==="+overDueBean.getArray().size());
-                if(pageNum==1){
-                    LogFactory.l().i("size==="+overDueBean.getArray().size());
-                    ovdueDataBeanArray = overDueBean.getArray();
-                    if(ovdueDataBeanArray!=null && ovdueDataBeanArray.size()>0){
-                        if(ovdueDataBeanArray.size()<10){
-                            refreshLayout.setEnableLoadMore(false);
-                        }else {
-                            refreshLayout.setEnableLoadMore(true);
+                if(overDueBean!=null && overDueBean.getArray()!=null){
+                    if(pageNum==1){
+                        LogFactory.l().i("size==="+overDueBean.getArray().size());
+                        ovdueDataBeanArray = overDueBean.getArray();
+                        if(ovdueDataBeanArray!=null && ovdueDataBeanArray.size()>0){
+                            if(ovdueDataBeanArray.size()<10){
+                                refreshLayout.setEnableLoadMore(false);
+                            }else {
+                                refreshLayout.setEnableLoadMore(true);
+                            }
+                        }
+                    }else {
+                        tempovdueDataBeanArray=overDueBean.getArray();
+                        LogFactory.l().i("size==="+tempovdueDataBeanArray.size());
+                        if(tempovdueDataBeanArray!=null && tempovdueDataBeanArray.size()>0){
+                            if(tempovdueDataBeanArray.size()<10){
+                                refreshLayout.setEnableLoadMore(false);
+                            }else {
+                                refreshLayout.setEnableLoadMore(true);
+                            }
+                            ovdueDataBeanArray.addAll(tempovdueDataBeanArray);
                         }
                     }
+                    overDueListAdapter.setNewData(ovdueDataBeanArray);
+                    rcvList.setAdapter(overDueListAdapter);
+                    initItenClick();
                 }else {
-                    tempovdueDataBeanArray=overDueBean.getArray();
-                    LogFactory.l().i("size==="+tempovdueDataBeanArray.size());
-                    if(tempovdueDataBeanArray!=null && tempovdueDataBeanArray.size()>0){
-                        if(tempovdueDataBeanArray.size()<10){
-                            refreshLayout.setEnableLoadMore(false);
-                        }else {
-                            refreshLayout.setEnableLoadMore(true);
-                        }
-                        ovdueDataBeanArray.addAll(tempovdueDataBeanArray);
-                    }
+                    relNodata.setVisibility(View.VISIBLE);
+                    refreshLayout.setVisibility(View.GONE);
                 }
-                overDueListAdapter.setNewData(ovdueDataBeanArray);
-                rcvList.setAdapter(overDueListAdapter);
-                initItenClick();
             }
         } else {
             relNodata.setVisibility(View.VISIBLE);

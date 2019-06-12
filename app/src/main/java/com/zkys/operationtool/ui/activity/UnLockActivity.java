@@ -65,7 +65,8 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
                 LockInfo lockInfo = (LockInfo) result.getData();
                 tvResult.setText(lockInfo.toString());
             } else {
-                lock(etCode.getText().toString(), 1);
+//                lock(etCode.getText().toString(), 1);
+                tvResult.setText(getResources().getString(R.string.get_lock_code_status));
             }
         } else {
             tvResult.setText(result.getMsg());

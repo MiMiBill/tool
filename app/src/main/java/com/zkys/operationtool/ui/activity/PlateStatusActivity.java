@@ -18,7 +18,6 @@ import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.ItemUsageRatesBean;
 import com.zkys.operationtool.presenter.PlateStatusPresenter;
-import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -92,9 +91,6 @@ public class PlateStatusActivity extends BaseActivity<PlateStatusPresenter> {
 
     @Override
     public void setData(HttpResponse result) {
-        if (result != null && result.getCode() == 1001) { //token失效,退出登录
-            LogOutUtil.LogOut();
-        }
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
         if (result != null && result.getCode() == 200) {

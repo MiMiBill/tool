@@ -26,7 +26,6 @@ import com.zkys.operationtool.bean.TabEntity;
 import com.zkys.operationtool.dialog.BottomDialog;
 import com.zkys.operationtool.presenter.OrderListPresenter;
 import com.zkys.operationtool.util.ChartUtils;
-import com.zkys.operationtool.util.LogOutUtil;
 import com.zkys.operationtool.util.ToastUtil;
 
 import java.text.DateFormat;
@@ -183,9 +182,6 @@ public class CheckOrderActivity extends BaseActivity<OrderListPresenter> impleme
     @Override
     public void setData(HttpResponse result) {
         if (result.getData() != null) {
-            if(result.getCode()==1001){ //token失效,退出登录
-                LogOutUtil.LogOut();
-            }
             if (result.getData() instanceof List) {
                 List list = (List) result.getData();
                 if (list != null && list.size() > 0) {

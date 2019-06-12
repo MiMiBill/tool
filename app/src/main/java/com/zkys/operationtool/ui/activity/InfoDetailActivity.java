@@ -25,8 +25,6 @@ public class InfoDetailActivity extends BaseActivity<PlateStatusPresenter> {
 
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
-    @BindView(R.id.rl_network_exception)
-    RelativeLayout rlNetworkException;
     @BindView(R.id.tv_plate_did)
     TextView tvPlateDid;
     @BindView(R.id.tv_bid)
