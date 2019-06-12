@@ -17,6 +17,7 @@ import com.zkys.operationtool.bean.LockInfo;
 import com.zkys.operationtool.bean.OrderDataBean;
 import com.zkys.operationtool.bean.OrderTailBean;
 import com.zkys.operationtool.bean.OverDueBean;
+import com.zkys.operationtool.bean.UnLockInfo;
 import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.bean.VolumeInfoBean;
 
@@ -163,7 +164,7 @@ public interface RetrofitInterface {
     // 开锁
     @POST("lock/unlock")
     @FormUrlEncoded
-    Observable<HttpResponse<Object>> unlock(@FieldMap Map<String, Object> map);
+    Observable<HttpResponse<UnLockInfo>> unlock(@FieldMap Map<String, Object> map);
 
     // 查询锁开关状态
     @POST("lock/findByDid")

@@ -18,6 +18,7 @@ import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.LockInfo;
+import com.zkys.operationtool.bean.UnLockInfo;
 import com.zkys.operationtool.presenter.UnLockPresenter;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
@@ -36,6 +37,7 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
     EditText etCode;
     @BindView(R.id.tv_result)
     TextView tvResult;
+    private String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +66,15 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
             if (result.getData() instanceof LockInfo) {
                 LockInfo lockInfo = (LockInfo) result.getData();
                 tvResult.setText(lockInfo.toString());
-            } else {
-//                lock(etCode.getText().toString(), 1);
+            } else if(result.getData() instanceof UnLockInfo){
+//                UnLockInfo unLockInfo= (UnLockInfo) result.getData();
+                lock(code, 1); //查询锁状态
+            }else {
                 tvResult.setText(getResources().getString(R.string.get_lock_code_status));
             }
-        } else {
+        } else if(result.getCode() == 205){
+            tvResult.setText(getResources().getString(R.string.get_lock_code_status));
+        }else {
             tvResult.setText(result.getMsg());
         }
     }
@@ -80,7 +86,7 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
 
     @OnClick({R.id.ivScan, R.id.btn_unlock, R.id.btn_lock})
     public void onViewClicked(View view) {
-        String code = etCode.getText().toString();
+        code = etCode.getText().toString();
         switch (view.getId()) {
             case R.id.ivScan:
                 Intent scanCodeIntent = new Intent(this, CaptureActivity.class);

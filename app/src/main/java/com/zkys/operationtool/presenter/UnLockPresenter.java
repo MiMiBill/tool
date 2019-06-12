@@ -6,6 +6,7 @@ import com.zkys.operationtool.base.HttpResultObserver;
 import com.zkys.operationtool.baseImpl.BasePresenterImpl;
 import com.zkys.operationtool.baseImpl.BaseView;
 import com.zkys.operationtool.bean.LockInfo;
+import com.zkys.operationtool.bean.UnLockInfo;
 import com.zkys.operationtool.http.HttpUtils;
 
 import java.util.HashMap;
@@ -65,7 +66,7 @@ public class UnLockPresenter extends BasePresenterImpl<BaseView> {
         Map<String, Object> map = new HashMap<>();
         map.put("did", code);
         HttpUtils.getRetrofit().unlock(map)
-                .compose(((RxAppCompatActivity) view).<HttpResponse<Object>>bindToLifecycle())
+                .compose(((RxAppCompatActivity) view).<HttpResponse<UnLockInfo>>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -80,9 +81,9 @@ public class UnLockPresenter extends BasePresenterImpl<BaseView> {
                         view.dismissLoadingDialog();
                     }
                 })
-                .subscribe(new HttpResultObserver<Object>() {
+                .subscribe(new HttpResultObserver<UnLockInfo>() {
                     @Override
-                    public void onSuccess(HttpResponse<Object> result) {
+                    public void onSuccess(HttpResponse<UnLockInfo> result) {
                         view.setData(result);
 
                     }
