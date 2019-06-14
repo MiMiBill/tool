@@ -37,8 +37,12 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
     EditText etCode;
     @BindView(R.id.tv_result)
     TextView tvResult;
+    @BindView(R.id.tv_net_status)
+    TextView tvNetStatus;
+    @BindView(R.id.tv_lock_status)
+    TextView tvLockStatus;
     private String code;
-
+    private int clickType=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,17 +69,38 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
         if (result.getCode() == 200) {
             if (result.getData() instanceof LockInfo) {
                 LockInfo lockInfo = (LockInfo) result.getData();
+                showNet();
                 tvResult.setText(lockInfo.toString());
-            } else if(result.getData() instanceof UnLockInfo){
-//                UnLockInfo unLockInfo= (UnLockInfo) result.getData();
+            } else if (result.getData() instanceof UnLockInfo) {
+                UnLockInfo unLockInfo = (UnLockInfo) result.getData();
+                if (unLockInfo.getCode() == 200) {
+                    tvLockStatus.setText("锁状态正常...");
+                }else {
+                    tvLockStatus.setText("锁状态异常...");
+                    tvResult.setText(getResources().getString(R.string.get_lock_code_status));
+                }
                 lock(code, 1); //查询锁状态
             }else {
+                showNet();
                 tvResult.setText(getResources().getString(R.string.get_lock_code_status));
             }
-        } else if(result.getCode() == 205){
+            tvNetStatus.setText("网络请求成功...");
+        } else if (result.getCode() == 205) {
+            showNet();
             tvResult.setText(getResources().getString(R.string.get_lock_code_status));
-        }else {
+        } else {
+            showNet();
             tvResult.setText(result.getMsg());
+        }
+    }
+
+    private void showNet() {
+        if(clickType==1){
+            tvNetStatus.setVisibility(View.VISIBLE);
+            tvLockStatus.setVisibility(View.VISIBLE);
+        }else {
+            tvNetStatus.setVisibility(View.GONE);
+            tvLockStatus.setVisibility(View.GONE);
         }
     }
 
@@ -92,10 +117,12 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
                 Intent scanCodeIntent = new Intent(this, CaptureActivity.class);
                 scanCode(R.id.ivScan, scanCodeIntent, CABINET_REQUEST_CODE);
                 break;
-            case R.id.btn_unlock:
+            case R.id.btn_unlock:   //开锁
+                clickType=1;
                 lock(code, 0);
                 break;
-            case R.id.btn_lock:
+            case R.id.btn_lock: //查询锁状态
+                clickType=2;
                 lock(code, 1);
                 break;
         }
@@ -129,7 +156,8 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
                             startActivityForResult(intent, requestCode);
                         } else {
                             Log.d(UnLockActivity.this.getClass().getSimpleName(), "没有授予相机权限");
-                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 -> 权限管理” 中授予！");
+                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 ->" +
+                                    " 权限管理” 中授予！");
                             XXPermissions.gotoPermissionSettings(context);
                         }
                     }
@@ -143,7 +171,8 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
         if (data != null) {
             if (data.getExtras() != null) {
                 barCode = data.getExtras().getString(CodeUtils.RESULT_STRING, "");
-                if (UIUtils.isUrl(barCode) && barCode.contains("=") && barCode.lastIndexOf("=") != barCode.length() - 1) {
+                if (UIUtils.isUrl(barCode) && barCode.contains("=") && barCode.lastIndexOf("=")
+                        != barCode.length() - 1) {
                     barCode = barCode.substring(barCode.lastIndexOf("=") + 1);
                     etCode.setText(barCode);
                 } else if (UIUtils.isNumeric(barCode) && barCode.length() == 10) {
@@ -157,4 +186,5 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
 
         }
     }
+
 }
