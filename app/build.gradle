@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+def getProductName() {
+    return "operationTool"
+}
 android {
     compileSdkVersion 28
     defaultConfig {
