@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,10 +20,12 @@ import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.LockInfo;
-import com.zkys.operationtool.bean.UnLockInfo;
 import com.zkys.operationtool.presenter.UnLockPresenter;
+import com.zkys.operationtool.util.LogFactory;
 import com.zkys.operationtool.util.ToastUtil;
 import com.zkys.operationtool.util.UIUtils;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,7 +34,8 @@ import io.reactivex.functions.Consumer;
 /**
  * 工具
  */
-public class UnLockActivity extends BaseActivity<UnLockPresenter> {
+public class UnLockActivity extends BaseActivity<UnLockPresenter> implements UnLockPresenter
+        .OnLockListener {
 
     public static final int CABINET_REQUEST_CODE = 116;
     @BindView(R.id.et_code)
@@ -42,11 +47,45 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
     @BindView(R.id.tv_lock_status)
     TextView tvLockStatus;
     private String code;
-    private int clickType=0;
+    private int clickType = 0;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    tvNetStatus.setText("网络请求成功...");
+                    showNet();
+                    break;
+                case 2:
+                    lock(code, 1);
+                    break;
+                case 3:
+                    showNet();
+                    tvLockStatus.setText("锁状态异常...");
+                    break;
+                case 4:
+                    showNet();
+                    tvLockStatus.setText("锁状态正常...");
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTvTitleText("工具");
+        presenter.setOnLockListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeMessages(1);
+        handler.removeMessages(2);
+        handler.removeMessages(3);
+        handler.removeMessages(4);
     }
 
     @Override
@@ -71,20 +110,10 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
                 LockInfo lockInfo = (LockInfo) result.getData();
                 showNet();
                 tvResult.setText(lockInfo.toString());
-            } else if (result.getData() instanceof UnLockInfo) {
-                UnLockInfo unLockInfo = (UnLockInfo) result.getData();
-                if (unLockInfo.getCode() == 200) {
-                    tvLockStatus.setText("锁状态正常...");
-                }else {
-                    tvLockStatus.setText("锁状态异常...");
-                    tvResult.setText(getResources().getString(R.string.get_lock_code_status));
-                }
-                lock(code, 1); //查询锁状态
-            }else {
+            } else {
                 showNet();
                 tvResult.setText(getResources().getString(R.string.get_lock_code_status));
             }
-            tvNetStatus.setText("网络请求成功...");
         } else if (result.getCode() == 205) {
             showNet();
             tvResult.setText(getResources().getString(R.string.get_lock_code_status));
@@ -95,10 +124,10 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
     }
 
     private void showNet() {
-        if(clickType==1){
+        if (clickType == 1) {
             tvNetStatus.setVisibility(View.VISIBLE);
             tvLockStatus.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             tvNetStatus.setVisibility(View.GONE);
             tvLockStatus.setVisibility(View.GONE);
         }
@@ -118,11 +147,11 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
                 scanCode(R.id.ivScan, scanCodeIntent, CABINET_REQUEST_CODE);
                 break;
             case R.id.btn_unlock:   //开锁
-                clickType=1;
+                clickType = 1;
                 lock(code, 0);
                 break;
             case R.id.btn_lock: //查询锁状态
-                clickType=2;
+                clickType = 2;
                 lock(code, 1);
                 break;
         }
@@ -131,6 +160,7 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
     private void lock(String code, int type) {
         if (!TextUtils.isEmpty(code)) {
             if (code.length() == 10) {
+                tvResult.setText("");
                 if (type == 0) {
                     presenter.unlock(code);
                 } else {
@@ -185,6 +215,50 @@ public class UnLockActivity extends BaseActivity<UnLockPresenter> {
 
 
         }
+    }
+
+    @Override
+    public void onLock(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            if (jsonObject.optInt("code") == 200) {
+                if (jsonObject.optString("data") != null) {
+                    String objData = jsonObject.optString("data");
+                    JSONObject obj = new JSONObject(objData);
+                    if (obj.optInt("code") == 200) {
+                        if (obj.optString("object").equals("ok")) {
+                            LogFactory.l().i("result_ok");
+                            handler.sendEmptyMessage(4);
+                        } else {
+                            String object = obj.optString("object");
+                            JSONObject lockObj = new JSONObject(object);
+                            if (lockObj != null) {
+                                if (lockObj.optInt("code") == 200) {
+                                    handler.sendEmptyMessage(4);
+                                } else {
+                                    handler.sendEmptyMessage(3);
+                                }
+                            } else {
+                                handler.sendEmptyMessage(3);
+                            }
+                        }
+                    } else {
+                        handler.sendEmptyMessage(3);
+                    }
+                }
+                handler.sendEmptyMessage(1);
+                handler.sendEmptyMessage(2);
+            } else {
+                handler.sendEmptyMessage(3);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onLockFail() {
+
     }
 
 }
