@@ -24,11 +24,23 @@ public class UsageRatesAdapter extends BaseQuickAdapter<ItemUsageRatesBean, Base
             helper.setText(R.id.tv_hospital, item.getDeptName());
         }
         helper.setText(R.id.tv_date, item.getCreateTime());
-        helper.setText(R.id.tv_on_rates, item.getOnRate() + "%");
+        if(item.getOnRate()!=null){
+            helper.setText(R.id.tv_on_rates, item.getOnRate() + "%");
+        }else {
+            helper.setText(R.id.tv_on_rates, "0%");
+        }
+        if(item.getPadUseRate()!=null){
+            helper.setText(R.id.tv_usage_rates, item.getPadUseRate() + "%");
+        }else {
+            helper.setText(R.id.tv_usage_rates, "0%");
+        }
+        if(item.getDeviceRentRate()!=null){
+            helper.setText(R.id.tv_rent_rates, item.getDeviceRentRate() + "%");
+        }else {
+            helper.setText(R.id.tv_rent_rates, "0%");
+        }
         helper.setText(R.id.tv_on_count, item.getOnCount());
-        helper.setText(R.id.tv_usage_rates, item.getPadUseRate() + "%");
         helper.setText(R.id.tv_usage_count, item.getPadUseCount());
-        helper.setText(R.id.tv_rent_rates, item.getDeviceRentRate() + "%");
         helper.setText(R.id.tv_rent_count, item.getDeviceRentCount());
         helper.setText(R.id.tv_active_count, item.getActivationCount());
         helper.setText(R.id.tv_offline_count, String.valueOf(item.getOffLineCount()));

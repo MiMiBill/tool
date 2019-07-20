@@ -31,4 +31,18 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 还可以加入一些弹出和退出的动画 (lan)-->
     </style>
+
+
+    <style name="radiobutton_style">
+        <item name="android:layout_marginTop">@dimen/padding_1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/padding_40</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableRight">@drawable/pop_radio_selector</item>
+        <item name="android:paddingLeft">@dimen/padding_20</item>
+        <item name="android:paddingRight">@dimen/padding_20</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/color_333333</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
 </resources>

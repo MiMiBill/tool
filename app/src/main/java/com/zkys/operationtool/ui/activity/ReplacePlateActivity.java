@@ -9,6 +9,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hjq.permissions.XXPermissions;
@@ -49,6 +51,12 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
 
     public static final int DEVICE_REQUEST_CODE = 111;
     public static final int PLATE_REQUEST_CODE = 112;
+    @BindView(R.id.tv_pc)
+    TextView tvPc;
+    @BindView(R.id.rel_pc)
+    RelativeLayout relPc;
+    @BindView(R.id.ll_root)
+    LinearLayout llRoot;
     private int hid;
     private int cid;
     private String bedNumber;
@@ -121,19 +129,19 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
         String plateBarCode = tvPlateBarCode.getText().toString().trim();
         String simBarCode = tvSimBarCode.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
-        if("".equals(deviceCode)){
+        if ("".equals(deviceCode)) {
             ToastUtil.showShort("请输入平板DID");
             return;
         }
-        if("".equals(simBarCode)){
+        if ("".equals(simBarCode)) {
             ToastUtil.showShort("请输入SIM卡条形码");
             return;
         }
-        if("".equals(plateBarCode)){
+        if ("".equals(plateBarCode)) {
             ToastUtil.showShort("请输入平板BID");
             return;
         }
-        if("".equals(remark)){
+        if ("".equals(remark)) {
             ToastUtil.showShort("请填写备注");
             return;
         }
@@ -155,7 +163,8 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
                             startActivityForResult(intent, requestCode);
                         } else {
                             Log.d(ReplacePlateActivity.this.getClass().getSimpleName(), "没有授予相机权限");
-                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 -> 权限管理” 中授予！");
+                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 ->" +
+                                    " 权限管理” 中授予！");
                             XXPermissions.gotoPermissionSettings(context);
                         }
                     }
@@ -169,27 +178,28 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
         if (data != null) {
             if (data.getExtras() != null) {
                 barCode = data.getExtras().getString(CodeUtils.RESULT_STRING, "");
-                if (UIUtils.isUrl(barCode) && barCode.contains("=") && barCode.lastIndexOf("=") != barCode.length() - 1) {
+                if (UIUtils.isUrl(barCode) && barCode.contains("=") && barCode.lastIndexOf("=")
+                        != barCode.length() - 1) {
                     barCode = barCode.substring(barCode.lastIndexOf("=") + 1);
                 }
             }
             if (requestCode == DEVICE_REQUEST_CODE) {
-                /*if (UIUtils.isNumeric(barCode) || UIUtils.isUrl(barCode)) {
-                    tvDeviceCode.setText(barCode);
-                } else {
-                    String[] split = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT)).split(",");
-                    tvDeviceCode.setText(split[split.length - 1]);
-
-                }*/
                 if (UIUtils.isNumeric(barCode) || UIUtils.isUrl(barCode)) {
                     tvDeviceCode.setText(barCode);
                 } else {
                     if (isBase64(barCode.replaceAll("\n", ""))) {
-                        String codeResult = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT));
-                        if (codeResult.contains(",") && codeResult.length() == 35) {
+                        String codeResult = new String(Base64.decode(barCode.getBytes(),
+                                Base64.DEFAULT));
+                        if (codeResult.contains(",")) {
                             String[] split = codeResult.split(",");
                             tvSimBarCode.setText(split[0]);
-                            tvDeviceCode.setText(split[split.length - 1]);
+                            tvDeviceCode.setText(split[1]);
+                            if(codeResult.length() > 35){
+                                relPc.setVisibility(View.VISIBLE);
+                                tvPc.setText(split[2]);
+                            }else {
+                                relPc.setVisibility(View.GONE);
+                            }
                         } else {
                             ToastUtil.showShort("请扫描正确的平板二维码");
                         }
@@ -204,7 +214,8 @@ public class ReplacePlateActivity extends BaseActivity<ReplaceDevicePresenterOld
     }
 
     private static boolean isBase64(String str) {
-        String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
+        String base64Pattern = "^([A-Za-z0-9+/]{4})*" +
+                "([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
         return Pattern.matches(base64Pattern, str);
     }
 

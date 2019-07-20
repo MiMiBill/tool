@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -193,4 +194,33 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         }
     }
 
+
+    /***
+     * 隐藏键盘
+     */
+    public void hideSoftInput() {
+        InputMethodManager imm = ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
+        if (imm != null) {
+            View view = getCurrentFocus();
+            if (view != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
+
+    //判断键盘是否打开
+    public boolean isSoftInput(){
+        InputMethodManager imm =(InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        return imm.isActive();
+    }
+
+    //关闭键盘
+    public void hintKbSoft() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm.isActive()&&getCurrentFocus()!=null){
+            if (getCurrentFocus().getWindowToken()!=null) {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
 }

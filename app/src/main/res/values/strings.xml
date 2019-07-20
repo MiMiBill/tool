@@ -7,4 +7,10 @@
     <string name="get_lock_code_status">锁当前状态:\n此二维码未绑定物联锁!</string>
     <string name="unlock_success">锁当前状态:\n开锁成功</string>
     <string name="unlock_fail">锁当前状态:\n开锁失败</string>
+    <string-array name="status_array">
+        <item>未处理</item>
+        <item>已确认</item>
+        <item>处理中</item>
+        <item>已完成</item>
+    </string-array>
 </resources>

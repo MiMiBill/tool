@@ -52,7 +52,6 @@ import io.reactivex.functions.Consumer;
  * 主菜单页面
  */
 public class HomeActivity extends BaseActivity<HomePresenter> {
-
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_binder_desc)
@@ -65,7 +64,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
     RecyclerView recyclerView;
     private boolean isBackPressed;
     private HomeListAdapter homeListAdapter;
-    private List<HomeListBean> list=new ArrayList<>();
+    private List<HomeListBean> list = new ArrayList<>();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -75,22 +74,24 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
         initRecyclerView();
         presenter.getAuthority();
 
-        mImmersionBar.titleBar(R.id.ll_root)
-                .init();
-        tvName.setText(UIUtils.getRegards() + "-" + MyApplication.getInstance().getUserInfo().getName());
-        tvBinderDesc.setText(tvBinderDesc.getText().toString().replace("0", MyApplication.getInstance().getUserInfo().getDeviceActiveCount() + ""));
+        mImmersionBar.titleBar(R.id.ll_root).init();
+        tvName.setText(UIUtils.getRegards() + "-" + MyApplication.getInstance().getUserInfo()
+                .getName());
+        tvBinderDesc.setText(tvBinderDesc.getText().toString().replace("0", MyApplication
+                .getInstance().getUserInfo().getDeviceActiveCount() + ""));
         tvRoleName.setText(MyApplication.getInstance().getUserInfo().getTag());
         JpushUtil.setJPush();// 设置极光推送
         checkNotificationIsOpen();
 
         /** 新版本 **/
         new PgyUpdateManager.Builder()
-                .setForced(false)                //设置是否强制更新
-                .setUserCanRetry(false)         //失败后是否提示重新下载
+                .setForced(true)                //设置是否强制更新
+                .setUserCanRetry(true)         //失败后是否提示重新下载
                 .setDeleteHistroyApk(true)     // 检查更新前是否删除本地历史 Apk
                 .register();
         try {
-            String versionName = "版本：" + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            String versionName = "版本：" + getPackageManager().getPackageInfo(getPackageName(), 0)
+                    .versionName;
             tvVersionName.setText(versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -107,7 +108,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
     private void checkNotificationIsOpen() {
         if (!NotificationsUtils.isNotificationEnabled(this)) {
             // 未开启的情况，提示开启
-            new SimpleDialogFragment().show("温馨提示", "您的消息通知未开启，将不能及时收到消息推送", "开启", "下次开启", new DialogInterface.OnClickListener() {
+            new SimpleDialogFragment().show("温馨提示", "您的消息通知未开启，将不能及时收到消息推送", "开启", "下次开启", new
+                    DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     requestPermission(0b00111);
@@ -146,26 +148,13 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
         return R.layout.activity_home;
     }
 
-    @OnClick({R.id.iv_free_time, R.id.iv_binder_bar_code,
-            R.id.iv_inspection_feedback, R.id.iv_info_commit, R.id.iv_login_out,
-            R.id.iv_question_answer, R.id.tv_get_plate_pwd})
+    @OnClick({R.id.iv_login_out, R.id.iv_question_answer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_free_time:
-                startActivity(new Intent(this, ScanOnTimeActivity.class));// 免费时长（隐藏）
-                break;
-            case R.id.iv_binder_bar_code:
-                startActivity(new Intent(this, BinderBarCodeActivity.class));// 绑定条形码
-                break;
-            case R.id.iv_inspection_feedback:
-                startActivity(new Intent(this, InspectionFeedbackActivity.class));// 巡检反馈（隐藏）
-                break;
-            case R.id.iv_info_commit:
-                startActivity(new Intent(this, InfoCommitActivity.class));// 信息提交（隐藏）
-                break;
             case R.id.iv_login_out:// 退出登录
 
-                new SimpleDialogFragment().show("", "是否退出登录", "确定", "取消", new DialogInterface.OnClickListener() {
+                new SimpleDialogFragment().show("", "是否退出登录", "确定", "取消", new DialogInterface
+                        .OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         MyApplication.getInstance().clearUserInfo();
@@ -179,14 +168,11 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
                 }, getSupportFragmentManager());
 
                 break;
-
             case R.id.iv_question_answer:// 疑问解答
                 startActivity(new Intent(this, WebViewActivity.class)
                         .putExtra("url", "http://taocan.zgzkys.com/#/answer"));
                 break;
-            case R.id.tv_get_plate_pwd:// 获取
-                scanCode(R.id.tv_get_plate_pwd, new Intent(this, CaptureActivity.class), 1000);
-                break;
+
         }
     }
 
@@ -201,7 +187,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
                             startActivityForResult(intent, requestCode);
                         } else {
                             Log.d(HomeActivity.this.getClass().getSimpleName(), "没有授予相机权限");
-                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 -> 权限管理” 中授予！");
+                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 ->" +
+                                    " 权限管理” 中授予！");
                             XXPermissions.gotoPermissionSettings(context);
                         }
                     }
@@ -221,51 +208,58 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
     }
 
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
 
-        GridLayoutManager lin = new GridLayoutManager(this,3);
+        GridLayoutManager lin = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(lin);
         recyclerView.setHasFixedSize(true);
         recyclerView.setFadingEdgeLength(0);
-        homeListAdapter=new HomeListAdapter(HomeActivity.this,list);
+        homeListAdapter = new HomeListAdapter(HomeActivity.this, list);
         recyclerView.setAdapter(homeListAdapter);
         recyclerView.setFocusable(false);
         homeListAdapter.setOnItemChildClickListener(listener);
-        recyclerView.addItemDecoration(new VerticalLineDecoration(DensityUtil.dip2px(this,12),true));
+        recyclerView.addItemDecoration(new VerticalLineDecoration(DensityUtil.dip2px(this, 12),
+                true));
 
     }
 
-    BaseQuickAdapter.OnItemChildClickListener listener=new BaseQuickAdapter.OnItemChildClickListener() {
+    BaseQuickAdapter.OnItemChildClickListener listener = new BaseQuickAdapter
+            .OnItemChildClickListener() {
         @Override
         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
             HomeListBean listBean = list.get(position);
-            switch (listBean.getCode()){
-                    case Constant.ACTIVE_CODE:
-                        startActivity(new Intent(HomeActivity.this, ActivePlateActivity.class));// 激活设备
-                        break;
-                    case Constant.ALERT_CODE:
-                        startActivity(new Intent(HomeActivity.this, NotificationActivity.class));  //通知
-                        break;
-                    case Constant.AUDIT_CODE:
-                        startActivity(new Intent(HomeActivity.this, TeamAuditActivity.class));  //团队审核
-                        break;
-                    case Constant.CHANGE_CODE:
-                        startActivity(new Intent(HomeActivity.this, ReplaceDeviceActivity.class));// 更换设备
-                        break;
-                    case Constant.ORDER_CODE:
-                        startActivity(new Intent(HomeActivity.this, OrderViewActivity.class));// 查看订单
-                        break;
-                    case Constant.STATE_CODE:
-                        startActivity(new Intent(HomeActivity.this, PlateStatusActivity.class));// 设备状态
-                        break;
-                    case Constant.VOICE_CODE:
-                        startActivity(new Intent(HomeActivity.this, VolumeControlActivity.class));// 音量控制
-                        break;
-                    case Constant.TOOLS_CODE:
-                        startActivity(new Intent(HomeActivity.this, ToolsActivity.class));
-                        break;
-                    default:
-                        break;
+            switch (listBean.getCode()) {
+                case Constant.ACTIVE_CODE:
+                    startActivity(new Intent(HomeActivity.this, ActivePlateActivity.class));// 激活设备
+                    break;
+                case Constant.ALERT_CODE:
+                    startActivity(new Intent(HomeActivity.this, NotificationActivity.class));  //通知
+                    break;
+                case Constant.AUDIT_CODE:
+                    startActivity(new Intent(HomeActivity.this, TeamAuditActivity.class));  //团队审核
+                    break;
+                case Constant.CHANGE_CODE:
+                    startActivity(new Intent(HomeActivity.this, ReplaceDeviceActivity.class));//
+                    // 更换设备
+                    break;
+                case Constant.ORDER_CODE:
+                    startActivity(new Intent(HomeActivity.this, OrderViewActivity.class));// 查看订单
+                    break;
+                case Constant.STATE_CODE:
+                    startActivity(new Intent(HomeActivity.this, PlateStatusActivity.class));// 设备状态
+                    break;
+                case Constant.VOICE_CODE:
+                    startActivity(new Intent(HomeActivity.this, VolumeControlActivity.class));//
+                    // 音量控制
+                    break;
+                case Constant.TOOLS_CODE:
+                    startActivity(new Intent(HomeActivity.this, ToolsActivity.class));
+                    break;
+                case Constant.REPAIR_CODE:
+                    startActivity(new Intent(HomeActivity.this, RepairListActivity.class));
+                    break;
+                default:
+                    break;
             }
         }
     };
@@ -295,10 +289,12 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
         if (data != null && data.getExtras() != null) {
             barCode = data.getExtras().getString(CodeUtils.RESULT_STRING, "");
             if (!TextUtils.isEmpty(barCode)) {
-                String currentDate = DateUtil.timeStamp2Date((System.currentTimeMillis() / 1000) + "", "yyyyMMdd");
+                String currentDate = DateUtil.timeStamp2Date((System.currentTimeMillis() / 1000)
+                        + "", "yyyyMMdd");
                 barCode = (barCode + currentDate).hashCode() + "";
                 barCode = barCode.substring(barCode.length() - 6);
-                new SimpleDialogFragment().show("温馨提示", "当前获取到的平板密码：" + barCode, "确定", "", new DialogInterface.OnClickListener() {
+                new SimpleDialogFragment().show("温馨提示", "当前获取到的平板密码：" + barCode, "确定", "", new
+                        DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 

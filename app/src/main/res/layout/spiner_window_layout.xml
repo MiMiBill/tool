@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="124dp"
+    android:layout_height="@dimen/padding_160"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/padding_1"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_status_none"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_40"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="未处理"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/tv_status_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_40"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="已确认"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/tv_status_doing"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_40"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="处理中"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/tv_status_done"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_40"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="已完成"
+        android:textColor="@color/color_666666"
+        android:textSize="14sp" />
+</LinearLayout>

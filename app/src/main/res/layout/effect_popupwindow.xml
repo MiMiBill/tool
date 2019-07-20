@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rdb_1"
+            style="@style/radiobutton_style"
+            android:text="有效" />
+
+        <RadioButton
+            android:id="@+id/rdb_2"
+            style="@style/radiobutton_style"
+            android:text="条款失效" />
+
+        <RadioButton
+            android:id="@+id/rdb_3"
+            style="@style/radiobutton_style"
+            android:text="全文废止" />
+    </RadioGroup>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_999999" />
+</LinearLayout>

@@ -9,4 +9,5 @@ public class Constant {
     public static final String AUDIT_CODE="app:menu:yw:audit";
     public static final String ALERT_CODE="app:menu:yw:alert";
     public static final String TOOLS_CODE="app:menu:yw:tools";
+    public static final String REPAIR_CODE="app:menu:yw:repair";
 }

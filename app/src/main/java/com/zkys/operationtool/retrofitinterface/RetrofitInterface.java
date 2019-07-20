@@ -17,6 +17,7 @@ import com.zkys.operationtool.bean.LockInfo;
 import com.zkys.operationtool.bean.OrderDataBean;
 import com.zkys.operationtool.bean.OrderTailBean;
 import com.zkys.operationtool.bean.OverDueBean;
+import com.zkys.operationtool.bean.RepairListBean;
 import com.zkys.operationtool.bean.UnLockInfo;
 import com.zkys.operationtool.bean.UserInfoBean;
 import com.zkys.operationtool.bean.VolumeInfoBean;
@@ -43,14 +44,15 @@ import retrofit2.http.QueryMap;
 public interface RetrofitInterface {
 
     /**
-     * @Body 标签不能同时和@FormUrlEncoded、Multipart标签使用了 否则爆红
      * @return
+     * @Body 标签不能同时和@FormUrlEncoded、Multipart标签使用了 否则爆红
      */
 
     // 账号登陆
     @POST("/yw/admin/login")
     @FormUrlEncoded
-    Observable<HttpResponse<UserInfoBean>> login(@Field("mobile") String username, @Field("password") String password);
+    Observable<HttpResponse<UserInfoBean>> login(@Field("mobile") String username, @Field
+            ("password") String password);
 
     // 账号登陆新接口
     @POST("/sys/login")
@@ -65,27 +67,33 @@ public interface RetrofitInterface {
     // 微信登陆
     @POST("/sys/thirdLogin")
     @FormUrlEncoded
-    Observable<HttpResponse<UserInfoBean>> thirdLogin(@Field("code") String code, @Field("type") int type);
+    Observable<HttpResponse<UserInfoBean>> thirdLogin(@Field("code") String code, @Field("type")
+            int type);
 
     // 医院列表
     @FormUrlEncoded
     @POST("/yw/hospital/list")
-    Observable<HttpResponse<List<HospitalBean>>> getHospitalList(@Field("sydicId")String sydicId, @Field("state") int state);
+    Observable<HttpResponse<List<HospitalBean>>> getHospitalList(@Field("sydicId") String
+                                                                         sydicId, @Field("state")
+            int state);
 
     // 医院列表(新接口)
     @FormUrlEncoded
     @POST("/yw/hospital/list")
-    Observable<HttpResponse<List<HospitalBean>>> getnewHospitalList( @Field("state") int state);
+    Observable<HttpResponse<List<HospitalBean>>> getnewHospitalList(@Field("state") int state);
 
     // 科室列表
     @POST("/yw/hospital/deptList")
     @FormUrlEncoded
-    Observable<HttpResponse<List<CoreBean>>> getCoreList(@Field("hospitalId") int hid,  @Field("state") int state);
+    Observable<HttpResponse<List<CoreBean>>> getCoreList(@Field("hospitalId") int hid, @Field
+            ("state") int state);
 
     // 账号绑定
     @POST("/yw/admin/bindingOpenId")
     @FormUrlEncoded
-    Observable<HttpResponse<UserInfoBean>> bindingAccount(@Field("openId") String openid,  @Field("mobile") String mobile, @Field("password") String password);
+    Observable<HttpResponse<UserInfoBean>> bindingAccount(@Field("openId") String openid, @Field
+            ("mobile") String mobile, @Field("password") String password);
+
     // 激活设备
 //    @POST("core/device/activate")
     @POST("/yw/deviceBinding/newActivate")
@@ -93,8 +101,10 @@ public interface RetrofitInterface {
 
     // 床位列表
 
-//    @POST("hospitalBed/list")//@Field("hospitalId") int hospitalId, @Field("deptId") int deptId
-    @POST("/yw/deviceBinding/list")//@Field("hospitalId") int hospitalId, @Field("deptId") int deptId
+    //    @POST("hospitalBed/list")//@Field("hospitalId") int hospitalId, @Field("deptId") int
+    // deptId
+    @POST("/yw/deviceBinding/list")
+//@Field("hospitalId") int hospitalId, @Field("deptId") int deptId
     @FormUrlEncoded
     Observable<HttpResponse<List<BedBean>>> getBedList(@FieldMap Map<String, Integer> map);
 
@@ -111,13 +121,16 @@ public interface RetrofitInterface {
     // 根据科室医院ID获取科室平板原有的音量配置
     @POST("/padVolume/list")
     @FormUrlEncoded
-    Observable<HttpResponse<List<VolumeInfoBean>>> getPadVolume(@Field("hospitalId") int hospitalId, @Field("deptId") int deptId);
+    Observable<HttpResponse<List<VolumeInfoBean>>> getPadVolume(@Field("hospitalId") int
+                                                                        hospitalId, @Field
+            ("deptId") int deptId);
 
 
     // 控制修改科室平板原有的音量配置
     @POST("padVolume/insert")
     @FormUrlEncoded
-    Observable<HttpResponse<Object>> controlPadVolume(@Field("hospitalId") int hospitalId, @Field("deptId") int deptId, @Field("volume") int volume, @Field("id") int vId);
+    Observable<HttpResponse<Object>> controlPadVolume(@Field("hospitalId") int hospitalId, @Field
+            ("deptId") int deptId, @Field("volume") int volume, @Field("id") int vId);
 
 
     // 訂單列表
@@ -128,7 +141,8 @@ public interface RetrofitInterface {
     // 获取统计图表数据
     @POST("/yw/wxOrder/wxOrderStatistics")
     @FormUrlEncoded
-    Observable<HttpResponse<List<ItemStatisticBean>>> getOrderStatistics(@FieldMap Map<String, Object> map);
+    Observable<HttpResponse<List<ItemStatisticBean>>> getOrderStatistics(@FieldMap Map<String,
+            Object> map);
 
     // 获取团队审核
     @GET("/yw/teamAuthenticate/findAllUnaudited")
@@ -141,16 +155,19 @@ public interface RetrofitInterface {
     // 所有医院的平板使用率
     @POST("/yw/padStatus/allPadUsageRates")
     @FormUrlEncoded
-    Observable<HttpResponse<List<ItemUsageRatesBean>>> getAllPadUsageRates(@FieldMap Map<String, Object> map);
+    Observable<HttpResponse<List<ItemUsageRatesBean>>> getAllPadUsageRates(@FieldMap Map<String,
+            Object> map);
 
     // 指定医院所有科室的平板使用率
     @POST("/yw/padStatus/allDeptPadUsageRates")
     @FormUrlEncoded
-    Observable<HttpResponse<List<ItemUsageRatesBean>>> getAllDeptPadUsageRates(@FieldMap Map<String, Object> map);
+    Observable<HttpResponse<List<ItemUsageRatesBean>>> getAllDeptPadUsageRates(@FieldMap
+                                                                                       Map<String, Object> map);
 
     // 平板订单状态状态
     @GET("/yw/padStatus/padOrderStatus")
-    Observable<HttpResponse<List<BedOrderStateBean>>> getPadOrderStatusData(@QueryMap Map<String, Object> map);
+    Observable<HttpResponse<List<BedOrderStateBean>>> getPadOrderStatusData(@QueryMap Map<String,
+            Object> map);
 
     // 设备详细信息
     @GET("/yw/padStatus/deviceDetailInfo")
@@ -182,7 +199,8 @@ public interface RetrofitInterface {
     // 账号绑定
     @POST("/sys/loginOrBind")
     @FormUrlEncoded
-    Observable<HttpResponse<UserInfoBean>> bindingWechat(@Field("openId") String openid,  @Field("mobile") String mobile, @Field("captcha") String password,@Field("type") int type);
+    Observable<HttpResponse<UserInfoBean>> bindingWechat(@Field("openId") String openid, @Field
+            ("mobile") String mobile, @Field("captcha") String password, @Field("type") int type);
 
     // 获取逾期订单数量
     @GET("yw/wxOrder/getExpireTotal")
@@ -221,4 +239,16 @@ public interface RetrofitInterface {
     @POST("/yw/wxOrder/refund")
     @FormUrlEncoded
     Observable<HttpResponse<Object>> refund(@FieldMap Map<String, Object> map);
+
+
+    // 维修列表
+    @POST("/repair/list")
+    @FormUrlEncoded
+    Observable<HttpResponse<List<RepairListBean>>> repairList(@FieldMap Map<String, Object> map);
+
+
+    // 更新报修事件
+    @POST("/repair/update")
+    @FormUrlEncoded
+    Observable<HttpResponse<Object>> repairUpdate(@FieldMap Map<String, Object> map);
 }

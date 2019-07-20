@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hjq.permissions.XXPermissions;
@@ -39,7 +40,8 @@ import io.reactivex.functions.Consumer;
 /**
  * 激活平板
  */
-public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> implements BottomDialog.ItemSelectedInterface {
+public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> implements
+        BottomDialog.ItemSelectedInterface {
 
     /**
      * 扫描跳转Activity RequestCode
@@ -87,6 +89,10 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
     RadioGroup rgSelect;
     @BindView(R.id.tv_cabinet_bar_code)
     EditText tvCabinetBarCode;
+    @BindView(R.id.tv_pc)
+    TextView tvPc;
+    @BindView(R.id.rel_pc)
+    RelativeLayout relPc;
     private BottomDialog bottomDialog;
     private List<HospitalBean> hospitalBeanList;
     private List<CoreBean> coreBeanList;
@@ -166,6 +172,7 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
             tvCabinetBarCode.setText("");
             tvAdapterBarCode.setText("");
             tvBracketBarCode.setText("");
+            relPc.setVisibility(View.GONE);
         } else {
             ToastUtil.showShort(result.getMsg());
         }
@@ -177,8 +184,6 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
     }
 
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -186,7 +191,8 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
         if (data != null) {
             if (data.getExtras() != null) {
                 barCode = data.getExtras().getString(CodeUtils.RESULT_STRING, "");
-                if (UIUtils.isUrl(barCode) && barCode.contains("=") && barCode.lastIndexOf("=") != barCode.length() - 1) {
+                if (UIUtils.isUrl(barCode) && barCode.contains("=") && barCode.lastIndexOf("=")
+                        != barCode.length() - 1) {
                     barCode = barCode.substring(barCode.lastIndexOf("=") + 1);
                 }
             }
@@ -195,11 +201,18 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
                     tvDeviceCode.setText(barCode);
                 } else {
                     if (UIUtils.isBase64(barCode.replaceAll("\n", ""))) {
-                        String codeResult = new String(Base64.decode(barCode.getBytes(), Base64.DEFAULT));
-                        if (codeResult.contains(",") && codeResult.length() == 35) {
+                        String codeResult = new String(Base64.decode(barCode.getBytes(),
+                                Base64.DEFAULT));
+                        if (codeResult.contains(",")) {
                             String[] split = codeResult.split(",");
                             tvSimBarCode.setText(split[0]);
-                            tvDeviceCode.setText(split[split.length - 1]);
+                            tvDeviceCode.setText(split[1]);
+                            if (codeResult.length() > 35) {
+                                relPc.setVisibility(View.VISIBLE);
+                                tvPc.setText(split[2]);
+                            }else {
+                                relPc.setVisibility(View.GONE);
+                            }
                         } else {
                             ToastUtil.showShort("请扫描正确的平板二维码");
                         }
@@ -221,7 +234,9 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
         }
     }
 
-    @OnClick({R.id.rl_select_hospital, R.id.rl_select_core, R.id.iv_scan_device_code, R.id.iv_scan_plate_bar_code, R.id.iv_scan_sim_code, R.id.iv_scan_adapter_code, R.id.iv_scan_bracket_code, R.id.tv_active, R.id.iv_scan_cabinet_code})
+    @OnClick({R.id.rl_select_hospital, R.id.rl_select_core, R.id.iv_scan_device_code, R.id
+            .iv_scan_plate_bar_code, R.id.iv_scan_sim_code, R.id.iv_scan_adapter_code, R.id
+            .iv_scan_bracket_code, R.id.tv_active, R.id.iv_scan_cabinet_code})
     public void onViewClicked(View view) {
         Intent intent = new Intent(this, CaptureActivity.class);
         switch (view.getId()) {
@@ -283,7 +298,8 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
                             startActivityForResult(intent, requestCode);
                         } else {
                             Log.d(ActivePlateActivity.this.getClass().getSimpleName(), "没有授予相机权限");
-                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 -> 权限管理” 中授予！");
+                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 ->" +
+                                    " 权限管理” 中授予！");
                             XXPermissions.gotoPermissionSettings(context);
                         }
                     }
@@ -295,17 +311,17 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
          * type --> 1：联通卡  2：二G锁  4：屏  8：适配器  16：支架
          */
         String selectHospitalName = tvSelectedHospital.getText().toString().trim();
-        if("".equals(selectHospitalName)){
+        if ("".equals(selectHospitalName)) {
             ToastUtil.showShort("请选择医院");
             return;
         }
         String selectCoreName = tvSelectedCore.getText().toString().trim();
-        if("".equals(selectCoreName)){
+        if ("".equals(selectCoreName)) {
             ToastUtil.showShort("请选择科室");
             return;
         }
         String bedNumber = etBedNumber.getText().toString().trim();
-        if("".equals(bedNumber)){
+        if ("".equals(bedNumber)) {
             ToastUtil.showShort("请输入床位号");
             return;
         }
@@ -315,7 +331,8 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
         String cabinetBarCode = tvCabinetBarCode.getText().toString().trim();
         String adapterBarCode = tvAdapterBarCode.getText().toString().trim();
         String bracketBarCode = tvBracketBarCode.getText().toString().trim();
-        if("".equals(deviceCode) || "".equals(simBarCode) || "".equals(plateBarCode) || "".equals(bracketBarCode)){
+        if ("".equals(deviceCode) || "".equals(simBarCode) || "".equals(plateBarCode) || ""
+                .equals(bracketBarCode)) {
             ToastUtil.showShort("设备信息不能为空");
             return;
         }
@@ -326,7 +343,7 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
         list.add(new DeviceParameterBean(adapterBarCode, "", TypeCodeCanstant.TYPE_BED));
         list.add(new DeviceParameterBean(bracketBarCode, "", TypeCodeCanstant.TYPE_BRACKET));
 
-        presenter.activate(bedNumber,cid, list, hid, run);
+        presenter.activate(bedNumber, cid, list, hid, run);
     }
 
 
