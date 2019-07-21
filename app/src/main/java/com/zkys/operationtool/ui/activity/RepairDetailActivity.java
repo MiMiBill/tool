@@ -1,6 +1,7 @@
 package com.zkys.operationtool.ui.activity;
 
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -141,9 +142,11 @@ public class RepairDetailActivity extends BaseActivity<RepairDetailPresenter> im
 
     //处理状态
     private void showPop() {
-//创建弹出式菜单对象（最低版本11）
+        ContextThemeWrapper contextThemeWrapper =
+                new ContextThemeWrapper(context, R.style.CustomPopMenuStyle);
+        //创建弹出式菜单对象（最低版本11）
         //第二个参数是绑定的那个view
-        popupMenu = new PopupMenu(this, llySta);
+        popupMenu = new PopupMenu(contextThemeWrapper, llySta);
         //获取菜单填充器
         MenuInflater inflater = popupMenu.getMenuInflater();
         //填充菜单
@@ -162,7 +165,7 @@ public class RepairDetailActivity extends BaseActivity<RepairDetailPresenter> im
         switch (item.getItemId()) {
             case R.id.re_none:
                 status=0;
-                tvSta.setText("未完成");
+                tvSta.setText("未处理");
                 break;
             case R.id.re_confirm:
                 status=1;

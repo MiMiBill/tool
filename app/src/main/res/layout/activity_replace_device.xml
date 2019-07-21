@@ -55,7 +55,7 @@
             <RelativeLayout
                 android:id="@+id/rl_select_hospital"
                 android:paddingLeft="16dp"
-                android:background="@android:color/white"
+                android:background="@drawable/layout_white_click"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -89,7 +89,7 @@
             <RelativeLayout
                 android:id="@+id/rl_select_core"
                 android:paddingLeft="16dp"
-                android:background="@android:color/white"
+                android:background="@drawable/layout_white_click"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -122,7 +122,7 @@
             <RelativeLayout
                 android:id="@+id/rl_select_bed"
                 android:paddingLeft="16dp"
-                android:background="@android:color/white"
+                android:background="@drawable/layout_white_click"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -156,7 +156,7 @@
                 android:visibility="gone"
                 android:paddingLeft="16dp"
                 android:orientation="horizontal"
-                android:background="@android:color/white"
+                android:background="@drawable/layout_white_click"
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
@@ -189,7 +189,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_replace_plate"
                     android:paddingLeft="16dp"
-                    android:background="@android:color/white"
+                    android:background="@drawable/layout_white_click"
                     android:layout_marginTop="14dp"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
@@ -229,7 +229,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_replace_cabinet"
                     android:paddingLeft="16dp"
-                    android:background="@android:color/white"
+                    android:background="@drawable/layout_white_click"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
 
@@ -267,7 +267,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_replace_sim"
                     android:paddingLeft="16dp"
-                    android:background="@android:color/white"
+                    android:background="@drawable/layout_white_click"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
 
@@ -306,7 +306,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_replace_adapter"
                     android:paddingLeft="16dp"
-                    android:background="@android:color/white"
+                    android:background="@drawable/layout_white_click"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
 
@@ -345,7 +345,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_replace_bracket"
                     android:paddingLeft="16dp"
-                    android:background="@android:color/white"
+                    android:background="@drawable/layout_white_click"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
 
@@ -386,7 +386,7 @@
                     android:visibility="gone"
                     android:id="@+id/rl_repair_device"
                     android:paddingLeft="16dp"
-                    android:background="@android:color/white"
+                    android:background="@drawable/layout_white_click"
                     android:layout_width="match_parent"
                     android:layout_height="48dp">
 

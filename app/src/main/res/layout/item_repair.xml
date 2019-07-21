@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/padding_60"
     android:layout_marginTop="@dimen/padding_10"
-    android:background="@android:color/white"
+    android:background="@drawable/layout_white_click"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 

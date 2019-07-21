@@ -35,7 +35,7 @@ public class  PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
     RecyclerView rcvList;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-    private String hid;
+    private int hid=-1;
     private List<ItemUsageRatesBean> usageRatesBeans=new ArrayList<>();
     private List<ItemUsageRatesBean> tempusageRatesBeans=new ArrayList<>();
     private int pageNum=0;
@@ -46,7 +46,7 @@ public class  PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
         super.onCreate(savedInstanceState);
         String hospitalName = getIntent().getStringExtra("HospitalName");
         setTvTitleText(hospitalName);
-        hid = getIntent().getStringExtra("hid");
+        hid = getIntent().getIntExtra("hid",-1);
         usageRatesAdapter = new UsageRatesAdapter(usageRatesBeans);
         presenter.getAllDeptPadUsageRates(getStringObjectMap(pageNum));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -139,7 +139,7 @@ public class  PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
                 startActivity(new Intent(PlateCoreListActivity.this, BedsListActivity.class)
                         .putExtra("cid", usageRatesBeans.get(position).getDeptId())
                         .putExtra("hid", usageRatesBeans.get(position).getHospitalId())
-                        .putExtra("DeptName", usageRatesBeans.get(position).getDeptName()));
+                        .putExtra("DeptName", usageRatesBeans.get(position).getHospitalName()));
             }
         });
     }

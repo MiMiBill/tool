@@ -28,7 +28,7 @@
                android:layout_height="match_parent">
                <LinearLayout
                    android:id="@+id/lly_status"
-                   android:background="@color/white"
+                   android:background="@drawable/layout_white_click"
                    android:gravity="center_vertical"
                    android:layout_width="match_parent"
                    android:layout_height="@dimen/padding_40">

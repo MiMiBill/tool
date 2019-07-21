@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -173,9 +174,11 @@ public class RepairListActivity extends BaseActivity<RepairListPresenter> implem
 
     @OnClick(R.id.lly_status)
     public void onViewClicked() {
+        ContextThemeWrapper contextThemeWrapper =
+                new ContextThemeWrapper(context, R.style.CustomPopMenuStyle);
         //创建弹出式菜单对象（最低版本11）
         //第二个参数是绑定的那个view
-        popupMenu = new PopupMenu(this, llyStatus);
+        popupMenu = new PopupMenu(contextThemeWrapper, llyStatus);
         //获取菜单填充器
         MenuInflater inflater = popupMenu.getMenuInflater();
         //填充菜单
@@ -194,7 +197,7 @@ public class RepairListActivity extends BaseActivity<RepairListPresenter> implem
         switch (item.getItemId()) {
             case R.id.re_none:
                 status=0;
-                tvStatus.setText("未完成");
+                tvStatus.setText("未处理");
                 break;
             case R.id.re_confirm:
                 status=1;

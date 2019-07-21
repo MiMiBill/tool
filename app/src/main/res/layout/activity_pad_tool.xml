@@ -16,7 +16,7 @@
         android:layout_height="@dimen/padding_45"
         android:clickable="true"
         android:layout_marginTop="@dimen/padding_35"
-        android:background="@color/white"
+        android:background="@drawable/layout_white_click"
         android:gravity="center"
         android:text="@string/please_check_busy"
         android:textColor="@color/textcolor_333333" />

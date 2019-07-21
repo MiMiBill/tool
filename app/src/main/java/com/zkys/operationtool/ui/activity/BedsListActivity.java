@@ -37,8 +37,8 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
     RecyclerView rcvList;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-    private String hid;
-    private String cid;
+    private int hid=-1;
+    private int cid=-1;
     private String deptName;
     private List<BedOrderStateBean> orderStateBeans=new ArrayList<>();
     private List<BedOrderStateBean> temporderStateBeans=new ArrayList<>();
@@ -48,8 +48,8 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hid = getIntent().getStringExtra("hid");
-        cid = getIntent().getStringExtra("cid");
+        hid = getIntent().getIntExtra("hid",-1);
+        cid = getIntent().getIntExtra("cid",-1);
         deptName = getIntent().getStringExtra("DeptName");
         getPadOrderStatusData(1);
         bedStatusListAdapter = new BedStatusListAdapter(orderStateBeans);

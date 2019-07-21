@@ -16,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/rl_unlock"
             android:paddingLeft="16dp"
-            android:background="@android:color/white"
+            android:background="@drawable/layout_white_click"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
@@ -50,7 +50,7 @@
             android:id="@+id/rl_get_pad_pwd"
             android:paddingLeft="16dp"
             android:layout_marginTop="15dp"
-            android:background="@android:color/white"
+            android:background="@drawable/layout_white_click"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
@@ -84,7 +84,7 @@
             android:id="@+id/rl_pad_tool"
             android:paddingLeft="16dp"
             android:layout_marginTop="15dp"
-            android:background="@android:color/white"
+            android:background="@drawable/layout_white_click"
             android:layout_width="match_parent"
             android:layout_height="48dp">
 

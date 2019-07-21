@@ -20,7 +20,7 @@ public class UsageRatesAdapter extends BaseQuickAdapter<ItemUsageRatesBean, Base
     protected void convert(BaseViewHolder helper, ItemUsageRatesBean item) {
         if (!TextUtils.isEmpty(item.getHospitalName())) {
             helper.setText(R.id.tv_hospital, item.getHospitalName());
-        } else {
+        }else {
             helper.setText(R.id.tv_hospital, item.getDeptName());
         }
         helper.setText(R.id.tv_date, item.getCreateTime());
@@ -42,7 +42,21 @@ public class UsageRatesAdapter extends BaseQuickAdapter<ItemUsageRatesBean, Base
         helper.setText(R.id.tv_on_count, item.getOnCount());
         helper.setText(R.id.tv_usage_count, item.getPadUseCount());
         helper.setText(R.id.tv_rent_count, item.getDeviceRentCount());
-        helper.setText(R.id.tv_active_count, item.getActivationCount());
+        helper.setText(R.id.tv_active_count, String.valueOf(item.getActivationCount()));
         helper.setText(R.id.tv_offline_count, String.valueOf(item.getOffLineCount()));
+
+        if(TextUtils.isEmpty(item.getLockOnCount())){
+            helper.setGone(R.id.lly_cabnet_count,false);
+            helper.setGone(R.id.lly_cabniet,false);
+
+        }else {
+            helper.setGone(R.id.lly_cabnet_count,true);
+            helper.setGone(R.id.lly_cabniet,true);
+            helper.setText(R.id.tv_cab_on_rates, item.getLockOnRate()+ "%");
+            helper.setText(R.id.tv_cab_usage_rates, item.getDeviceRentRate()+ "%");
+            helper.setText(R.id.tv_cab_rent_rates, item.getDeviceRentRate()+ "%");
+            helper.setText(R.id.tv_cab_active_count, String.valueOf(item.getLockActivationCount()));
+            helper.setText(R.id.tv_cab_offline_count, String.valueOf(item.getLockOffLineCount()));
+        }
     }
 }

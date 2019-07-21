@@ -1,51 +1,46 @@
 package com.zkys.operationtool.bean;
 
-public class ItemUsageRatesBean {
+import java.io.Serializable;
 
+public class ItemUsageRatesBean implements Serializable {
     /**
-     * padUseCount : 0
-     * onRate : 0
-     * deviceRentRate : 0
-     * activationCount : 4
-     * hospitalId : 4
-     * createTime : 2019-03-08
+     * activationCount : 15
+     * createTime : 2019-07-20
      * deviceRentCount : 0
+     * deviceRentRate : 0
+     * hospitalId : 4
      * hospitalName : 东莞大朗医院
+     * lockActivationCount : 7
+     * lockOffLineCount : 7
+     * lockOnCount : 0
+     * lockOnRate : 0
+     * offLineCount : 15
      * onCount : 0
+     * onRate : 0
+     * padRentCount : 0
+     * padRentRate : 0
+     * padUseCount : 0
      * padUseRate : 0
-     * deptId=2
-     * deptName=外科
      */
-
-    private String padUseCount;
-    private String onRate;
-    private String deviceRentRate;
-    private String activationCount;
-    private String hospitalId;
+    private String deptName;
+    private int deptId;
+    private int activationCount;
     private String createTime;
     private String deviceRentCount;
+    private String deviceRentRate;
+    private int hospitalId;
     private String hospitalName;
-    private String onCount;
-    private String padUseRate;
-    private String deptId;
-    private String deptName;
+    private int lockActivationCount;
+    private int lockOffLineCount;
+    private String lockOnCount;
+    private String lockOnRate;
     private int offLineCount;
-
-    public int getOffLineCount() {
-        return offLineCount;
-    }
-
-    public void setOffLineCount(int offLineCount) {
-        this.offLineCount = offLineCount;
-    }
-
-    public String getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(String deptId) {
-        this.deptId = deptId;
-    }
+    private String onCount;
+    private String onRate;
+    private String padRentCount;
+    private String padRentRate;
+    private String padUseCount;
+    private String padUseRate;
 
     public String getDeptName() {
         return deptName;
@@ -55,44 +50,20 @@ public class ItemUsageRatesBean {
         this.deptName = deptName;
     }
 
-    public String getPadUseCount() {
-        return padUseCount;
+    public int getDeptId() {
+        return deptId;
     }
 
-    public void setPadUseCount(String padUseCount) {
-        this.padUseCount = padUseCount;
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
     }
 
-    public String getOnRate() {
-        return onRate;
-    }
-
-    public void setOnRate(String onRate) {
-        this.onRate = onRate;
-    }
-
-    public String getDeviceRentRate() {
-        return deviceRentRate;
-    }
-
-    public void setDeviceRentRate(String deviceRentRate) {
-        this.deviceRentRate = deviceRentRate;
-    }
-
-    public String getActivationCount() {
+    public int getActivationCount() {
         return activationCount;
     }
 
-    public void setActivationCount(String activationCount) {
+    public void setActivationCount(int activationCount) {
         this.activationCount = activationCount;
-    }
-
-    public String getHospitalId() {
-        return hospitalId;
-    }
-
-    public void setHospitalId(String hospitalId) {
-        this.hospitalId = hospitalId;
     }
 
     public String getCreateTime() {
@@ -111,6 +82,22 @@ public class ItemUsageRatesBean {
         this.deviceRentCount = deviceRentCount;
     }
 
+    public String getDeviceRentRate() {
+        return deviceRentRate;
+    }
+
+    public void setDeviceRentRate(String deviceRentRate) {
+        this.deviceRentRate = deviceRentRate;
+    }
+
+    public int getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(int hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+
     public String getHospitalName() {
         return hospitalName;
     }
@@ -119,12 +106,84 @@ public class ItemUsageRatesBean {
         this.hospitalName = hospitalName;
     }
 
+    public int getLockActivationCount() {
+        return lockActivationCount;
+    }
+
+    public void setLockActivationCount(int lockActivationCount) {
+        this.lockActivationCount = lockActivationCount;
+    }
+
+    public int getLockOffLineCount() {
+        return lockOffLineCount;
+    }
+
+    public void setLockOffLineCount(int lockOffLineCount) {
+        this.lockOffLineCount = lockOffLineCount;
+    }
+
+    public String getLockOnCount() {
+        return lockOnCount;
+    }
+
+    public void setLockOnCount(String lockOnCount) {
+        this.lockOnCount = lockOnCount;
+    }
+
+    public String getLockOnRate() {
+        return lockOnRate;
+    }
+
+    public void setLockOnRate(String lockOnRate) {
+        this.lockOnRate = lockOnRate;
+    }
+
+    public int getOffLineCount() {
+        return offLineCount;
+    }
+
+    public void setOffLineCount(int offLineCount) {
+        this.offLineCount = offLineCount;
+    }
+
     public String getOnCount() {
         return onCount;
     }
 
     public void setOnCount(String onCount) {
         this.onCount = onCount;
+    }
+
+    public String getOnRate() {
+        return onRate;
+    }
+
+    public void setOnRate(String onRate) {
+        this.onRate = onRate;
+    }
+
+    public String getPadRentCount() {
+        return padRentCount;
+    }
+
+    public void setPadRentCount(String padRentCount) {
+        this.padRentCount = padRentCount;
+    }
+
+    public String getPadRentRate() {
+        return padRentRate;
+    }
+
+    public void setPadRentRate(String padRentRate) {
+        this.padRentRate = padRentRate;
+    }
+
+    public String getPadUseCount() {
+        return padUseCount;
+    }
+
+    public void setPadUseCount(String padUseCount) {
+        this.padUseCount = padUseCount;
     }
 
     public String getPadUseRate() {
