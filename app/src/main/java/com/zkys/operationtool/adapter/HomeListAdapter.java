@@ -50,7 +50,7 @@ public class HomeListAdapter extends BaseQuickAdapter<HomeListBean, BaseViewHold
                 Glide.with(context).load(R.mipmap.icon_volume).into(imageView);
                 break;
             case Constant.REPAIR_CODE:
-                Glide.with(context).load(R.mipmap.icon_activation).into(imageView);
+                Glide.with(context).load(R.mipmap.icon_repair).into(imageView);
                 break;
             case Constant.TOOLS_CODE:
                 Glide.with(context).load(R.mipmap.icon_tool).into(imageView);

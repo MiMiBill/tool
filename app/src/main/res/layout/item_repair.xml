@@ -34,9 +34,22 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_status"
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_marginRight="@dimen/padding_15"
         android:layout_width="@dimen/padding_42"
-        android:layout_height="@dimen/padding_42" />
+        android:layout_height="@dimen/padding_42">
+        <ImageView
+            android:id="@+id/iv_status"
+            android:layout_width="@dimen/padding_25"
+            android:layout_height="@dimen/padding_25" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_status"
+            android:textSize="@dimen/text_size_11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </LinearLayout>

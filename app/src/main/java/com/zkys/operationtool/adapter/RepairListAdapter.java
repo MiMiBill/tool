@@ -26,16 +26,24 @@ public class RepairListAdapter extends BaseQuickAdapter<RepairListBean, BaseView
         ImageView img = (ImageView)helper.getView(R.id.iv_status);
         switch (item.getStatus()){
             case 0:
-                Glide.with(context).load(R.mipmap.processe_ing).into(img);
+                Glide.with(context).load(R.mipmap.process_ing).into(img);
+                helper.setText(R.id.tv_status, "未处理");
+                helper.setTextColor(R.id.tv_status, context.getResources().getColor(R.color.color_F88C4C));
                 break;
             case 1:
-                Glide.with(context).load(R.mipmap.processe_ing).into(img);
+                Glide.with(context).load(R.mipmap.process_confirm).into(img);
+                helper.setText(R.id.tv_status, "已确认");
+                helper.setTextColor(R.id.tv_status, context.getResources().getColor(R.color.color_585858));
                 break;
             case 2:
-                Glide.with(context).load(R.mipmap.processe_ing).into(img);
+                Glide.with(context).load(R.mipmap.process_confirm).into(img);
+                helper.setText(R.id.tv_status, "处理中");
+                helper.setTextColor(R.id.tv_status, context.getResources().getColor(R.color.color_585858));
                 break;
             case 3:
-                Glide.with(context).load(R.mipmap.processed).into(img) ;
+                Glide.with(context).load(R.mipmap.process_done).into(img) ;
+                helper.setText(R.id.tv_status, "已完成");
+                helper.setTextColor(R.id.tv_status, context.getResources().getColor(R.color.color_bbbbbb));
                 break;
         }
     }
