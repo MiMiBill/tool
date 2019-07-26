@@ -129,11 +129,11 @@ public class InfoDetailActivity extends BaseActivity<PlateStatusPresenter> {
         tvSid.setText(data.getPowerSid());
         tvZid.setText(data.getHolderZid());
         tvPlateLastHeartTime.setText(data.getPadLastHeart());
-        tvCabinetLastHeartTime.setText(data.getCabinetHeart());
+        tvCabinetLastHeartTime.setText(data.getPadLastHeart());
         tvPlateCurrentSignalValue.setText(data.getPadSignal());
         tvCabinetCurrentSignalValue.setText(data.getCabinetSignal());
         tvLockState.setText(data.getLockStatus());
-        tvPlateState.setText(data.getPadStatus());
+        tvPlateState.setText(data.getCabinetHeart());
         tvCabinetState.setText(data.getLockStatus());
         tvOrderCreateTime.setText(data.getOrderCreateDate());
         tvOrderExpireTime.setText(data.getOrderExpireDate());

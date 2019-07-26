@@ -139,7 +139,7 @@ public class  PlateCoreListActivity extends BaseActivity<PlateStatusPresenter> {
                 startActivity(new Intent(PlateCoreListActivity.this, BedsListActivity.class)
                         .putExtra("cid", usageRatesBeans.get(position).getDeptId())
                         .putExtra("hid", usageRatesBeans.get(position).getHospitalId())
-                        .putExtra("DeptName", usageRatesBeans.get(position).getHospitalName()));
+                        .putExtra("DeptName", usageRatesBeans.get(position).getDeptName()));
             }
         });
     }

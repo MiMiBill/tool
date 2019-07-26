@@ -324,6 +324,11 @@ public class BedOrderStateBean implements MultiItemEntity {
         }
     }
     public String getHeartStatus() {
+        if(heartStatus.equals("1")){
+            heartStatus="1";
+        }else {
+            heartStatus="2";
+        }
         return heartStatus;
     }
 

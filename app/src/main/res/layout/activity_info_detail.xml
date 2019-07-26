@@ -213,7 +213,7 @@
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="屏最后心跳时间："
+                        android:text="屏最后联网时间："
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -238,7 +238,7 @@
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="柜最后心跳时间："
+                        android:text="屏最后使用时间："
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
@@ -269,6 +269,31 @@
                         />
                     <TextView
                         android:id="@+id/tv_plate_current_signal_value"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#ff333333"
+                        android:textSize="12sp"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="9dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="柜最后联网时间："
+                        android:textColor="#ff333333"
+                        android:textSize="12sp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_plate_state"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
@@ -328,31 +353,6 @@
                         android:textSize="12sp"
                         />
                 </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginTop="9dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="屏状态："
-                        android:textColor="#ff333333"
-                        android:textSize="12sp"
-                        />
-                    <TextView
-                        android:id="@+id/tv_plate_state"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="#ff333333"
-                        android:textSize="12sp"
-                        />
-                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_marginTop="6dp"
@@ -364,7 +364,7 @@
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="柜状态："
+                        android:text="床状态："
                         android:textColor="#ff333333"
                         android:textSize="12sp"
                         />
