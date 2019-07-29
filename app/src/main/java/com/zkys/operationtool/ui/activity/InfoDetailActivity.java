@@ -2,6 +2,7 @@ package com.zkys.operationtool.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -69,6 +70,46 @@ public class InfoDetailActivity extends BaseActivity<PlateStatusPresenter> {
     TextView tvOrderNumber;
     @BindView(R.id.tv_user)
     TextView tvUser;
+    @BindView(R.id.lly_plate_did)
+    RelativeLayout llyPlateDid;
+    @BindView(R.id.rel_bid)
+    RelativeLayout relBid;
+    @BindView(R.id.rel_iccid)
+    RelativeLayout relIccid;
+    @BindView(R.id.rel_did)
+    RelativeLayout relDid;
+    @BindView(R.id.rel_sid)
+    RelativeLayout relSid;
+    @BindView(R.id.rel_zid)
+    RelativeLayout relZid;
+    @BindView(R.id.rel_plate_last_heart_time)
+    RelativeLayout relPlateLastHeartTime;
+    @BindView(R.id.rel_cabinet_last_heart_time)
+    RelativeLayout relCabinetLastHeartTime;
+    @BindView(R.id.rel_plate_current_signal_value)
+    RelativeLayout relPlateCurrentSignalValue;
+    @BindView(R.id.rel_plate_state)
+    RelativeLayout relPlateState;
+    @BindView(R.id.rel_cabinet_current_signal_value)
+    RelativeLayout relCabinetCurrentSignalValue;
+    @BindView(R.id.rel_lock_state)
+    RelativeLayout relLockState;
+    @BindView(R.id.rel_cabinet_state)
+    RelativeLayout relCabinetState;
+    @BindView(R.id.rel_order_create_time)
+    RelativeLayout relOrderCreateTime;
+    @BindView(R.id.rel_order_expire_time)
+    RelativeLayout relOrderExpireTime;
+    @BindView(R.id.rel_order_money)
+    RelativeLayout relOrderMoney;
+    @BindView(R.id.rel_order_number)
+    RelativeLayout relOrderNumber;
+    @BindView(R.id.rel_user)
+    RelativeLayout relUser;
+    @BindView(R.id.rel_active_time)
+    RelativeLayout relActiveTime;
+    @BindView(R.id.rel_active_person)
+    RelativeLayout relActivePerson;
     private String hid;
     private String cid;
     private String bedNumber;
@@ -122,27 +163,124 @@ public class InfoDetailActivity extends BaseActivity<PlateStatusPresenter> {
     }
 
     private void initData(DeviceInfoBean data) {
-        tvPlateDid.setText(data.getPadDid());
-        tvBid.setText(data.getPadBid());
-        tvIccid.setText(data.getIccid());
-        tvCabinetDid.setText(data.getCabinetDid());
-        tvSid.setText(data.getPowerSid());
-        tvZid.setText(data.getHolderZid());
-        tvPlateLastHeartTime.setText(data.getPadLastHeart());
-        tvCabinetLastHeartTime.setText(data.getPadLastHeart());
-        tvPlateCurrentSignalValue.setText(data.getPadSignal());
-        tvCabinetCurrentSignalValue.setText(data.getCabinetSignal());
-        tvLockState.setText(data.getLockStatus());
-        tvPlateState.setText(data.getCabinetHeart());
-        tvCabinetState.setText(data.getLockStatus());
-        tvOrderCreateTime.setText(data.getOrderCreateDate());
-        tvOrderExpireTime.setText(data.getOrderExpireDate());
-        tvOrderNumber.setText(data.getOrderId());
-        tvUser.setText(data.getNickname());
-        tvOrderMoney.setText(data.getOrderMoney());
-        tvActiveTime.setText(data.getActiveDate());
-        tvActivePerson.setText(data.getActiveUser());
+        if (!data.getPadDid().equals("")) {
+            tvPlateDid.setText(data.getPadDid());
+        } else {
+            llyPlateDid.setVisibility(View.GONE);
+        }
+
+        if (!data.getPadBid().equals("")) {
+            tvBid.setText(data.getPadBid());
+        } else {
+            relBid.setVisibility(View.GONE);
+        }
+
+        if (!data.getIccid().equals("")) {
+            tvIccid.setText(data.getIccid());
+        } else {
+            relIccid.setVisibility(View.GONE);
+        }
+
+        if (!data.getCabinetDid().equals("")) {
+            tvCabinetDid.setText(data.getCabinetDid());
+        } else {
+            relDid.setVisibility(View.GONE);
+        }
+
+        if (!data.getPowerSid().equals("")) {
+            tvSid.setText(data.getPowerSid());
+        } else {
+            relSid.setVisibility(View.GONE);
+        }
+
+        if (!data.getHolderZid().equals("")) {
+            tvZid.setText(data.getHolderZid());
+        } else {
+            relZid.setVisibility(View.GONE);
+        }
+
+        if (!data.getPadLastHeart().equals("")) {
+            tvPlateLastHeartTime.setText(data.getPadLastHeart());
+        } else {
+            relPlateLastHeartTime.setVisibility(View.GONE);
+        }
+
+        if (!data.getPadLastHeart().equals("")) {
+            tvCabinetLastHeartTime.setText(data.getPadLastHeart());
+        } else {
+            relCabinetLastHeartTime.setVisibility(View.GONE);
+        }
+
+        if (!data.getPadSignal().equals("")) {
+            tvPlateCurrentSignalValue.setText(data.getPadSignal());
+        } else {
+            relPlateCurrentSignalValue.setVisibility(View.GONE);
+        }
+
+        if (!data.getCabinetSignal().equals("")) {
+            tvCabinetCurrentSignalValue.setText(data.getCabinetSignal());
+        } else {
+            relCabinetCurrentSignalValue.setVisibility(View.GONE);
+        }
+
+        if (!data.getLockStatus().equals("")) {
+            tvLockState.setText(data.getLockStatus());
+        } else {
+            relLockState.setVisibility(View.GONE);
+        }
+
+        if (!data.getLockStatus().equals("")) {
+            tvPlateState.setText(data.getCabinetHeart());
+        } else {
+            relPlateState.setVisibility(View.GONE);
+        }
+
+        if (!data.getLockStatus().equals("")) {
+            tvCabinetState.setText(data.getLockStatus());
+        } else {
+            relCabinetState.setVisibility(View.GONE);
+        }
+
+        if (!data.getOrderCreateDate().equals("")) {
+            tvOrderCreateTime.setText(data.getOrderCreateDate());
+        } else {
+            relOrderCreateTime.setVisibility(View.GONE);
+        }
+
+        if (!data.getOrderExpireDate().equals("")) {
+            tvOrderExpireTime.setText(data.getOrderExpireDate());
+        } else {
+            relOrderExpireTime.setVisibility(View.GONE);
+        }
+
+        if (!data.getOrderId().equals("")) {
+            tvOrderNumber.setText(data.getOrderId());
+        } else {
+            relOrderNumber.setVisibility(View.GONE);
+        }
+
+        if (!data.getNickname().equals("")) {
+            tvUser.setText(data.getNickname());
+        } else {
+            relUser.setVisibility(View.GONE);
+        }
+
+        if (!data.getOrderMoney().equals("")) {
+            tvOrderMoney.setText(data.getOrderMoney());
+        } else {
+            relOrderMoney.setVisibility(View.GONE);
+        }
+
+        if (!data.getActiveDate().equals("")) {
+            tvActiveTime.setText(data.getActiveDate());
+        } else {
+            relActiveTime.setVisibility(View.GONE);
+        }
+
+        if (!data.getActiveUser().equals("")) {
+            tvActivePerson.setText(data.getActiveUser());
+        } else {
+            relActivePerson.setVisibility(View.GONE);
+        }
     }
-
-
 }
