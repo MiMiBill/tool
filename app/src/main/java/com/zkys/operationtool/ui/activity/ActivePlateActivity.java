@@ -329,13 +329,14 @@ public class ActivePlateActivity extends BaseActivity<ActivePlatePresenter> impl
         String simBarCode = tvSimBarCode.getText().toString().trim();
         String plateBarCode = tvPlateBarCode.getText().toString().trim();
         String cabinetBarCode = tvCabinetBarCode.getText().toString().trim();
+
         String adapterBarCode = tvAdapterBarCode.getText().toString().trim();
         String bracketBarCode = tvBracketBarCode.getText().toString().trim();
-        if ("".equals(deviceCode) || "".equals(simBarCode) || "".equals(plateBarCode) || ""
+        /*if ("".equals(deviceCode) || "".equals(simBarCode) || "".equals(plateBarCode) || ""
                 .equals(bracketBarCode)) {
             ToastUtil.showShort("设备信息不能为空");
             return;
-        }
+        }*/
         List<DeviceParameterBean> list = new ArrayList<>();
         list.add(new DeviceParameterBean(deviceCode, plateBarCode, TypeCodeCanstant.TYPE_PLATE));
         list.add(new DeviceParameterBean(simBarCode, "", TypeCodeCanstant.TYPE_SIM_KAR));

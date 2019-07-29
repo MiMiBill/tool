@@ -47,6 +47,7 @@
         </RelativeLayout>
         
         <LinearLayout
+            android:id="@+id/lly_pad_rate"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="89dp">
@@ -346,6 +347,7 @@
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/lly_pad_count"
             android:gravity="center"
             android:layout_width="match_parent"
             android:orientation="horizontal"

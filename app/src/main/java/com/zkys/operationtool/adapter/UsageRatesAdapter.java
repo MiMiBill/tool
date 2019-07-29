@@ -39,16 +39,24 @@ public class UsageRatesAdapter extends BaseQuickAdapter<ItemUsageRatesBean, Base
         }else {
             helper.setText(R.id.tv_rent_rates, "0%");
         }
-        helper.setText(R.id.tv_on_count, item.getOnCount());
-        helper.setText(R.id.tv_usage_count, item.getPadUseCount());
-        helper.setText(R.id.tv_rent_count, item.getDeviceRentCount());
-        helper.setText(R.id.tv_active_count, String.valueOf(item.getActivationCount()));
-        helper.setText(R.id.tv_offline_count, String.valueOf(item.getOffLineCount()));
+
+        if(item.getActivationCount()==0 ){
+            helper.setGone(R.id.lly_pad_rate,false);
+            helper.setGone(R.id.lly_pad_count,false);
+        }else {
+            helper.setGone(R.id.lly_pad_rate,true);
+            helper.setGone(R.id.lly_pad_count,true);
+            helper.setText(R.id.tv_on_count, item.getOnCount());
+            helper.setText(R.id.tv_usage_count, item.getPadUseCount());
+            helper.setText(R.id.tv_rent_count, item.getDeviceRentCount());
+            helper.setText(R.id.tv_active_count, String.valueOf(item.getActivationCount()));
+            helper.setText(R.id.tv_offline_count, String.valueOf(item.getOffLineCount()));
+        }
+
 
         if(TextUtils.isEmpty(item.getLockOnCount())){
             helper.setGone(R.id.lly_cabnet_count,false);
             helper.setGone(R.id.lly_cabniet,false);
-
         }else {
             helper.setGone(R.id.lly_cabnet_count,true);
             helper.setGone(R.id.lly_cabniet,true);
