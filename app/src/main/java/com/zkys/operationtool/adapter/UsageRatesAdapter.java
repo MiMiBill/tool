@@ -61,8 +61,19 @@ public class UsageRatesAdapter extends BaseQuickAdapter<ItemUsageRatesBean, Base
             helper.setGone(R.id.lly_cabnet_count,true);
             helper.setGone(R.id.lly_cabniet,true);
             helper.setText(R.id.tv_cab_on_rates, item.getLockOnRate()+ "%");
-            helper.setText(R.id.tv_cab_usage_rates, item.getDeviceRentRate()+ "%");
-            helper.setText(R.id.tv_cab_rent_rates, item.getDeviceRentRate()+ "%");
+
+            if (item.getDeviceRentRate()!=null){
+                helper.setText(R.id.tv_cab_usage_rates, item.getDeviceRentRate()+ "%");
+            }else {
+                helper.setText(R.id.tv_cab_usage_rates, "0%");
+            }
+
+            if (item.getDeviceRentRate()!=null){
+                helper.setText(R.id.tv_cab_rent_rates, item.getDeviceRentRate()+ "%");
+            }else {
+                helper.setText(R.id.tv_cab_rent_rates, "0%");
+            }
+
             helper.setText(R.id.tv_cab_active_count, String.valueOf(item.getLockActivationCount()));
             helper.setText(R.id.tv_cab_offline_count, String.valueOf(item.getLockOffLineCount()));
         }

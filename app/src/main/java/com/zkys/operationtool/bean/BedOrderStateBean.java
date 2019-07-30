@@ -272,7 +272,7 @@ public class BedOrderStateBean implements MultiItemEntity {
         }
 
         public String getReturnTimeFormat() {
-            return DateUtil.timeStamp2Date(String.valueOf(returnTime), null);
+            return DateUtil.timeStamp2Date(String.valueOf(leaseTime), null);
         }
 
         public String getReturnTime() {
