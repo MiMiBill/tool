@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,11 +39,14 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 //维修列表
-public class RepairListActivity extends BaseActivity<RepairListPresenter> implements PopupMenu.OnMenuItemClickListener {
+public class RepairListActivity extends BaseActivity<RepairListPresenter> implements PopupMenu
+        .OnMenuItemClickListener {
     @BindView(R.id.tv_status)
     TextView tvStatus;
     @BindView(R.id.lly_status)
     LinearLayout llyStatus;
+    @BindView(R.id.rel_nodata)
+    RelativeLayout relNodata;
     private List<RepairListBean> repairListBeanList = new ArrayList<>();
     private List<RepairListBean> temprepairListBeanList = new ArrayList<>();
     @BindView(R.id.rcv_list)
@@ -196,19 +200,19 @@ public class RepairListActivity extends BaseActivity<RepairListPresenter> implem
         // TODO Auto-generated method stub
         switch (item.getItemId()) {
             case R.id.re_none:
-                status=0;
+                status = 0;
                 tvStatus.setText("未处理");
                 break;
             case R.id.re_confirm:
-                status=1;
+                status = 1;
                 tvStatus.setText("已确认");
                 break;
             case R.id.re_doing:
-                status=2;
+                status = 2;
                 tvStatus.setText("处理中");
                 break;
             case R.id.re_done:
-                status=3;
+                status = 3;
                 tvStatus.setText("已完成");
                 break;
             default:
