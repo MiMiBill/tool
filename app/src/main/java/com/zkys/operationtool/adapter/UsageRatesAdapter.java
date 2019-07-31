@@ -34,8 +34,8 @@ public class UsageRatesAdapter extends BaseQuickAdapter<ItemUsageRatesBean, Base
         }else {
             helper.setText(R.id.tv_usage_rates, "0%");
         }
-        if(item.getDeviceRentRate()!=null){
-            helper.setText(R.id.tv_rent_rates, item.getDeviceRentRate() + "%");
+        if(item.getPadRentRate()!=null){
+            helper.setText(R.id.tv_rent_rates, item.getPadRentRate() + "%");
         }else {
             helper.setText(R.id.tv_rent_rates, "0%");
         }
