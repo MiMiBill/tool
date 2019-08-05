@@ -81,7 +81,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> {
                 tvStartTime.setText(DateUtil.timeStamp2Date(orderTailBean.getCreateTime() + "", "yyyy-MM-dd HH:mm:ss"));
                 tvEndTime.setText(DateUtil.timeStamp2Date(orderTailBean.getLeaseTime() + "", "yyyy-MM-dd HH:mm:ss"));
                 tvPhone.setText(orderTailBean.getMobile()+"");
-                tvPayNum.setText(CommonUtil.convertPriceWithTwoPercent(orderTailBean.getRefundFee()*100)+"元");
+                tvPayNum.setText(CommonUtil.convertPriceWithTwoPercent(orderTailBean.getDeposit()*100)+"元");
                 tvRentCount.setText(orderTailBean.getPayPrice()+"元");
                 tvWechatName.setText(orderTailBean.getNickname()+"");
             }else {
@@ -95,7 +95,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> {
 
     @OnClick(R.id.btn_refund)
     public void onViewClicked() {
-        final RefundDialog dialog=new RefundDialog(OrderDetailActivity.this,false,orderTailBean.getRefundFee(),orderTailBean.getPayPrice());
+        final RefundDialog dialog=new RefundDialog(OrderDetailActivity.this,false,orderTailBean.getDeposit(),orderTailBean.getPayPrice());
         dialog.setOnClickUpdateListener(new RefundDialog.OnClickRefunListener() {
             @Override
             public void onClickRefun(String number, String remark, int status) {

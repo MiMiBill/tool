@@ -85,7 +85,7 @@ public class RefundDialog extends Dialog {
                     return;
                 }
                 if(Float.valueOf(refunPrice)*100>(payPrice+rentPrice)*100){
-                    ToastUtil.showShort("最大退款金额不能超过1.01元");
+                    ToastUtil.showShort("最大退款金额不能超过"+(payPrice+rentPrice)+"元");
                     return;
                 }
                 if(remark.equals("")){
