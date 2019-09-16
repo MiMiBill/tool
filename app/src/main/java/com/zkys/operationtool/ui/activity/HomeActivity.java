@@ -1,6 +1,5 @@
 package com.zkys.operationtool.ui.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,13 +12,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.hjq.permissions.XXPermissions;
-import com.jakewharton.rxbinding3.view.RxView;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zkys.operationtool.R;
@@ -46,7 +42,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.functions.Consumer;
 
 /**
  * 主菜单页面
@@ -176,24 +171,24 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
         }
     }
 
-    @SuppressLint("CheckResult")
-    void scanCode(int viewId, final Intent intent, final int requestCode) {
-        RxView.clicks(findViewById(viewId))
-                .compose(mRxPermissions.ensure(Manifest.permission.CAMERA))
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean) {
-                            startActivityForResult(intent, requestCode);
-                        } else {
-                            Log.d(HomeActivity.this.getClass().getSimpleName(), "没有授予相机权限");
-                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 ->" +
-                                    " 权限管理” 中授予！");
-                            XXPermissions.gotoPermissionSettings(context);
-                        }
-                    }
-                });
-    }
+//    @SuppressLint("CheckResult")
+//    void scanCode(int viewId, final Intent intent, final int requestCode) {
+//        RxView.clicks(findViewById(viewId))
+//                .compose(mRxPermissions.ensure(Manifest.permission.CAMERA))
+//                .subscribe(new Consumer<Boolean>() {
+//                    @Override
+//                    public void accept(Boolean aBoolean) throws Exception {
+//                        if (aBoolean) {
+//                            startActivityForResult(intent, requestCode);
+//                        } else {
+//                            Log.d(HomeActivity.this.getClass().getSimpleName(), "没有授予相机权限");
+//                            ToastUtil.showLong("部分权限未正常授予, 当前位置需要访问 “拍照” 权限，为了该功能正常使用，请到 “应用信息 ->" +
+//                                    " 权限管理” 中授予！");
+//                            XXPermissions.gotoPermissionSettings(context);
+//                        }
+//                    }
+//                });
+//    }
 
     @Override
     public void setData(HttpResponse result) {
@@ -212,6 +207,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
 
         GridLayoutManager lin = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(lin);
+        //调用Adapter的增删改插方法，最后就会根据mHasFixedSize这个值来判断需要不需要requestLayout()；
         recyclerView.setHasFixedSize(true);
         recyclerView.setFadingEdgeLength(0);
         homeListAdapter = new HomeListAdapter(HomeActivity.this, list);
@@ -251,7 +247,10 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
                     startActivity(new Intent(HomeActivity.this, VolumeControlActivity.class));// 音量控制
                     break;
                 case Constant.TOOLS_CODE:
-                    startActivity(new Intent(HomeActivity.this, ToolsActivity.class));  //工具
+                    Intent intent = new Intent();
+                    intent.putStringArrayListExtra(ToolsActivity.AUTHORITY_LIST, (ArrayList<String>) listBean.getList());
+                    intent.setClass(HomeActivity.this, ToolsActivity.class);
+                    startActivity(intent);  //工具
                     break;
                 case Constant.REPAIR_CODE:
                     startActivity(new Intent(HomeActivity.this, RepairListActivity.class));  //报修

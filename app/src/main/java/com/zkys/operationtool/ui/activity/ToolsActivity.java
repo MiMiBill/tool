@@ -9,7 +9,9 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
 import com.hjq.permissions.XXPermissions;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -17,10 +19,15 @@ import com.zkys.operationtool.R;
 import com.zkys.operationtool.base.BaseActivity;
 import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.baseImpl.BasePresenter;
+import com.zkys.operationtool.canstant.Constant;
 import com.zkys.operationtool.ui.dialog.SimpleDialogFragment;
 import com.zkys.operationtool.util.DateUtil;
 import com.zkys.operationtool.util.ToastUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
@@ -29,10 +36,46 @@ import io.reactivex.functions.Consumer;
  */
 public class ToolsActivity extends BaseActivity {
 
+    private static final String TAG = ToolsActivity.class.getSimpleName();
+    public static final String AUTHORITY_LIST = "authorityList";
+
+    @BindView(R.id.rl_unlock)
+    RelativeLayout rlUnLock;
+    @BindView(R.id.rl_get_pad_pwd)
+    RelativeLayout rlPadPwd;
+    @BindView(R.id.rl_pad_tool)
+    RelativeLayout rlPadTool;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTvTitleText("工具");
+        initView();
+    }
+
+    private void initView()
+    {
+        Gson gson = new Gson();
+
+        ArrayList<String> authorityList = getIntent().getStringArrayListExtra(AUTHORITY_LIST);
+        for (int i = 0;i < authorityList.size();i++)
+        {
+
+            Object o = authorityList.get(i);
+            HashMap<String,Object> map = (HashMap<String,Object>)o;
+            String code = (String) map.get("code");
+            if (Constant.Tools.PADKEY_CODER.equalsIgnoreCase(code))
+            {
+                rlPadPwd.setVisibility(View.VISIBLE);
+            }else if (Constant.Tools.UNLOCK_CODER.equalsIgnoreCase(code)){
+                rlUnLock.setVisibility(View.VISIBLE);
+            }else if (Constant.Tools.PRODUCE_CODER.equalsIgnoreCase(code))
+            {
+                rlPadTool.setVisibility(View.VISIBLE);
+            }
+        }
+
+
     }
 
     @Override

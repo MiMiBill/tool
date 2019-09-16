@@ -51,6 +51,15 @@ public class DeviceInfoBean {
     private String padSignal = "";
     private String nickname = "";
     private String orderId = "";
+    private String hasBed = "";
+
+    public String getHasBed() {
+        return hasBed;
+    }
+
+    public void setHasBed(String hasBed) {
+        this.hasBed = hasBed;
+    }
 
     public String getOrderId() {
         return orderId;

@@ -3,6 +3,7 @@ package com.zkys.operationtool.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -33,6 +34,7 @@ import butterknife.BindView;
  */
 public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
 
+    private static final String TAG = BedsListActivity.class.getSimpleName();
     @BindView(R.id.rcv_list)
     RecyclerView rcvList;
     @BindView(R.id.refreshLayout)
@@ -117,18 +119,32 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
                     }else {
                         refreshLayout.setEnableLoadMore(true);
                     }
+
+                    bedStatusListAdapter.setNewData(orderStateBeans);
+                    rcvList.setAdapter(bedStatusListAdapter);
+
+
+
                 }else {
+                    LinearLayoutManager linearLayoutManager  = (LinearLayoutManager)rcvList.getLayoutManager();
+                    int  preLastPosition = linearLayoutManager.findFirstVisibleItemPosition();
+
                     temporderStateBeans=(List<BedOrderStateBean>) result.getData();
                     if(temporderStateBeans.size()<10){
                         refreshLayout.setEnableLoadMore(false);
                     }else {
                         refreshLayout.setEnableLoadMore(true);
                     }
-                    orderStateBeans.addAll(temporderStateBeans);
+                   // orderStateBeans.addAll(temporderStateBeans);
+
+                    //bedStatusListAdapter.setNewData(orderStateBeans);
+                    bedStatusListAdapter.addData(temporderStateBeans);
+                    rcvList.setAdapter(bedStatusListAdapter);
+                    rcvList.scrollToPosition(preLastPosition );//new add
+
                 }
-                bedStatusListAdapter.setNewData(orderStateBeans);
-                rcvList.setAdapter(bedStatusListAdapter);
-                initData();
+                initBedStatusListener();
+
             } else if (result.getCode() == 200) {
                 ToastUtil.showShort("修改成功");
                 pageNum=1;
@@ -147,7 +163,7 @@ public class BedsListActivity extends BaseActivity<PlateStatusPresenter> {
         refreshLayout.finishLoadMore();
     }
 
-    private void initData() {
+    private void initBedStatusListener() {
 
         bedStatusListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override

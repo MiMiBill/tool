@@ -140,6 +140,7 @@ public class HttpUtils {
             String str = mSharedPreferences.getString(COOKIE, null);
             if (!TextUtils.isEmpty(str)) {
                 Type type = new TypeToken<List<String>>() {
+
                 }.getType();
                 List<String> list = new Gson().fromJson(str, type);
                 for (String s : list) {

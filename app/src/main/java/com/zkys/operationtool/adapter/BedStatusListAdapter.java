@@ -22,7 +22,7 @@ public class BedStatusListAdapter extends BaseMultiItemQuickAdapter<BedOrderStat
     protected void convert(BaseViewHolder helper, BedOrderStateBean item) {
         if (helper.getItemViewType() == 1) {
             helper.setText(R.id.tv_normal_bed_number, "床位号：" + item.getBedNumber());
-            helper.setText(R.id.tv_normal_usage_time, item.getCreateTimeFormat());
+            helper.setText(R.id.tv_normal_usage_time, item.getLockTime());
             BedOrderStateBean.OrderBean order = item.getOrder();
             if (order != null) {
                 helper.setText(R.id.tv_normal_heart_time, order.getReturnTimeFormat());

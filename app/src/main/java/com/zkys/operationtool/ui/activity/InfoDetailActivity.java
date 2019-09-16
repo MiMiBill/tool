@@ -235,8 +235,8 @@ public class InfoDetailActivity extends BaseActivity<PlateStatusPresenter> {
             relPlateState.setVisibility(View.GONE);
         }
 
-        if (!data.getLockStatus().equals("")) {
-            tvCabinetState.setText(data.getLockStatus());
+        if (!data.getHasBed().equals("")) {
+            tvCabinetState.setText(data.getHasBed());
         } else {
             relCabinetState.setVisibility(View.GONE);
         }

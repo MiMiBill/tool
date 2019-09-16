@@ -25,6 +25,7 @@ public class BedOrderStateBean implements MultiItemEntity {
     private String deptId;
     private String bedNumber;
     private String heartStatusName;
+    private String lockTime;
     private String deviceStatus;
     private String randomNumber;
     private int id;
@@ -406,5 +407,13 @@ public class BedOrderStateBean implements MultiItemEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLockTime() {
+        return lockTime;
+    }
+
+    public void setLockTime(String lockTime) {
+        this.lockTime = lockTime;
     }
 }

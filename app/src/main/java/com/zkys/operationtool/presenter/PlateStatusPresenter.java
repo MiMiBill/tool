@@ -92,14 +92,14 @@ public class PlateStatusPresenter extends BasePresenterImpl<BaseView> {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        view.showLoadingDialog("正在获取...");
+                       // view.showLoadingDialog("正在获取...");
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(new Action() {
                     @Override
                     public void run() throws Exception {
-                        view.dismissLoadingDialog();
+                       // view.dismissLoadingDialog();
                     }
                 })
                 .subscribe(new HttpResultObserver<List<BedOrderStateBean>>() {
@@ -107,7 +107,6 @@ public class PlateStatusPresenter extends BasePresenterImpl<BaseView> {
                     public void onSuccess(HttpResponse<List<BedOrderStateBean>> result) {
                         view.setData(result);
                     }
-
                     @Override
                     public void _onError(Throwable e) {
 

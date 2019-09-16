@@ -77,6 +77,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
         EventBus.getDefault().register(this);
         etAccount.addTextChangedListener(new MyTextWatcher());
         etPassword.addTextChangedListener(new MyTextWatcher());
+
     }
 
 
