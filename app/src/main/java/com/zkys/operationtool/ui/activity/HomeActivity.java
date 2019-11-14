@@ -26,6 +26,7 @@ import com.zkys.operationtool.base.HttpResponse;
 import com.zkys.operationtool.bean.HomeListBean;
 import com.zkys.operationtool.canstant.Constant;
 import com.zkys.operationtool.canstant.SharedConstant;
+import com.zkys.operationtool.canstant.URLConstant;
 import com.zkys.operationtool.presenter.HomePresenter;
 import com.zkys.operationtool.ui.dialog.SimpleDialogFragment;
 import com.zkys.operationtool.util.ActivityManager;
@@ -85,8 +86,10 @@ public class HomeActivity extends BaseActivity<HomePresenter> {
                 .setDeleteHistroyApk(true)     // 检查更新前是否删除本地历史 Apk
                 .register();
         try {
+
+            String versionType = URLConstant.BASE_URL.equalsIgnoreCase("http://admin.zgzkys.com/")? "":" alpha";
             String versionName = "版本：" + getPackageManager().getPackageInfo(getPackageName(), 0)
-                    .versionName;
+                    .versionName + versionType ;
             tvVersionName.setText(versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

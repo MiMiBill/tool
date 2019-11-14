@@ -283,7 +283,7 @@
                             android:layout_marginLeft="26dp"
                             android:layout_marginRight="16dp"
                             android:layout_gravity="center_vertical"
-                            android:inputType="number"
+                            android:inputType="text"
                             android:layout_width="match_parent"
                             android:layout_height="24dp"
                             android:layout_weight="1"
@@ -339,7 +339,7 @@
                             android:layout_weight="1"
                             android:background="@null"
                             android:hint="请扫描支架条形码"
-                            android:inputType="number"
+                            android:inputType="text"
                             android:textColorHint="#CCCCCC" />
 
                         <ImageView

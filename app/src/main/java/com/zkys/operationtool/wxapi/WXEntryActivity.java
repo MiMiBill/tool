@@ -51,7 +51,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         if (baseResp != null) {
             resp = baseResp;
             code = ((SendAuth.Resp) baseResp).code; //即为所需的code
-            Log.d(TAG, "code==" + code);
+            Log.d(TAG, "code==" + code + " errCode==" + baseResp.errCode);
 
             // ToastUtil.showShort("code==" + code);// 011fymHs1RTfjm0TJXJs1zd5Hs1fymH2
         }
