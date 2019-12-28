@@ -78,8 +78,8 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> {
                 orderTailBean = (OrderTailBean) result.getData();
                 tvHospital.setText(orderTailBean.getHospitalName()+"-"+orderTailBean.getDeptName()+"-"+orderTailBean.getBedNumber());
                 tvOrderNum.setText(orderTailBean.getId()+"");
-                tvStartTime.setText(DateUtil.timeStamp2Date(orderTailBean.getCreateTime() + "", "yyyy-MM-dd HH:mm:ss"));
-                tvEndTime.setText(DateUtil.timeStamp2Date(orderTailBean.getLeaseTime() + "", "yyyy-MM-dd HH:mm:ss"));
+                tvStartTime.setText(DateUtil.timeStamp2Date(orderTailBean.getLeaseTime() + "", "yyyy-MM-dd HH:mm:ss"));//租用时间
+                tvEndTime.setText(DateUtil.timeStamp2Date(orderTailBean.getExpireTime() + "", "yyyy-MM-dd HH:mm:ss"));//逾期时间
                 tvPhone.setText(orderTailBean.getMobile()+"");
                 tvPayNum.setText(CommonUtil.convertPriceWithTwoPercent(orderTailBean.getDeposit()*100)+"元");
                 tvRentCount.setText(orderTailBean.getPayPrice()+"元");
